@@ -6,7 +6,7 @@
                 <div class="modal-header">
 
                     <h4 class="modal-title" id="myModalLabel">
-                        登录
+                        注册
                     </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         &times;
@@ -15,7 +15,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <login/>
+                    <register/>
 
                 </div> <br> <br>
 
@@ -26,15 +26,15 @@
 </template>
 
 <script>
-    import login from "./login.vue";
+    import register from './register.vue'
 
     export default {
-        name: "loginModal",
+        name: "registerModal",
         components: {
-            login,
+            register,
         },
-
     }
+
 </script>
 
 <style scoped>

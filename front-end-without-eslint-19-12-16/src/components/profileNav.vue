@@ -1,8 +1,8 @@
 <template>
     <div>
         <nav class="navbar navbar-expand-md navbar-dark">
-            <a class="navbar-brand glyphicon glyphicon-home w-25" href="#"
-               style="text-shadow: black 5px 3px 8px;"> 首页 </a>
+            <a class="navbar-brand glyphicon glyphicon-user w-25" href="#"
+               style="text-shadow: black 5px 3px 8px;"> 用户中心 </a>
             <button class="navbar-toggler w-25" type="button"
                     style="box-shadow: black 3px 2px 3px;"
                     data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -10,55 +10,41 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <div class="navbar-nav container-fluid">
-                        <!-- 使用 router-link 组件来导航. -->
-                        <!-- 通过传入 `to` 属性指定链接. -->
-                        <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+
                     <div class="nav-item w-25">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/frontPage/home"> Home
+                                     to="/profile/settings"> 修改密码
                         </router-link>
                     </div>
                     <div class="nav-item w-25">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/frontPage/register"> Register
+                                     to="/profile/"> soon2
                         </router-link>
                     </div>
                     <div class="nav-item w-25">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/frontPage/info"> Info
+                                     to="/profile/"> soon3
                         </router-link>
                     </div>
-                    <div class="nav-item">
+                    <div class="nav-item w-25">
                         <router-link class="nav-link d-block d-sm-none"
                                      style="text-shadow: black 5px 3px 5px;"
-                                     to="/frontPage/login"> Login
+                                     to="/profile/"> soon4
                         </router-link>
                     </div>
-    <!--                    <div class="nav-item w-25">-->
-    <!--                        <a class="nav-link" href="#">Link1</a>-->
-    <!--                    </div>-->
-    <!--                    <div class="nav-item w-25">-->
-    <!--                        <a class="nav-link" href="#">Link2</a>-->
-    <!--                    </div>-->
-    <!--                    <div class="nav-item w-25">-->
-    <!--                        <a class="nav-link" href="#">Link3</a>-->
-    <!--                    </div>-->
-    <!--                    <div class="nav-item d-none d-sm-block">-->
-    <!--                        <a class="nav-link" href="#">Link</a>-->
-    <!--                    </div>-->
+
                 </div>
             </div>
 
         </nav> <br>
-        <!-- 路由出口 -->
-        <!-- 路由匹配到的组件将渲染在这里 -->
+
         <router-view></router-view>
     </div>
 </template>
 
 <script>
     export default {
-        name: "homeNav"
+        name: "profileNav"
     }
 </script>
 
@@ -77,7 +63,4 @@
         vertical-align: middle;
         padding-right: 5px;
     }
-    /*ul li {*/
-    /*    !*padding-left: 150px;*!*/
-    /*}*/
 </style>

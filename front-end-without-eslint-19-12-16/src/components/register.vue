@@ -2,12 +2,12 @@
 
     <div>
         <br>
-        <h4 class="modal-title" id="myModalLabel">
+        <h4>
             新用户注册
         </h4>
 
         <div class="container"> <br> <br>
-    <!--        <form action="/api/user/login" method="post">-->
+    <!--        <form action="/api/user/register" method="post">-->
             <div class="input-group mb-3 col-lg-8 offset-lg-2">
                 <span class="input-group-prepend">
                     <span class="input-group-text"> 学号 </span>
@@ -28,7 +28,7 @@
             </div> <br> <br>
             <button type="button" class="btn btn-info" @click="register"> 注册 </button>
     <!--        </form>-->
-        </div> <br> <br>
+        </div> <br>
     </div>
 
 </template>
@@ -120,16 +120,16 @@
                 ).then ((response) => {
                     window.console.log(response)
                     let flag = response.data.flag
-                    if (flag == 'false') {
+                    if (flag === 'false') {
                         error(this.$toastr, '该学号已注册<br>请尝试用其他ID重新注册！')
                         return
                     } else {
-                        success(this.$toastr, '注册成功！快登录试试吧！')
+                        success(this.$toastr, '注册成功！快点击右上角登录试试吧！')
                         return
                     }
-                }).catch (function(response) {
+                }).catch (function(error) {
                     window.console.log('！！！注册失败异常：')
-                    window.console.log(response)
+                    window.console.log(error)
                 });
             },
 

@@ -9,6 +9,9 @@ import register from "@/components/register"
 import login from "@/components/login"
 import adminNav from "@/components/adminNav"
 import adminCourse from "@/components/adminCourse"
+import settings from "@/components/settings"
+import profileNav from "@/components/profileNav"
+import adminDept from "@/components/adminDept"
 
 Vue.use(VueRouter)
 
@@ -38,7 +41,7 @@ const routes = [
         path: '/frontPage',
         component: homeNav,
         children: [
-          {path: 'home', component: home, meta: {title: '学校美景'} },
+          {path: 'home', component: home, meta: {title: '校园风景'} },
           {path: 'info', component: info, meta: {title: '系统说明'} },
           {path: 'register', component: register, meta: {title: '用户注册'} },
           {path: 'login', component: login, meta: {title: '系统登陆'} },
@@ -49,7 +52,16 @@ const routes = [
         path: '/admin',
         component: adminNav,
         children: [
+          {path: 'dept', component: adminDept, meta: {title: '学院管理'} },
           {path: 'course', component: adminCourse, meta: {title: '课程管理'} },
+        ],
+        meta: {title: '系统管理'},
+      },
+      {
+        path: '/profile',
+        component: profileNav,
+        children: [
+          {path: 'settings', component: settings, meta: {title: '密码更改'} },
         ],
         meta: {title: '系统管理'},
       },

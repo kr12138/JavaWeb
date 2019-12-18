@@ -7,18 +7,16 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "user")
-public class User implements Serializable {
+@Table(name = "dept")
+public class Dept implements Serializable {
 
     @Id
-    @Column(name = "u_id")
+    @Column(name = "d_id")
     private long id;
-    @Column(name = "password")
-    private String password;
     @Column(name = "name")
     private String name;
-    @Column(name = "identity")
-    private short identity;
+    @Column(name = "info")
+    private String info;
 
 
     public long getId() {
@@ -37,20 +35,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public short getIdentity() {
-        return identity;
+    public String getInfo() {
+        return info;
     }
 
-    public void setIdentity(short identity) {
-        this.identity = identity;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
 }
