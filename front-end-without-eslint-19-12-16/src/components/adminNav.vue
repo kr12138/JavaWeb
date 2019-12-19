@@ -11,22 +11,27 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <div class="navbar-nav container-fluid">
 
-                    <div class="nav-item w-25">
+                    <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
                                      to="/admin/dept"> 修改学院
                         </router-link>
                     </div>
-                    <div class="nav-item w-25">
+                    <div class="nav-item ">
+                        <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
+                                     to="/admin/"> 修改教师
+                        </router-link>
+                    </div>
+                    <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
                                      to="/admin/course"> 修改课程
                         </router-link>
                     </div>
-                    <div class="nav-item w-25">
+                    <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
                                      to="/admin/"> soon2
                         </router-link>
                     </div>
-                    <div class="nav-item w-25">
+                    <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
                                      to="/admin/"> soon3
                         </router-link>

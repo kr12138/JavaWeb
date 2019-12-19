@@ -32,13 +32,14 @@ const routes = [
 
   {
     path: '/',
-    redirect: '/frontPage/home',/*设置默认指向的路径*/
+    redirect: '/frontPage',/*设置默认指向的路径*/
   },
   // { path: '/#',
   //   children:[
 
       {
         path: '/frontPage',
+        redirect: '/frontPage/home',
         component: homeNav,
         children: [
           {path: 'home', component: home, meta: {title: '校园风景'} },
@@ -50,6 +51,7 @@ const routes = [
       },
       {
         path: '/admin',
+        redirect: '/admin/dept',
         component: adminNav,
         children: [
           {path: 'dept', component: adminDept, meta: {title: '学院管理'} },

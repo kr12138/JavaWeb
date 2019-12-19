@@ -1,9 +1,6 @@
 package com.lyon.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -18,6 +15,13 @@ public class Dept implements Serializable {
     @Column(name = "info")
     private String info;
 
+//    public long getD_id() {
+//        return d_id;
+//    }
+//
+//    public void setD_id(long d_id) {
+//        this.d_id = d_id;
+//    }
 
     public long getId() {
         return id;

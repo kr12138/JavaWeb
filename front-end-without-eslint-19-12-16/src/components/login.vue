@@ -3,32 +3,32 @@
     <div>
         <br>
         <h4>
-            {{identity}}登录
+            {{ identity }}登录
         </h4>
 
         <div class="container"> <br> <br>
     <!--        <form action="/api/user/login" method="post">-->
             <div class="btn-group">
                 <button type="button" class="btn btn-info" name="identity"
-                        @click="handleIdentityClick(0)"> 管理 </button>
+                        @click=" handleIdentityClick(0) "> 管理 </button>
                 <button type="button" class="btn btn-info" name="identity"
-                        @click="handleIdentityClick(1)"> 学生 </button>
+                        @click=" handleIdentityClick(1) "> 学生 </button>
                 <button type="button" class="btn btn-info" name="identity"
-                        @click="handleIdentityClick(2)"> 教师 </button>
+                        @click=" handleIdentityClick(2) "> 教师 </button>
             </div><br><br>
             <div class="input-group mb-3 col-lg-8 offset-lg-2">
                 <span class="input-group-prepend">
-                    <span class="input-group-text"> {{ID}} </span>
+                    <span class="input-group-text"> {{ ID }} </span>
                 </span>
-                <input type="number" class="form-control" name="id" v-model="user.id">
+                <input type="number" class="form-control" name="id" v-model=" user.id ">
             </div>
             <div class="input-group mb-3 col-lg-8 offset-lg-2">
                 <span class="input-group-prepend">
                     <span class="input-group-text"> 密码 </span>
                 </span>
-                <input type="password" class="form-control" name="password" v-model="user.password">
+                <input type="password" class="form-control" name="password" v-model=" user.password" >
             </div> <br> <br>
-            <button type="button" class="btn btn-info" @click="login"> 登录 </button>
+            <button type="button" class="btn btn-info" @click=" login "> 登录 </button>
     <!--        </form>-->
         </div>
     </div>
@@ -54,7 +54,7 @@
         },
         methods: {
 
-            handleIdentityClick: function(x) {
+            handleIdentityClick(x) {
                 this.user.identity = x
                 if (x == 1) {
                     this.ID = '学号'
@@ -67,11 +67,11 @@
                     this.identity = '管理员'
                 }
             },
-            login: function() {
+            login() {
                 if (this.user.identity !== 0 && !this.user.identity) {
                     info(this.$toastr, '请先选择职业', '提示：')
                     return
-                } else if (this.user.id!==0 && !this.user.id) {
+                } else if (this.user.id !== 0 && !this.user.id) {
                     info(this.$toastr, '请先输入'+this.ID, '提示：')
                     return
                 } else if (this.user.password === undefined || this.user.password == null) {
@@ -81,7 +81,7 @@
 
                 this.$axios.post(
                     'http://localhost:8080/api/user/login', this.user
-                ).then ((response) => {
+                ).then ( response => {
                     window.console.log(response)
                     let flag = response.data.flag
                     if (flag === 'false') {
@@ -91,15 +91,15 @@
                         success(this.$toastr, '登录成功！<br>单击右上角看看有没有新消息吧！')
                         sessionStorage.setItem("name", response.data.name)
                         sessionStorage.setItem("id", this.user.id)
-                        console.log(this.user.id);
+                        console.log('login id:', this.user.id)
                         eventBus.$emit('loginSuccess')
                         if (response.data.identity === '0') {
                             sessionStorage.setItem("token", response.data.token)
-                            window.location.href = '/#/admin/course'
+                            window.location.href = '/#/admin'
                         }
                         return
                     }
-                }).catch (function(error) {
+                }).catch ( error => {
                     window.console.log('！！！登录失败异常：')
                     window.console.log(error)
                 });

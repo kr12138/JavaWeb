@@ -2,7 +2,13 @@ package com.lyon.Controller;
 
 import com.lyon.Entity.User;
 import com.lyon.Repository.UserRepository;
+import static com.lyon.Security.logTime.now;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,10 +47,10 @@ public class UserController {
     ) {
         List<User> users = userRepository.findByIdAndPasswordAndIdentity(data.getId(), data.getPassword(), data.getIdentity());
         Map<String, String> response = new HashMap<>();
-        if (users.isEmpty())
+        if (users == null)
             response.put("flag", "false");
         else {
-            System.out.println(users.get(0).getName() + " login " + new SimpleDateFormat("yy-MM-dd HH:mm:ss").format(new Date()));
+            System.out.println(users.get(0).getName() + " login " + now());
             response.put("flag", "true");
             response.put("name", users.get(0).getName());
             response.put("identity", Short.toString(users.get(0).getIdentity()));
@@ -66,7 +72,7 @@ public class UserController {
             response.put("flag", "false");
         }
         else {
-            System.out.println(data.getId() + " registering " + new SimpleDateFormat("yy-MM-dd HH:mm:ss").format(new Date()));
+            System.out.println(data.getId() + " registering " + now());
             response.put("flag", "true");
             userRepository.save(data);
         }
@@ -74,23 +80,34 @@ public class UserController {
     }
     @RequestMapping(value = "/changePassword", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> changeUser(
-            @RequestBody HashMap<String, String> body
+            @RequestBody HashMap<String, String> data
     ) {
-        long id = Long.parseLong(body.get("id"));
-        String oldPassword = body.get("oldPassword");
-        String newPassword = body.get("newPassword");
+        long id = Long.parseLong(data.get("id"));
+        String oldPassword = data.get("oldPassword");
+        String newPassword = data.get("newPassword");
         Map<String, String> response = new HashMap<>();
 
-        User now = userRepository.findById(id);
-        if (now == null || !now.getPassword().equals(oldPassword) ) {
+        User newData = userRepository.findById(id);
+        if (newData == null || !newData.getPassword().equals(oldPassword) ) {
             response.put("flag", "false");
         } else {
-            System.out.println(id + " changing password " + new SimpleDateFormat("yy-MM-dd HH:mm:ss").format(new Date()));
+            System.out.println(id + " changing password " + now());
+            newData.setPassword(newPassword);
 //            userRepository.deleteById(id);//似乎会在主键冲突时自动将save改成update
-            now.setPassword(newPassword);
-            userRepository.save(now);
+            userRepository.save(newData);
             response.put("flag", "true");
         }
         return response;
     }
+
+//    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+//    public Page<User> getAll() {
+////        final List<Dept> response = deptRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
+////        return response;
+////        Sort sort = new Sort(Sort.Direction.ASC, "id");
+////        Sort.Direction.ASC, "id"));
+//        Pageable pageable = PageRequest.of(1, 10000, Sort.Direction.ASC, "id");
+//        return userRepository.findAll(pageable);
+//    }
+
 }

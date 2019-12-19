@@ -11,19 +11,22 @@
                 <span class="input-group-prepend">
                     <span class="input-group-text"> 旧密码 </span>
                 </span>
-                <input type="text" class="form-control" name="id" v-model="oldPassword">
+                <input type="text" class="form-control"
+                       placeholder="输入新密码" v-model="oldPassword">
             </div>
             <div class="input-group mb-3 col-lg-8 offset-lg-2">
                 <span class="input-group-prepend">
                     <span class="input-group-text"> 新密码 </span>
                 </span>
-                <input type="text" class="form-control" name="password" v-model="newPassword">
+                <input type="text" class="form-control"
+                       placeholder="输入新密码" v-model="newPassword">
             </div>
             <div class="input-group mb-3 col-lg-8 offset-lg-2">
                 <span class="input-group-prepend">
                     <span class="input-group-text"> 新密码 </span>
                 </span>
-                <input type="text" class="form-control" name="password" v-model="newPassword2">
+                <input type="text" class="form-control"
+                       placeholder="确认新密码" v-model="newPassword2">
             </div> <br> <br>
             <button type="button" class="btn btn-info" @click="change"> 更换 </button>
             <!--        </form>-->
@@ -47,10 +50,10 @@
             }
         },
         created() {
-            eventBus.$on('loginSuccess',()=> {
+            eventBus.$on('loginSuccess', ()=> {
                 this.id = sessionStorage.getItem('id')
             });
-            eventBus.$on('logoutSuccess',()=> {
+            eventBus.$on('logoutSuccess', ()=> {
                 this.id = undefined
             })
         },
@@ -77,7 +80,7 @@
                         id: this.id,
                         oldPassword: this.oldPassword,
                         newPassword: this.newPassword,
-                }).then ((response) => {
+                }).then ( response => {
                     window.console.log(response)
                     let flag = response.data.flag
                     if (flag === 'false') {
@@ -90,7 +93,7 @@
                         window.location.href = '/#/frontPage/home'
 
                     }
-                }).catch (function(error) {
+                }).catch ( error => {
                     window.console.log('！！！登录失败异常：')
                     window.console.log(error)
                 });

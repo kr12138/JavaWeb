@@ -20,7 +20,7 @@
                     <div class="row">
                         <button type="button" class="btn btn-secondary col-2 offset-3"
                                 data-dismiss="modal" aria-hidden="true"
-                                @click="logout"> 确定 </button>
+                                @click=" logout "> 确定 </button>
                         <button type="button" class="btn btn-info col-2 offset-2"
                                 data-dismiss="modal" aria-hidden="true"> 取消 </button>
                     </div>
@@ -42,7 +42,7 @@
         name: "logoutModal",
 
         methods: {
-            logout: function() {
+            logout() {
                 if (sessionStorage.name !== 0 && !sessionStorage.name) {
                     error(this.$toastr, '并没有用户名，可能您未成功登陆或已登出', '提示：')
                     return

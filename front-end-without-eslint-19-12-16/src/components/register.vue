@@ -12,21 +12,21 @@
                 <span class="input-group-prepend">
                     <span class="input-group-text"> 学号 </span>
                 </span>
-                <input type="text" class="form-control" name="id" v-model="user.id">
+                <input type="text" class="form-control" name="id" v-model=" user.id ">
             </div>
             <div class="input-group mb-3 col-lg-8 offset-lg-2">
                 <span class="input-group-prepend">
                     <span class="input-group-text"> 昵称 </span>
                 </span>
-                <input type="text" class="form-control" name="name" v-model="user.name">
+                <input type="text" class="form-control" name="name" v-model=" user.name ">
             </div>
             <div class="input-group mb-3 col-lg-8 offset-lg-2">
                 <span class="input-group-prepend">
                     <span class="input-group-text"> 密码 </span>
                 </span>
-                <input type="password" class="form-control" name="password" v-model="user.password">
+                <input type="password" class="form-control" name="password" v-model=" user.password ">
             </div> <br> <br>
-            <button type="button" class="btn btn-info" @click="register"> 注册 </button>
+            <button type="button" class="btn btn-info" @click=" register "> 注册 </button>
     <!--        </form>-->
         </div> <br>
     </div>
@@ -100,8 +100,8 @@
             }
         },
         methods: {
-            register: function() {
-                if (this.user.identity != 1) {
+            register: () => {
+                if (this.user.identity != '1') {
                     warning(this.$toastr, '请不要修改用户权限，本系统仅支持学生用户注册', '警告：')
                     return
                 } else if (this.user.id === undefined) {
@@ -117,7 +117,7 @@
 
                 this.$axios.post(
                     'http://localhost:8080/api/user/register', this.user
-                ).then ((response) => {
+                ).then ( response => {
                     window.console.log(response)
                     let flag = response.data.flag
                     if (flag === 'false') {
@@ -127,7 +127,7 @@
                         success(this.$toastr, '注册成功！快点击右上角登录试试吧！')
                         return
                     }
-                }).catch (function(error) {
+                }).catch ( error => {
                     window.console.log('！！！注册失败异常：')
                     window.console.log(error)
                 });

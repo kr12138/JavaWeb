@@ -8,7 +8,7 @@
 
 #### 1、 系统分为管理员，学生，教师帐号，其中，学生帐号可以任意新注册，管理员帐号为系统预先设置好，教师帐号由管理员帐号开设。 
 
-​		`UserController.java、login.vue、loginModal.vue、register.vue`
+​			`User.java, UserRepository.java, UserController.java; login.vue, loginModal.vue, register.vue`
 
 #### 2、 管理员帐号功能： 
 
@@ -17,6 +17,8 @@
 ​	b) 增删改教师，包括教师名称，所讲授课程（可以有多个），教师职称，教师简介， 
 
 ​	c) 增删改学院信息。 
+
+​			`Dept.java, DeptRepository.java, DeptController.java; adminDept.vue`
 
 ​	d) 删除或修改所有课程交流和留言信息。 
 
@@ -55,4 +57,4 @@
 ​	g) 可以上传图片的文件附件
 
 #### 5、 所有帐号都可以修改自己的帐号密码
-		`UserController.java、settings.vue`
+​			`User.java, UserRepository.java, UserController.java; settings.vue`

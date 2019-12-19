@@ -22,7 +22,7 @@
              col-sm-3 col-md-2 offset-md-3 offset-lg-4 col-xl-2 offset-xl-4"
              style="box-shadow: black 3px 2px 5px; text-shadow: black 2px 1px 1px;">
                 <span class="glyphicon glyphicon-user"></span>
-                <span v-if=" name !== '' "> {{name}} </span>
+                <span v-if=" name !== '' "> {{ name }} </span>
                 <span v-else> login </span>
             </button>
             <div class="dropdown-menu">

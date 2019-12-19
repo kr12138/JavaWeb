@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <table class="table table-striped">
+    <div class="row">
+        <table class="table table-striped col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
             <thead>
                 <tr>
                     <h1> 说明 </h1>
@@ -13,7 +13,8 @@
                 </tr>
                 <tr>
                     <h4> 开发工具：VSCode 1.41 和 InteliJ IDEA 19.2.2 </h4>
-                    <h4> 使用插件：npm 6.9.0 、axios 0.19.0 和 toastr 2.1.4 </h4>
+                    <h4> 使用插件：vue-router 3.1.3 和 axios 0.19.0 </h4>
+                    <h4> 特别鸣谢：npm 6.9.0 和 toastr 2.1.4 </h4>
                     <br>
                 </tr>
                 <tr>
@@ -21,6 +22,7 @@
                 </tr>
                 <tr>
                     <h4> 开发工具：Postman 7.13.0 和 InteliJ IDEA 19.2.2 </h4>
+                    <h4> 特别鸣谢：maven 3.6.3 和 fastjson 1.2.61 </h4>
                     <br>
                 </tr>
                 <tr>
