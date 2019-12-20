@@ -9,14 +9,14 @@
                 <tr class="container-fluid">
                     <th> <input type="number" class="form-control"
                                 placeholder="在此输入新学院编号"
-                                v-model=" newData.id "> </th>
+                                v-model="newDept.id"> </th>
                     <th> <input type="text" class="form-control"
                                 placeholder="在此输入新学院名称"
-                                v-model=" newData.name "> </th>
+                                v-model="newDept.name"> </th>
                     <th> <input type="text" class="form-control"
                                 placeholder="在此输入新学院说明"
-                                v-model=" newData.info "> </th>
-                    <th> <button class="btn btn-info"@click=" add "> 增加 </button> </th>
+                                v-model="newDept.info"> </th>
+                    <th> <button class="btn btn-info" @click="add"> 增加 </button> </th>
                 </tr>
                 <tr v-for=" dept in depts ">
                     <th> {{ dept.id }} </th>
@@ -24,7 +24,9 @@
                     <th> {{ dept.info }} </th>
                     <th> <button class="btn btn-info"
                                  data-toggle="modal" data-target="#changingModal"
-                                 @click=" changing( dept ) " > 删改 </button> </th>
+                                 @click=" changing( dept ) " >删改
+                        </button>
+                    </th>
                 </tr>
             </tbody>
         </table>
@@ -37,7 +39,8 @@
                     <div class="modal-header">
                         <h4 class="modal-title" id="myModalLabel"> 删改学院 </h4>
                         <button type="button" class="close"
-                                data-dismiss="modal" aria-hidden="true"> &times;
+                                data-dismiss="modal" aria-hidden="true">
+                                &times;
                         </button>
                     </div>
                     <div class="modal-body">
@@ -72,7 +75,7 @@
 </template>
 
 <script>
-    import {info, cError, cSuccess} from "../../myToastr.js";
+    import {error, success} from "@/myToastr";
     export default {
         name: "adminDept",
         mounted() {
@@ -80,7 +83,7 @@
         },
         data() {
             return {
-                newData: { id: undefined, name: '', info: '' },
+                newDept: { id: undefined, name: '', info: '' },
                 changingData: {},
                 titles: [ '学院编号', '学院名称', '学院说明', '更改' ],
                 depts: [],
@@ -95,7 +98,7 @@
                     if (response.data.flag === 'true')
                         this.depts = JSON.parse(response.data.depts)
                     else
-                        cError(this.$toastr, '无法得到学院数据！', '错误：')
+                        error(this.$toastr, '无法得到学院数据！', '错误：')
                 }).catch( error => {
                     console.log('！！！请求数据失败异常：')
                     console.log(error)
@@ -103,24 +106,24 @@
             },
             add() { //增加
                 // console.log('add ', this.newDept)
-                if (!this.newData.id && this.newData.id !== 0) {
+                if (!this.newDept.id && this.newDept.id !== 0) {
                     info(this.$toastr, '请先输入编号', '提示：')
                     return
-                } else if (!this.newData.name) {
+                } else if (!this.newDept.name) {
                     info(this.$toastr, '请先输入名称', '提示：')
                     return
-                } else if (!this.newData.info) {
+                } else if (!this.newDept.info) {
                     info(this.$toastr, '请先输入说明', '提示：')
                     return
                 }
                 this.$axios.post(
-                    'http://localhost:8080/api/dept/add', this.newData
+                    'http://localhost:8080/api/dept/add', this.newDept
                 ).then ( response => {
                     window.console.log(response)
                     if (response.data.flag === 'false')
-                        cError(this.$toastr, '添加失败<br>可能已有该编号？')
+                        error(this.$toastr, '添加失败<br>可能已有该编号？')
                     else
-                        cSuccess(this.$toastr, '添加成功！<br>重新进入该页面看看新数据吧！')
+                        success(this.$toastr, '添加成功！<br>重新进入该页面看看新数据吧！')
                 }).catch ( error => {
                     window.console.log('！！！添加失败异常：')
                     window.console.log(error)
@@ -128,7 +131,7 @@
             },
             changing(data) {    //确定删改对象
                 if (data === null) {
-                    cError(this.$toastr, '正在删改空对象！', '错误：')
+                    error(this.$toastr, '正在删改空对象！', '错误：')
                     return
                 }
                 this.changingData = data
@@ -137,7 +140,7 @@
             },
             del() {  //删除
                 if (!this.changingData.id && this.changingData.id !== 0) {
-                    cError(this.$toastr, '无学院编号！请重试', '错误：')
+                    error(this.$toastr, '无学院编号！请重试', '错误：')
                     return
                 }
                 this.$axios.post(
@@ -145,9 +148,9 @@
                 ).then ( response => {
                     window.console.log(response)
                     if (response.data.flag === 'false')
-                        cError(this.$toastr, '删除失败！<br>可能无该编号？', '错误：')
+                        error(this.$toastr, '删除失败！<br>可能无该编号？', '错误：')
                     else
-                        cSuccess(this.$toastr, '删除成功！<br>重新进入该页面看看新数据吧！')
+                        success(this.$toastr, '删除成功！<br>重新进入该页面看看新数据吧！')
                 }).catch ( error => {
                     window.console.log('！！！删除失败异常：')
                     window.console.log(error)
@@ -155,7 +158,7 @@
             },
             update() {  //更改
                 if (!this.changingData.id && this.changingData.id !== 0) {
-                    cError(this.$toastr, '无学院编号！请重试', '错误：')
+                    error(this.$toastr, '无学院编号！请重试', '提错误：')
                     return
                 } else if (!this.changingData.name) {
                     info(this.$toastr, '请先输入名称', '提示：')
@@ -169,9 +172,9 @@
                 ).then ( response => {
                     window.console.log(response)
                     if (response.data.flag === 'false')
-                        cError(this.$toastr, '更新失败<br>可能无该编号？')
+                        error(this.$toastr, '更新失败<br>可能无该编号？')
                     else
-                        cSuccess(this.$toastr, '更新成功！<br>重新进入该页面看看新数据吧！')
+                        success(this.$toastr, '更新成功！<br>重新进入该页面看看新数据吧！')
                 }).catch ( error => {
                     window.console.log('！！！更新失败异常：')
                     window.console.log(error)

@@ -13,17 +13,17 @@
 
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/admin/dept"> 学院管理
+                                     to="/admin/dept"> 修改学院
                         </router-link>
                     </div>
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/admin/user"> 用户管理
+                                     to="/admin/"> 修改教师
                         </router-link>
                     </div>
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/admin/course"> 课程管理
+                                     to="/admin/course"> 修改课程
                         </router-link>
                     </div>
                     <div class="nav-item ">

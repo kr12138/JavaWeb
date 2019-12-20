@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,7 +43,8 @@ public class DeptController {
     ) {
         System.out.println("dept/add " + JSON.toJSONString(data) + now());
         HashMap<String, String> response = new HashMap<>();
-        if (deptRepository.existsById(data.getId())) {
+        List<Dept> list = deptRepository.findById(data.getId());
+        if (list != null) {
             response.put("flag", "false");
             return response;
         }
@@ -56,7 +59,8 @@ public class DeptController {
     ) {
         System.out.println("dept/update " + JSON.toJSONString(data) + now());
         HashMap<String, String> response = new HashMap<>();
-        if (!deptRepository.existsById(data.getId())) {
+        List<Dept> list = deptRepository.findById(data.getId());
+        if (list == null) {
             response.put("flag", "false");
             return response;
         }
@@ -71,7 +75,8 @@ public class DeptController {
     ) {
         System.out.println("dept/delete " + JSON.toJSONString(data) + now());
         HashMap<String, String> response = new HashMap<>();
-        if (!deptRepository.existsById(data.getId())) {
+        List<Dept> list = deptRepository.findById(data.getId());
+        if (list == null) {
             response.put("flag", "false");
             return response;
         }

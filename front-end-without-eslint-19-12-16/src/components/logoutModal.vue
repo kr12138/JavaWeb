@@ -5,9 +5,12 @@
             <div class="modal-content">
                 <div class="modal-header">
 
-                    <h4 class="modal-title" id="myModalLabel"> 登出 </h4>
-                    <button type="button" data-dismiss="modal" aria-hidden="true"
-                            class="close"> &times; </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        登出
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
                     
                 </div>
                 <div class="modal-body"> <br>
@@ -32,7 +35,7 @@
 <script>
 
     import eventBus from "@/eventBus";
-    import {success, error} from "../../myToastr.js";
+    import {success, error} from "@/myToastr";
 
     export default {
 

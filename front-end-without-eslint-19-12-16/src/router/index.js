@@ -5,14 +5,13 @@ import VueRouter from 'vue-router'
 import homeNav from "@/components/homeNav"
 import home from "@/components/home"
 import info from "@/components/info"
-import register from "@/components/login/register"
-import login from "@/components/login/login"
-import adminNav from "@/components/admin/adminNav"
-import adminCourse from "@/components/admin/adminCourse"
+import register from "@/components/register"
+import login from "@/components/login"
+import adminNav from "@/components/adminNav"
+import adminCourse from "@/components/adminCourse"
 import settings from "@/components/settings"
 import profileNav from "@/components/profileNav"
-import adminDept from "@/components/admin/adminDept"
-import adminUser from "@/components/admin/adminUser"
+import adminDept from "@/components/adminDept"
 
 Vue.use(VueRouter)
 
@@ -56,7 +55,6 @@ const routes = [
         component: adminNav,
         children: [
           {path: 'dept', component: adminDept, meta: {title: '学院管理'} },
-          {path: 'user', component: adminUser, meta: {title: '用户管理'} },
           {path: 'course', component: adminCourse, meta: {title: '课程管理'} },
         ],
         meta: {title: '系统管理'},
