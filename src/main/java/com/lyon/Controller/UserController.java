@@ -1,5 +1,6 @@
 package com.lyon.Controller;
 
+import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.User;
 import com.lyon.Repository.UserRepository;
 import static com.lyon.Security.logTime.now;
@@ -12,11 +13,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
@@ -42,19 +40,19 @@ public class UserController {
 //    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> VerifyLogin(
+    public HashMap<String, String> VerifyLogin(
             @RequestBody User data
     ) {
-        List<User> users = userRepository.findByIdAndPasswordAndIdentity(data.getId(), data.getPassword(), data.getIdentity());
-        Map<String, String> response = new HashMap<>();
-        if (users == null)
+        HashMap<String, String> response = new HashMap<>();
+        User user = userRepository.findByIdAndPasswordAndIdentity(data.getId(), data.getPassword(), data.getIdentity());
+        if (user == null)
             response.put("flag", "false");
         else {
-            System.out.println(users.get(0).getName() + " login " + now());
+            System.out.println(user.getName() + " login " + now());
             response.put("flag", "true");
-            response.put("name", users.get(0).getName());
-            response.put("identity", Short.toString(users.get(0).getIdentity()));
-            if (users.get(0).getIdentity() == 0) {
+            response.put("name", user.getName());
+            response.put("identity", Short.toString(user.getIdentity()));
+            if (user.getIdentity() == 0) {
                 response.put("token", "adminTOKEN");
             }
         }
@@ -62,10 +60,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> addUser(
+    public HashMap<String, String> addUser(
             @RequestBody User data
     ) {
-        Map<String, String> response = new HashMap<>();
+        HashMap<String, String> response = new HashMap<>();
 //        System.out.println(userRepository.findByIdAndIdentity(data.getId(), data.getIdentity()));
         User pre = userRepository.findByIdAndIdentity(data.getId(), data.getIdentity());
         if (pre != null) {
@@ -79,13 +77,13 @@ public class UserController {
         return response;
     }
     @RequestMapping(value = "/changePassword", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> changeUser(
+    public HashMap<String, String> changeUser(
             @RequestBody HashMap<String, String> data
     ) {
+        HashMap<String, String> response = new HashMap<>();
         long id = Long.parseLong(data.get("id"));
         String oldPassword = data.get("oldPassword");
         String newPassword = data.get("newPassword");
-        Map<String, String> response = new HashMap<>();
 
         User newData = userRepository.findById(id);
         if (newData == null || !newData.getPassword().equals(oldPassword) ) {
@@ -100,14 +98,60 @@ public class UserController {
         return response;
     }
 
-//    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-//    public Page<User> getAll() {
-////        final List<Dept> response = deptRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
-////        return response;
-////        Sort sort = new Sort(Sort.Direction.ASC, "id");
-////        Sort.Direction.ASC, "id"));
-//        Pageable pageable = PageRequest.of(1, 10000, Sort.Direction.ASC, "id");
-//        return userRepository.findAll(pageable);
-//    }
 
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    public HashMap<String, String> getAll() {
+        HashMap<String, String> response = new HashMap<>();
+        final List<User> list = userRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        System.out.println("user/getAll：" + JSON.toJSONString(list) + now());
+        response.put("flag", "true");
+        response.put("users", JSON.toJSONString(list));
+        return response;
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public HashMap<String, String> add(
+            @RequestBody User data
+    ) {
+        HashMap<String, String> response = new HashMap<>();
+        System.out.println("User/add " + JSON.toJSONString(data) + now());
+        if (userRepository.existsById(data.getId())) {
+            response.put("flag", "false");
+            return response;
+        }
+        userRepository.save(data);
+        response.put("flag", "true");
+        return response;
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public HashMap<String, String> update(
+            @RequestBody User data
+    ) {
+        HashMap<String, String> response = new HashMap<>();
+        System.out.println("User/update " + JSON.toJSONString(data) + now());
+        if (!userRepository.existsById(data.getId())) {
+            response.put("flag", "false");
+            return response;
+        }
+//        userRepository.deleteById(data.getId());
+        userRepository.save(data);
+        response.put("flag", "true");
+        return response;
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public HashMap<String, String> delete(
+            @RequestBody User data
+    ) {
+        HashMap<String, String> response = new HashMap<>();
+        System.out.println("User/delete " + JSON.toJSONString(data) + now());
+        if (!userRepository.existsById(data.getId())) {
+            response.put("flag", "false");
+            return response;
+        }
+        userRepository.deleteById(data.getId());
+        response.put("flag", "true");
+        return response;
+    }
 }

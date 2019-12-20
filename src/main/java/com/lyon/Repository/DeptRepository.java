@@ -12,5 +12,5 @@ public interface DeptRepository extends JpaRepository<Dept, Long> {
 
     Page<Dept> findAll(Pageable pageable);
     List<Dept> findAll(Sort sort);
-    List<Dept> findById(long id);
+    Dept findById(long id);
 }

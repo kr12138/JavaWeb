@@ -17,7 +17,7 @@
 
   import myHeader from './components/myHeader.vue'
   import myFooter from './components/myFooter.vue'
-  import adminDept from './components/adminDept.vue'
+  import adminDept from './components/admin/adminDept.vue'
 
   export default {
     name: 'app',

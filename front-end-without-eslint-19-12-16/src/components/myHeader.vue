@@ -58,9 +58,9 @@
 </template>
 
 <script>
-    import loginModal from './loginModal.vue'
-    import logoutModal from './logoutModal.vue'
-    import registerModal from './registerModal.vue'
+    import loginModal from './login/loginModal.vue'
+    import logoutModal from './login/logoutModal.vue'
+    import registerModal from './login/registerModal.vue'
     import settings from './settings.vue'
     import eventBus from "@/eventBus";
 

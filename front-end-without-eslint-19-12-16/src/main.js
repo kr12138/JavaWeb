@@ -17,8 +17,6 @@ Vue.config.productionTip = false
 router.beforeEach((to,from,next) => {
   if (to.meta.title !== '')
     document.title = to.meta.title;
-  // else
-  //   document.title = '教学课后辅导交流系统管理';
   next()
 })
 
