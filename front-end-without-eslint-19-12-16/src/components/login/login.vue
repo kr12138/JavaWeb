@@ -38,8 +38,7 @@
 <script>
 
     import eventBus from "@/eventBus";
-    import {info, success, error} from "@/myToastr";
-
+    import {info, success, error} from "../../myToastr.js";
 
     export default {
         name: "login",
@@ -83,8 +82,7 @@
                     'http://localhost:8080/api/user/login', this.user
                 ).then ( response => {
                     window.console.log(response)
-                    let flag = response.data.flag
-                    if (flag === 'false') {
+                    if (response.data.flag === 'false') {
                         error(this.$toastr, '密码错误<br>或所选权限不存在该用户！')
                         return
                     } else {

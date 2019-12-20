@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface DeptRepository extends JpaRepository<Dept, Long> {
 
-    Page<Dept> findAll(Pageable pageable);
+    Dept findById(long id);
     List<Dept> findAll(Sort sort);
-    List<Dept> findById(long id);
+//    Page<Dept> findAll(Pageable pageable);
 }
