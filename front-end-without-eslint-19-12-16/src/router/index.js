@@ -13,6 +13,7 @@ import settings from "@/components/settings"
 import profileNav from "@/components/profileNav"
 import adminDept from "@/components/admin/adminDept"
 import adminUser from "@/components/admin/adminUser"
+import adminTeacher from "@/components/admin/adminTeacher";
 
 Vue.use(VueRouter)
 
@@ -58,6 +59,7 @@ const routes = [
           {path: 'dept', component: adminDept, meta: {title: '学院管理'} },
           {path: 'user', component: adminUser, meta: {title: '用户管理'} },
           {path: 'course', component: adminCourse, meta: {title: '课程管理'} },
+          {path: 'teacher', component: adminTeacher, meta: {title: '教师管理'} },
         ],
         meta: {title: '系统管理'},
       },

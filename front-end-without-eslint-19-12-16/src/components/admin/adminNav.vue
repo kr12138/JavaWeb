@@ -23,6 +23,11 @@
                     </div>
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
+                                     to="/admin/teacher"> 教师管理
+                        </router-link>
+                    </div>
+                    <div class="nav-item ">
+                        <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
                                      to="/admin/course"> 课程管理
                         </router-link>
                     </div>
@@ -62,6 +67,14 @@
     nav {
         margin-top: 0;
         background-color: #2c3e50;
+        /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#275a84+0,275a84+5,2c3e50+100 */
+        background: rgb(39,90,132); /* Old browsers */
+        background: -moz-linear-gradient(left,  rgba(39,90,132,1) 0%, rgba(39,90,132,1) 5%, rgba(44,62,80,1) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left,  rgba(39,90,132,1) 0%,rgba(39,90,132,1) 5%,rgba(44,62,80,1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right,  rgba(39,90,132,1) 0%,rgba(39,90,132,1) 5%,rgba(44,62,80,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#275a84', endColorstr='#2c3e50',GradientType=1 ); /* IE6-9 */
+
+        box-shadow: slategray 5px 3px 5px;
     }
     a {
         font-size: 20px;

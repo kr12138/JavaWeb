@@ -98,14 +98,29 @@ public class UserController {
         return response;
     }
 
-
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    public HashMap<String, String> getAll() {
+//    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+//    public HashMap<String, String> getAll() {
+//        HashMap<String, String> response = new HashMap<>();
+//        final List<User> list = userRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+//        System.out.println("user/getAll " + JSON.toJSONString(list) + now());
+//        response.put("flag", "true");
+//        response.put("users", JSON.toJSONString(list));
+//        return response;
+//    }
+    @RequestMapping(value = "/getAll/{page}", method = RequestMethod.GET)
+    public HashMap<String, String> getAll(
+            @PathVariable int page
+    ) {
         HashMap<String, String> response = new HashMap<>();
-        final List<User> list = userRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
-        System.out.println("user/getAll：" + JSON.toJSONString(list) + now());
+        final Page<User> users = userRepository.findAll(
+                PageRequest.of(page,5,
+                        Sort.by(Sort.Direction.ASC, "id")
+                )
+        );
+        System.out.println("user/getAll("+ page +") " + JSON.toJSONString(users) + now());
         response.put("flag", "true");
-        response.put("users", JSON.toJSONString(list));
+        response.put("totalPages", Integer.toString(users.getTotalPages()));
+        response.put("users", JSON.toJSONString(users.getContent()));
         return response;
     }
 

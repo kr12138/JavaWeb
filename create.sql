@@ -7,7 +7,8 @@ CREATE TABLE `user` (
 	`name` VARCHAR (50) NULL DEFAULT NULL,
 	`identity` TINYINT (4) NOT NULL,
 	-- 0：管理 1：学生 2：教师
-	PRIMARY KEY (`u_id`)
+	PRIMARY KEY (`u_id`),
+	INDEX (`u_id`)
 );
 
 DROP TABLE `dept`;
@@ -26,7 +27,7 @@ CREATE TABLE `course` (
 	`c_id` BIGINT (20) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR (50) NULL DEFAULT NULL,
 	`info` VARCHAR (50) NULL DEFAULT NULL,
-	`dept` VARCHAR (50) REFERENCES `dept` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+	`dept` VARCHAR (50) REFERENCES `dept` (`name`),
 	-- `dept_id`  int(20) REFERENCES `dept`(`d_id`) ON DELETE CASCADE ON UPDATE CASCADE ,
 	PRIMARY KEY (`c_id`),
 	INDEX (`dept`) -- INDEX (`dept_id`)
@@ -43,11 +44,12 @@ CREATE TABLE `teaches` (
 DROP TABLE `teacher`;
 
 CREATE TABLE `teacher` (
-	`u_id` BIGINT (20) NOT NULL REFERENCES `user` (`u_id`),
+	`t_id` BIGINT (20) NOT NULL REFERENCES `user` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	`name` VARCHAR (50) DEFAULT NULL,
 	`prof_title` VARCHAR (50) DEFAULT NULL,
 	`info` VARCHAR (50) DEFAULT NULL,
-	PRIMARY KEY (`u_id`)
+	PRIMARY KEY (`t_id`),
+	INDEX (`t_id`)
 );
 
 DROP TABLE `question`;
@@ -78,5 +80,5 @@ CREATE TABLE `answer` (
 
 -- ALTER TABLE `answer` ADD UNIQUE `index_answer` ON `q_id`(20);
 -- ADD INDEX `index_answer` ON `answer`(`q_id`(20));
-INSERT INTO `user` (`u_id`,	`name`,	`password`,	`identity`) VALUES (0, 'Admin', 'admin', 0)
-
+INSERT INTO `user` (`u_id`,	`name`,	`password`,	`identity`)
+			VALUES (0, 'Admin', 'admin', 0);

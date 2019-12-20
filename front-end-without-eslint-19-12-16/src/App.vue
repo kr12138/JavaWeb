@@ -7,8 +7,6 @@
     <!-- 路由匹配到的组件将渲染在这里 -->
     <router-view></router-view>
 
-<!--    <br> <adminDept/>-->
-
     <myFooter/>
 
   </div>
@@ -17,16 +15,13 @@
 
   import myHeader from './components/myHeader.vue'
   import myFooter from './components/myFooter.vue'
-  import adminDept from './components/admin/adminDept.vue'
 
   export default {
     name: 'app',
     components: {
       myHeader,
       myFooter,
-      adminDept,
     },
-
   }
 </script>
 <style>
@@ -40,6 +35,7 @@
     /*background-color: #f5f5ff;*/
     color: #2c3e50;
     margin-top: 0px;
+    background-color: #fafafa;
   }
 
 

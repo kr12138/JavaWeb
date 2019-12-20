@@ -54,22 +54,22 @@ CREATE TABLE `answer` (
 INSERT INTO `user` (`u_id`,	`name`,	`password`,	`identity`) VALUES (0, 'Admin', 'admin', 0)
 */
 INSERT INTO `dept` (`d_id`,	`name`,	`info`)
-						VALUES (1111, '光电', '光电结棍');
+			VALUES (1111, '光电', '光电结棍');
 INSERT INTO `dept` (`d_id`,	`name`,	`info`)
-						VALUES (2222, '计院', '光电结不结棍和我计院有关吗');
+			VALUES (2222, '计院', '光电结不结棍和我计院有关吗');
 INSERT INTO `dept` (`d_id`,	`name`,	`info`)
-						VALUES (3333, '光电', '计院不结棍跟我软院有关吗');
+			VALUES (3333, '光电', '计院不结棍跟我软院有关吗');
 
 INSERT INTO `user` (`u_id`,	`name`,	`password`, `identity`)
-						VALUES (111, '学生1', '111', 1);
+			VALUES (111, '学生1', '111', 1);
 INSERT INTO `user` (`u_id`,	`name`,	`password`, `identity`)
-						VALUES (222, '学生2', '222', 1);
+			VALUES (222, '学生2', '222', 1);
 INSERT INTO `user` (`u_id`,	`name`,	`password`, `identity`)
-						VALUES (333, '学生1', '333', 1);
+			VALUES (333, '学生1', '333', 1);
 
 INSERT INTO `user` (`u_id`,	`name`,	`password`, `identity`)
-						VALUES (11, '教师1', '11', 2);
+			VALUES (11, '教师1', '11', 2);
 INSERT INTO `user` (`u_id`,	`name`,	`password`, `identity`)
-						VALUES (22, '教师2', '22', 2);
+			VALUES (22, '教师2', '22', 2);
 INSERT INTO `user` (`u_id`,	`name`,	`password`, `identity`)
-						VALUES (33, '教师3', '33', 2);
+			VALUES (33, '教师3', '33', 2);

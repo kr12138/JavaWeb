@@ -107,7 +107,7 @@
         color: #ddeeee;
     }
     button {
-        background-color: #247cc9;
+        background-color: #2475c0;
     }
     .d-none {
         text-emphasis: #ddeeee;
@@ -116,6 +116,13 @@
     .container-fluid {
         height: 130px;
         background-color: #1c5f9c;
+        /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#447199+0,1c5f9c+100 */
+        background: rgb(68,113,153); /* Old browsers */
+        background: -moz-linear-gradient(45deg, rgba(68,113,153,1) 0%, rgba(28,95,156,1) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(45deg, rgba(68,113,153,1) 0%, rgba(28,95,156,1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(45deg, rgba(68,113,153,1) 0%, rgba(28,95,156,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#447199', endColorstr='#1c5f9c', GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
         margin: 0 auto;
     }
 

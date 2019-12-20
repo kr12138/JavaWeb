@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h2> 用户列表 </h2> <br>
+        <h2> 用户列表 [ {{ page+1 }} / {{ totalPages }} ] </h2> <br>
         <table class="table table-hover">
             <thead>
             <tr> <th v-for=" title in titles "> {{ title }} </th> </tr>
@@ -31,6 +31,9 @@
                              @click=" changing( user ) " > 删改 </button> </th>
             </tr>
             </tbody>
+            <div>
+
+            </div>
         </table>
 
         <!-- 模态框（Modal） -->
@@ -79,34 +82,52 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
         </div><!-- /.modaldiv -->
+        <button class="btn btn-outline-info page" @click=" getData( 0 ) "> 首页 </button>
+        <button class="btn btn-outline-info page" @click=" getData( page-1 ) "> &lt;&lt;上一页 </button>
+        <button class="btn btn-outline-info page"> 第 {{ page+1 }} 页 </button>
+        <button class="btn btn-outline-info page" @click=" getData( page+1 ) "> 下一页&gt;&gt; </button>
+        <button class="btn btn-outline-info page" @click=" getData( totalPages-1 ) "> 末页 </button>
     </div>
 </template>
 
 <script>
-    import {info, cError, cSuccess} from "../../myToastr.js";
+    import {info, cInfo, cError, cSuccess} from "../../myToastr.js";
     export default {
         name: "adminUser",
         mounted() {
-            this.getData();
+            this.getData(0);
         },
         data() {
             return {
                 newData: { id: undefined, name: '', password: '', identity: undefined },
+                page: 0,
+                totalPages: undefined,
                 changingData: {},
                 titles: [ '用户ID', '用户昵称', '用户密码', '用户权限', '更改' ],
                 users: [],
             }
         },
         methods: {
-            getData() {    //初始化
+            getData(page) {    //初始化
+                console.log('正在请求页码：'+page)
+                if (page<0) {
+                    cInfo(this.$toastr, '已是首页，无上一页', '提示')
+                    return
+                } else if (page >= this.totalPages) {
+                    cInfo(this.$toastr, '已是末页，无下一页', '提示')
+                    return
+                }
                 this.$axios.get(
-                    'http://localhost:8080/api/user/getAll'
+                    'http://localhost:8080/api/user/getAll/'+page
                 ).then( response => {
                     console.log(response)
-                    if (response.data.flag === 'true')
-                        this.users = JSON.parse(response.data.users)
-                    else
+                    if (response.data.flag !== 'true')
                         cError(this.$toastr, '无法得到用户数据！', '错误：')
+                    else {
+                        this.page = page
+                        this.users = JSON.parse(response.data.users)
+                        this.totalPages = JSON.parse(response.data.totalPages)
+                    }
                 }).catch( error => {
                     console.log('！！！请求数据失败异常：')
                     console.log(error)
@@ -135,7 +156,7 @@
                         cError(this.$toastr, '添加失败<br>可能已有该编号？')
                     else {
                         cSuccess(this.$toastr, '添加成功！')
-                        this.getData()
+                        this.getData(this.page)
                     }
                 }).catch ( error => {
                     window.console.log('！！！添加失败异常：')
@@ -165,7 +186,7 @@
                         cError(this.$toastr, '删除失败！<br>可能无该编号？', '错误：')
                     else {
                         cSuccess(this.$toastr, '删除成功！')
-                        this.getData()
+                        this.getData(this.page)
                     }
                 }).catch ( error => {
                     window.console.log('！！！删除失败异常：')
@@ -194,7 +215,7 @@
                         cError(this.$toastr, '更新失败<br>可能无该编号？')
                     else {
                         cSuccess(this.$toastr, '更新成功！')
-                        this.getData()
+                        this.getData(this.page)
                     }
                 }).catch ( error => {
                     window.console.log('！！！更新失败异常：')
@@ -207,4 +228,5 @@
 
 <style scoped>
     .container { font-family: Consolas, Inconsolata, "微软雅黑" }
+    .page { margin: 5px; }
 </style>

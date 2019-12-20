@@ -19,5 +19,5 @@
 <style scoped>
     .myText { font-family: Consolas, Inconsolata, "微软雅黑" }
     a { text-decoration: none }
-
+    a:hover { text-decoration: none }
 </style>

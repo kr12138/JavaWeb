@@ -12,7 +12,7 @@
                     <h2> 本系统网页前端基于 Vue.js 2.6.10 和 bootstrap 4.4.1 </h2>
                 </tr>
                 <tr>
-                    <h4> 开发工具：VSCode 1.41 和 InteliJ IDEA 19.2.2 </h4>
+                    <h4> 开发工具：VSCode 1.41.1 和 InteliJ IDEA 19.2.2 </h4>
                     <h4> 使用插件：vue-router 3.1.3 和 axios 0.19.0 </h4>
                     <h4> 特别鸣谢：npm 6.9.0 和 toastr 2.1.4 </h4>
                     <br>

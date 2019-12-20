@@ -8,10 +8,11 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    User findById(long id);
     User findByIdAndPasswordAndIdentity(long id, String password, short identity);
     User findByIdAndIdentity(long id, short identity);
-    User findById(long id);
-    Page<User> findAll(Pageable pageable);
+//    Page<User> findAll(Pageable pageable);
+
 //    @Modifying
 //    @Transactional
 //    @Query(value = "UPDATE `user` SET `password`=?1 WHERE `u_id`=?2",nativeQuery = true)
