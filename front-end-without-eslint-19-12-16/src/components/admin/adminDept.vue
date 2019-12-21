@@ -76,7 +76,7 @@
     export default {
         name: "adminDept",
         mounted() {
-            this.getDepts();
+            this.getData();
         },
         data() {
             return {
@@ -87,7 +87,7 @@
             }
         },
         methods: {
-            getDepts() {    //初始化
+            getData() {    //初始化
                 this.$axios.get(
                     'http://localhost:8080/api/dept/getAll'
                 ).then( response => {
@@ -119,8 +119,10 @@
                     window.console.log(response)
                     if (response.data.flag === 'false')
                         cError(this.$toastr, '添加失败<br>可能已有该编号？')
-                    else
-                        cSuccess(this.$toastr, '添加成功！<br>重新进入该页面看看新数据吧！')
+                    else {
+                        cSuccess(this.$toastr, '添加成功！')
+                        this.getData()
+                    }
                 }).catch ( error => {
                     window.console.log('！！！添加失败异常：')
                     window.console.log(error)
@@ -146,8 +148,10 @@
                     window.console.log(response)
                     if (response.data.flag === 'false')
                         cError(this.$toastr, '删除失败！<br>可能无该编号？', '错误：')
-                    else
-                        cSuccess(this.$toastr, '删除成功！<br>重新进入该页面看看新数据吧！')
+                    else {
+                        cSuccess(this.$toastr, '删除成功！')
+                        this.getData()
+                    }
                 }).catch ( error => {
                     window.console.log('！！！删除失败异常：')
                     window.console.log(error)
@@ -170,8 +174,10 @@
                     window.console.log(response)
                     if (response.data.flag === 'false')
                         cError(this.$toastr, '更新失败<br>可能无该编号？')
-                    else
-                        cSuccess(this.$toastr, '更新成功！<br>重新进入该页面看看新数据吧！')
+                    else {
+                        cSuccess(this.$toastr, '更新成功！')
+                        this.getData()
+                    }
                 }).catch ( error => {
                     window.console.log('！！！更新失败异常：')
                     window.console.log(error)

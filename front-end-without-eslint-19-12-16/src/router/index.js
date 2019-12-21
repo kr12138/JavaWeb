@@ -5,14 +5,14 @@ import VueRouter from 'vue-router'
 import homeNav from "@/components/homeNav"
 import home from "@/components/home"
 import info from "@/components/info"
-import register from "@/components/login/register"
-import login from "@/components/login/login"
-import adminNav from "@/components/admin/adminNav"
-import adminCourse from "@/components/admin/adminCourse"
 import settings from "@/components/settings"
 import profileNav from "@/components/profileNav"
+import login from "@/components/login/login"
+import register from "@/components/login/register"
+import adminNav from "@/components/admin/adminNav"
 import adminDept from "@/components/admin/adminDept"
 import adminUser from "@/components/admin/adminUser"
+import adminCourse from "@/components/admin/adminCourse"
 import adminTeacher from "@/components/admin/adminTeacher";
 
 Vue.use(VueRouter)
