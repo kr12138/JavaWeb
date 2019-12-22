@@ -10,11 +10,11 @@
     <!--        <form action="/api/user/login" method="post">-->
             <div class="btn-group">
                 <button type="button" class="btn btn-info" name="identity"
-                        @click=" handleIdentityClick(0) "> 管理 </button>
+                        @click=" handleIdentityClick( 0 ) "> 管理 </button>
                 <button type="button" class="btn btn-info" name="identity"
-                        @click=" handleIdentityClick(1) "> 学生 </button>
+                        @click=" handleIdentityClick( 1 ) "> 学生 </button>
                 <button type="button" class="btn btn-info" name="identity"
-                        @click=" handleIdentityClick(2) "> 教师 </button>
+                        @click=" handleIdentityClick( 2 ) "> 教师 </button>
             </div><br><br>
             <div class="input-group mb-3 col-lg-8 offset-lg-2">
                 <span class="input-group-prepend">

@@ -1,11 +1,14 @@
 package com.lyon.Controller;
 
 import com.alibaba.fastjson.JSON;
-import com.lyon.Entity.Teacher;
-import com.lyon.Repository.TeacherRepository;
+import com.lyon.Entity.Course;
+import com.lyon.Repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,63 +17,62 @@ import static com.lyon.Security.logTime.now;
 
 
 @RestController
-@RequestMapping("/api/teacher")
-public class TeacherController {
+@RequestMapping("/api/course")
+public class CourseController {
     @Autowired
-    private TeacherRepository teacherRepository;
+    private CourseRepository courseRepository;
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public HashMap<String, String> getAll() {
         HashMap<String, String> response = new HashMap<>();
-        final List<Teacher> list = teacherRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
-        System.out.println("teacher/getAll " + JSON.toJSONString(list) + now());
+        final List<Course> list = courseRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        System.out.println("course/getAll " + JSON.toJSONString(list) + now());
         response.put("flag", "true");
-        response.put("teachers", JSON.toJSONString(list));
+        response.put("courses", JSON.toJSONString(list));
         return response;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public HashMap<String, String> add(
-            @RequestBody Teacher data
+            @RequestBody Course data
     ) {
         HashMap<String, String> response = new HashMap<>();
-        System.out.println("teacher/add " + JSON.toJSONString(data) + now());
-        if (teacherRepository.existsById(data.getId())) {
+        System.out.println("course/add " + JSON.toJSONString(data) + now());
+        if (courseRepository.existsById(data.getId())) {
             response.put("flag", "false");
             return response;
         }
-        teacherRepository.save(data);
+        courseRepository.save(data);
         response.put("flag", "true");
         return response;
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public HashMap<String, String> update(
-            @RequestBody Teacher data
+            @RequestBody Course data
     ) {
         HashMap<String, String> response = new HashMap<>();
-        System.out.println("teacher/update " + JSON.toJSONString(data) + now());
-        if (!teacherRepository.existsById(data.getId())) {
+        System.out.println("course/update " + JSON.toJSONString(data) + now());
+        if (!courseRepository.existsById(data.getId())) {
             response.put("flag", "false");
             return response;
         }
-//        teacherRepository.deleteById(data.getId());
-        teacherRepository.save(data);
+        courseRepository.save(data);
         response.put("flag", "true");
         return response;
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public HashMap<String, String> delete(
-            @RequestBody Teacher data
+            @RequestBody Course data
     ) {
         HashMap<String, String> response = new HashMap<>();
-        System.out.println("teacher/delete " + JSON.toJSONString(data) + now());
-        if (!teacherRepository.existsById(data.getId())) {
+        System.out.println("course/delete " + JSON.toJSONString(data) + now());
+        if (!courseRepository.existsById(data.getId())) {
             response.put("flag", "false");
             return response;
         }
-        teacherRepository.deleteById(data.getId());
+        courseRepository.deleteById(data.getId());
         response.put("flag", "true");
         return response;
     }

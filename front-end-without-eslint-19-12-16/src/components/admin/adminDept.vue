@@ -116,7 +116,7 @@
                 this.$axios.post(
                     'http://localhost:8080/api/dept/add', this.newData
                 ).then ( response => {
-                    window.console.log(response)
+                    console.log(response)
                     if (response.data.flag === 'false')
                         cError(this.$toastr, '添加失败<br>可能已有该编号？')
                     else {
@@ -124,8 +124,8 @@
                         this.getData()
                     }
                 }).catch ( error => {
-                    window.console.log('！！！添加失败异常：')
-                    window.console.log(error)
+                    console.log('！！！添加失败异常：')
+                    console.log(error)
                 });
             },
             changing(data) {    //确定删改对象
@@ -145,16 +145,16 @@
                 this.$axios.post(
                     'http://localhost:8080/api/dept/delete', this.changingData
                 ).then ( response => {
-                    window.console.log(response)
+                    console.log(response)
                     if (response.data.flag === 'false')
-                        cError(this.$toastr, '删除失败！<br>可能无该编号？', '错误：')
+                        cError(this.$toastr, '删除失败<br>可能无该编号？', '错误：')
                     else {
                         cSuccess(this.$toastr, '删除成功！')
                         this.getData()
                     }
                 }).catch ( error => {
-                    window.console.log('！！！删除失败异常：')
-                    window.console.log(error)
+                    console.log('！！！删除失败异常：')
+                    console.log(error)
                 });
             },
             update() {  //更改
@@ -171,7 +171,7 @@
                 this.$axios.put(
                     'http://localhost:8080/api/dept/update', this.changingData
                 ).then ( response => {
-                    window.console.log(response)
+                    console.log(response)
                     if (response.data.flag === 'false')
                         cError(this.$toastr, '更新失败<br>可能无该编号？')
                     else {
@@ -179,8 +179,8 @@
                         this.getData()
                     }
                 }).catch ( error => {
-                    window.console.log('！！！更新失败异常：')
-                    window.console.log(error)
+                    console.log('！！！更新失败异常：')
+                    console.log(error)
                 });
             },
         }

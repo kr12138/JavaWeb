@@ -16,16 +16,34 @@
                 <th> <input type="text" class="form-control"
                             placeholder="在此输入新用户密码"
                             v-model=" newData.password "> </th>
-                <th> <input type="number" class="form-control"
-                            placeholder="(0:管理 1:学生 2:教师) 在此输入新用户权限"
-                            v-model=" newData.identity "> </th>
+                <th>
+<!--                    <input type="number" class="form-control"-->
+<!--                           placeholder="(0:管理 1:学生 2:教师) 在此输入新用户权限"-->
+<!--                           v-model=" newData.identity "> -->
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-info dropdown-toggle"
+                                id="identityMenu"
+                                data-toggle="dropdown"> 在此选择新用户权限 </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#"
+                               @click=" handleIdentityClick( 0 ) "> 0（管理员）
+                            </a>
+                            <a class="dropdown-item" href="#"
+                               @click=" handleIdentityClick( 1 ) "> 1（学生）
+                            </a>
+                            <a class="dropdown-item" href="#"
+                               @click=" handleIdentityClick( 2 ) "> 2（教师）
+                            </a>
+                        </div>
+                    </div>
+                </th>
                 <th> <button class="btn btn-info" @click=" add "> 增加 </button> </th>
             </tr>
             <tr v-for=" user in users ">
                 <th> {{ user.id }} </th>
                 <th> {{ user.name }} </th>
                 <th> {{ user.password }} </th>
-                <th> {{ user.identity }} </th>
+                <th> {{ identityInfo[user.identity] }} </th>
                 <th> <button class="btn btn-info"
                              data-toggle="modal" data-target="#changingModal"
                              @click=" changing( user ) " > 删改 </button> </th>
@@ -67,8 +85,24 @@
                             <span class="input-group-prepend">
                                 <span class="input-group-text"> 用户权限 </span>
                             </span>
-                            <input type="number" class="form-control"
-                                   id="identity" v-model=" changingData.identity ">
+<!--                            <input type="number" class="form-control"-->
+<!--                                   id="identity" v-model=" changingData.identity ">-->
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-info dropdown-toggle"
+                                        id="identityMenu2"
+                                        data-toggle="dropdown"> 在此选择新用户权限 </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#"
+                                       @click=" handleIdentityClick2( 0 ) "> 0(管理员)
+                                    </a>
+                                    <a class="dropdown-item" href="#"
+                                       @click=" handleIdentityClick2( 1 ) "> 1(学生)
+                                    </a>
+                                    <a class="dropdown-item" href="#"
+                                       @click=" handleIdentityClick2( 2 ) "> 2(教师)
+                                    </a>
+                                </div>
+                            </div>
                         </div> <br> <br>
                         <div class="row">
                             <button type="button" class="btn btn-info col-2 offset-3"
@@ -104,6 +138,7 @@
                 totalPages: undefined,
                 changingData: {},
                 titles: [ '用户ID', '用户昵称', '用户密码', '用户权限', '更改' ],
+                identityInfo: ['0(管理员)', '1(学生)', '2(教师)'],
                 users: [],
             }
         },
@@ -133,6 +168,14 @@
                     console.log(error)
                 });
             },
+            handleIdentityClick(x) {    //更改新用户权限
+                this.newData.identity = x
+                document.getElementById('identityMenu').innerText = this.identityInfo[x]
+            },
+            handleIdentityClick2(x) {   //更改待删改用户权限
+                this.changingData.identity = x
+                document.getElementById('identityMenu2').innerText = this.identityInfo[x]
+            },
             add() { //增加
                 // console.log('add ', this.newDept)
                 if (!this.newData.id && this.newData.id !== 0) {
@@ -151,7 +194,7 @@
                 this.$axios.post(
                     'http://localhost:8080/api/user/add', this.newData
                 ).then ( response => {
-                    window.console.log(response)
+                    console.log(response)
                     if (response.data.flag === 'false')
                         cError(this.$toastr, '添加失败<br>可能已有该编号？')
                     else {
@@ -159,8 +202,8 @@
                         this.getData(this.page)
                     }
                 }).catch ( error => {
-                    window.console.log('！！！添加失败异常：')
-                    window.console.log(error)
+                    console.log('！！！添加失败异常：')
+                    console.log(error)
                 });
             },
             changing(data) {    //确定删改对象
@@ -171,7 +214,7 @@
                 this.changingData = data
                 document.getElementById('name').placeholder = data.name
                 document.getElementById('password').placeholder = data.password
-                document.getElementById('identity').placeholder = data.identity
+                document.getElementById('identityMenu2').innerText = this.identityInfo[data.identity]
             },
             del() {  //删除
                 if (!this.changingData.id && this.changingData.id !== 0) {
@@ -181,16 +224,16 @@
                 this.$axios.post(
                     'http://localhost:8080/api/user/delete', this.changingData
                 ).then ( response => {
-                    window.console.log(response)
+                    console.log(response)
                     if (response.data.flag === 'false')
-                        cError(this.$toastr, '删除失败！<br>可能无该编号？', '错误：')
+                        cError(this.$toastr, '删除失败<br>可能无该编号？', '错误：')
                     else {
                         cSuccess(this.$toastr, '删除成功！')
                         this.getData(this.page)
                     }
                 }).catch ( error => {
-                    window.console.log('！！！删除失败异常：')
-                    window.console.log(error)
+                    console.log('！！！删除失败异常：')
+                    console.log(error)
                 });
             },
             update() {  //更改
@@ -210,7 +253,7 @@
                 this.$axios.put(
                     'http://localhost:8080/api/user/update', this.changingData
                 ).then ( response => {
-                    window.console.log(response)
+                    console.log(response)
                     if (response.data.flag === 'false')
                         cError(this.$toastr, '更新失败<br>可能无该编号？')
                     else {
@@ -218,8 +261,8 @@
                         this.getData(this.page)
                     }
                 }).catch ( error => {
-                    window.console.log('！！！更新失败异常：')
-                    window.console.log(error)
+                    console.log('！！！更新失败异常：')
+                    console.log(error)
                 });
             },
         }
