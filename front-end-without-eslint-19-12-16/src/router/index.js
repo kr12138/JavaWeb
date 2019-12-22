@@ -13,7 +13,9 @@ import adminNav from "@/components/admin/adminNav"
 import adminDept from "@/components/admin/adminDept"
 import adminUser from "@/components/admin/adminUser"
 import adminCourse from "@/components/admin/adminCourse"
-import adminTeacher from "@/components/admin/adminTeacher";
+import adminTeacher from "@/components/admin/adminTeacher"
+import adminTeachesT from "@/components/admin/adminTeachesT"
+import adminTeachesC from "@/components/admin/adminTeachesC"
 
 Vue.use(VueRouter)
 
@@ -60,6 +62,8 @@ const routes = [
           {path: 'user', component: adminUser, meta: {title: '用户管理'} },
           {path: 'course', component: adminCourse, meta: {title: '课程管理'} },
           {path: 'teacher', component: adminTeacher, meta: {title: '教师管理'} },
+          {path: 'teachesT', component: adminTeachesT, meta: {title: '授课管理'} },
+          {path: 'teachesC', component: adminTeachesC, meta: {title: '授课教师管理'} },
         ],
         meta: {title: '系统管理'},
       },

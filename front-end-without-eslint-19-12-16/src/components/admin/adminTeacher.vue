@@ -19,7 +19,7 @@
                 <th> <input type="text" class="form-control"
                             placeholder="在此输入新教师说明"
                             v-model=" newData.info "> </th>
-                <th> <button class="btn btn-info"@click=" add "> 增加 </button> </th>
+                <th> <button class="btn btn-info" @click=" add "> 新增 </button> </th>
             </tr>
             <tr v-for=" teacher in teachers ">
                 <th> {{ teacher.id }} </th>
@@ -29,6 +29,8 @@
                 <th> <button class="btn btn-info"
                              data-toggle="modal" data-target="#changingModal"
                              @click=" changing( teacher ) " > 删改 </button> </th>
+                <th> <button class="btn btn-info"
+                             @click=" searching( teacher ) " > 查看 </button> </th>
             </tr>
             </tbody>
         </table>
@@ -79,6 +81,7 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
         </div><!-- /.modaldiv -->
+
     </div>
 </template>
 
@@ -91,9 +94,9 @@
         },
         data() {
             return {
-                newData: { id: undefined, name: '', prof: '', info: '' },
-                changingData: {},
-                titles: [ '教师编号', '教师名称', '教师职称', '教师说明', '更改' ],
+                newData: { id: undefined, name: '', prof: '', info: '' },   //新增教师
+                changingData: {},   //删改教师
+                titles: [ '教师工号', '教师名称', '教师职称', '教师说明', '增删改', '授课' ],
                 teachers: [],
             }
         },
@@ -111,6 +114,16 @@
                     console.log('！！！请求数据失败异常：')
                     console.log(error)
                 });
+            },
+            changing(data) {    //确定删改对象
+                if (data === null) {
+                    cError(this.$toastr, '正在删改空对象！', '错误：')
+                    return
+                }
+                this.changingData = data
+                document.getElementById('name').placeholder = data.name
+                document.getElementById('prof').placeholder = data.prof
+                document.getElementById('info').placeholder = data.info
             },
             add() { //增加
                 if (!this.newData.id && this.newData.id !== 0) {
@@ -140,16 +153,6 @@
                     console.log('！！！添加失败异常：')
                     console.log(error)
                 });
-            },
-            changing(data) {    //确定删改对象
-                if (data === null) {
-                    cError(this.$toastr, '正在删改空对象！', '错误：')
-                    return
-                }
-                this.changingData = data
-                document.getElementById('name').placeholder = data.name
-                document.getElementById('prof').placeholder = data.prof
-                document.getElementById('info').placeholder = data.info
             },
             del() {  //删除
                 if (!this.changingData.id && this.changingData.id !== 0) {
@@ -197,6 +200,17 @@
                     console.log(error)
                 });
             },
+            searching(data) {   //确定要查看课程的教师
+                if (data === null) {
+                    cError(this.$toastr, '正在查询空对象！', '错误：')
+                    return
+                }
+                // eventBus.$emit('teachesT', data)
+                sessionStorage.setItem('searchingTID', data.id)
+                sessionStorage.setItem('searchingTNAME', data.name)
+                location.href = '/#/admin/teachesT'
+            },
+
         }
     }
 </script>

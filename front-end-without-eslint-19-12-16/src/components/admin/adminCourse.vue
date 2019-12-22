@@ -15,7 +15,7 @@
                             v-model=" newData.name "> </th>
                 <th>
                     <div class="dropdown">
-                        <button type="button" class="btn btn-info dropdown-toggle"
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle"
                                 id="deptMenu"
                                 data-toggle="dropdown"> 在此选择新开课学院 </button>
                         <div class="dropdown-menu">
@@ -29,7 +29,7 @@
                 <th> <input type="text" class="form-control"
                             placeholder="在此输入新课程说明"
                             v-model=" newData.info "> </th>
-                <th> <button class="btn btn-info"@click=" add "> 增加 </button> </th>
+                <th> <button class="btn btn-info" @click=" add "> 新增 </button> </th>
             </tr>
             <tr v-for=" course in courses ">
                 <th> {{ course.id }} </th>
@@ -39,6 +39,8 @@
                 <th> <button class="btn btn-info"
                              data-toggle="modal" data-target="#changingModal"
                              @click=" changing( course ) " > 删改 </button> </th>
+                <th> <button class="btn btn-info"
+                             @click=" searching( course ) " > 查看 </button> </th>
             </tr>
             </tbody>
         </table>
@@ -112,7 +114,7 @@
             return {
                 newData: { id: undefined, name: '', dept: '', info: '' },
                 changingData: {},
-                titles: [ '课程编号', '课程名称', '开课学院', '课程说明', '更改' ],
+                titles: [ '课程编号', '课程名称', '开课学院', '课程说明', '增删改', '教师'],
                 depts: [],
                 courses: [],
             }
@@ -144,6 +146,24 @@
                     console.log(error)
                 });
             },
+            handleDeptClick(name) { //更改新课程学院
+                this.newData.dept = name
+                document.getElementById('deptMenu').innerText = name
+            },
+            handleDeptClick2(name) {    //更改待删改课程学院
+                this.changingData.dept = name
+                document.getElementById('deptMenu2').innerText = name
+            },
+            changing(data) {    //确定删改对象
+                if (data === null) {
+                    cError(this.$toastr, '正在删改空对象！', '错误：')
+                    return
+                }
+                this.changingData = data
+                document.getElementById('name').placeholder = data.name
+                document.getElementById('deptMenu2').innerText = data.dept
+                document.getElementById('info').placeholder = data.info
+            },
             add() { //增加
                 if (!this.newData.id && this.newData.id !== 0) {
                     info(this.$toastr, '请先输入编号', '提示：')
@@ -172,24 +192,6 @@
                     console.log('！！！添加失败异常：')
                     console.log(error)
                 });
-            },
-            handleDeptClick(name) { //更改新课程学院
-                this.newData.dept = name
-                document.getElementById('deptMenu').innerText = name
-            },
-            handleDeptClick2(name) {    //更改待删改课程学院
-                this.changingData.dept = name
-                document.getElementById('deptMenu2').innerText = name
-            },
-            changing(data) {    //确定删改对象
-                if (data === null) {
-                    cError(this.$toastr, '正在删改空对象！', '错误：')
-                    return
-                }
-                this.changingData = data
-                document.getElementById('name').placeholder = data.name
-                document.getElementById('deptMenu2').innerText = data.dept
-                document.getElementById('info').placeholder = data.info
             },
             del() {  //删除
                 if (!this.changingData.id && this.changingData.id !== 0) {
@@ -236,6 +238,15 @@
                     console.log('！！！更新失败异常：')
                     console.log(error)
                 });
+            },
+            searching(data) {   //确定要查看教师的课程
+                if (data === null) {
+                    cError(this.$toastr, '正在查询空对象！', '错误：')
+                    return
+                }
+                sessionStorage.setItem('searchingCID', data.id)
+                sessionStorage.setItem('searchingCNAME', data.name)
+                location.href = '/#/admin/teachesC'
             },
         }
     }

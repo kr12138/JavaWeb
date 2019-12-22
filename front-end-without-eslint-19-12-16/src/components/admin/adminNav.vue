@@ -74,7 +74,7 @@
         background: linear-gradient(to right,  rgba(39,90,132,1) 0%,rgba(39,90,132,1) 5%,rgba(44,62,80,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#275a84', endColorstr='#2c3e50',GradientType=1 ); /* IE6-9 */
 
-        box-shadow: slategray 5px 3px 5px;
+        box-shadow: slategray 0 3px 5px;
     }
     a {
         font-size: 20px;

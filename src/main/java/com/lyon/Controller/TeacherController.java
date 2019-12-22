@@ -29,6 +29,22 @@ public class TeacherController {
         return response;
     }
 
+    @RequestMapping(value = "/get/{uid}", method = RequestMethod.GET)
+    public HashMap<String, String> getById(
+            @PathVariable long uid
+    ) {
+        HashMap<String, String> response = new HashMap<>();
+        Teacher teacher = teacherRepository.findById(uid);
+        System.out.println("teacher/get("+ uid + ") " + JSON.toJSONString(teacher) + now());
+        if (teacher == null) {
+            response.put("flag", "false");
+            return response;
+        }
+        response.put("flag", "true");
+        response.put("teacher", JSON.toJSONString(teacher));
+        return response;
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public HashMap<String, String> add(
             @RequestBody Teacher data

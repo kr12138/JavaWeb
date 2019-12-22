@@ -81,7 +81,7 @@
                 this.$axios.post(
                     'http://localhost:8080/api/user/login', this.user
                 ).then ( response => {
-                    window.console.log(response)
+                    console.log(response)
                     if (response.data.flag === 'false') {
                         error(this.$toastr, '密码错误<br>或所选权限不存在该用户！')
                         return
@@ -93,13 +93,13 @@
                         eventBus.$emit('loginSuccess')
                         if (response.data.identity === '0') {
                             sessionStorage.setItem("token", response.data.token)
-                            window.location.href = '/#/admin'
+                            location.href = '/#/admin'
                         }
                         return
                     }
                 }).catch ( error => {
-                    window.console.log('！！！登录失败异常：')
-                    window.console.log(error)
+                    console.log('！！！登录失败异常：')
+                    console.log(error)
                 });
             },
 

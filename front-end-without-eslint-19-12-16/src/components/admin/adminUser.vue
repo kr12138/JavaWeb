@@ -21,7 +21,7 @@
 <!--                           placeholder="(0:管理 1:学生 2:教师) 在此输入新用户权限"-->
 <!--                           v-model=" newData.identity "> -->
                     <div class="dropdown">
-                        <button type="button" class="btn btn-info dropdown-toggle"
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle"
                                 id="identityMenu"
                                 data-toggle="dropdown"> 在此选择新用户权限 </button>
                         <div class="dropdown-menu">
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </th>
-                <th> <button class="btn btn-info" @click=" add "> 增加 </button> </th>
+                <th> <button class="btn btn-info" @click=" add "> 新增 </button> </th>
             </tr>
             <tr v-for=" user in users ">
                 <th> {{ user.id }} </th>
@@ -88,7 +88,7 @@
 <!--                            <input type="number" class="form-control"-->
 <!--                                   id="identity" v-model=" changingData.identity ">-->
                             <div class="dropdown">
-                                <button type="button" class="btn btn-info dropdown-toggle"
+                                <button type="button" class="btn btn-outline-secondary dropdown-toggle"
                                         id="identityMenu2"
                                         data-toggle="dropdown"> 在此选择新用户权限 </button>
                                 <div class="dropdown-menu">
@@ -137,7 +137,7 @@
                 page: 0,
                 totalPages: undefined,
                 changingData: {},
-                titles: [ '用户ID', '用户昵称', '用户密码', '用户权限', '更改' ],
+                titles: [ '用户ID', '用户昵称', '用户密码', '用户权限', '增删改' ],
                 identityInfo: ['0(管理员)', '1(学生)', '2(教师)'],
                 users: [],
             }
@@ -176,6 +176,17 @@
                 this.changingData.identity = x
                 document.getElementById('identityMenu2').innerText = this.identityInfo[x]
             },
+            changing(data) {    //确定删改对象
+                if (data === null) {
+                    cError(this.$toastr, '正在删改空对象！', '错误：')
+                    return
+                }
+                this.changingData = data
+                this.changingData.identity = parseInt(data.identity)
+                document.getElementById('name').placeholder = data.name
+                document.getElementById('password').placeholder = data.password
+                document.getElementById('identityMenu2').innerText = this.identityInfo[data.identity]
+            },
             add() { //增加
                 // console.log('add ', this.newDept)
                 if (!this.newData.id && this.newData.id !== 0) {
@@ -205,16 +216,6 @@
                     console.log('！！！添加失败异常：')
                     console.log(error)
                 });
-            },
-            changing(data) {    //确定删改对象
-                if (data === null) {
-                    cError(this.$toastr, '正在删改空对象！', '错误：')
-                    return
-                }
-                this.changingData = data
-                document.getElementById('name').placeholder = data.name
-                document.getElementById('password').placeholder = data.password
-                document.getElementById('identityMenu2').innerText = this.identityInfo[data.identity]
             },
             del() {  //删除
                 if (!this.changingData.id && this.changingData.id !== 0) {
@@ -246,7 +247,7 @@
                 } else if (!this.changingData.password) {
                     info(this.$toastr, '请先输入密码', '提示：')
                     return
-                } else if (!this.changingData.identity && this.newData.identity !== '0') {
+                } else if (!this.changingData.identity && this.changingData.identity !== 0) {
                     info(this.$toastr, '请先输入权限', '提示：')
                     return
                 }

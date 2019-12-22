@@ -44,6 +44,7 @@ public class UserController {
             @RequestBody User data
     ) {
         HashMap<String, String> response = new HashMap<>();
+        System.out.println("user/login " + JSON.toJSONString(data) + now());
         User user = userRepository.findByIdAndPasswordAndIdentity(data.getId(), data.getPassword(), data.getIdentity());
         if (user == null)
             response.put("flag", "false");
@@ -64,7 +65,7 @@ public class UserController {
             @RequestBody User data
     ) {
         HashMap<String, String> response = new HashMap<>();
-//        System.out.println(userRepository.findByIdAndIdentity(data.getId(), data.getIdentity()));
+        System.out.println("user/register " + JSON.toJSONString(data) + now());
         User pre = userRepository.findByIdAndIdentity(data.getId(), data.getIdentity());
         if (pre != null) {
             response.put("flag", "false");
@@ -81,6 +82,7 @@ public class UserController {
             @RequestBody HashMap<String, String> data
     ) {
         HashMap<String, String> response = new HashMap<>();
+        System.out.println("user/changePassword " + JSON.toJSONString(data) + now());
         long id = Long.parseLong(data.get("id"));
         String oldPassword = data.get("oldPassword");
         String newPassword = data.get("newPassword");

@@ -16,7 +16,7 @@
                     <th> <input type="text" class="form-control"
                                 placeholder="在此输入新学院说明"
                                 v-model=" newData.info "> </th>
-                    <th> <button class="btn btn-info"@click=" add "> 增加 </button> </th>
+                    <th> <button class="btn btn-info" @click=" add "> 新增 </button> </th>
                 </tr>
                 <tr v-for=" dept in depts ">
                     <th> {{ dept.id }} </th>
@@ -82,7 +82,7 @@
             return {
                 newData: { id: undefined, name: '', info: '' },
                 changingData: {},
-                titles: [ '学院编号', '学院名称', '学院说明', '更改' ],
+                titles: [ '学院编号', '学院名称', '学院说明', '增删改' ],
                 depts: [],
             }
         },
@@ -100,6 +100,15 @@
                     console.log('！！！请求数据失败异常：')
                     console.log(error)
                 });
+            },
+            changing(data) {    //确定删改对象
+                if (data === null) {
+                    cError(this.$toastr, '正在删改空对象！', '错误：')
+                    return
+                }
+                this.changingData = data
+                document.getElementById('name').placeholder = data.name
+                document.getElementById('info').placeholder = data.info
             },
             add() { //增加
                 // console.log('add ', this.newDept)
@@ -127,15 +136,6 @@
                     console.log('！！！添加失败异常：')
                     console.log(error)
                 });
-            },
-            changing(data) {    //确定删改对象
-                if (data === null) {
-                    cError(this.$toastr, '正在删改空对象！', '错误：')
-                    return
-                }
-                this.changingData = data
-                document.getElementById('name').placeholder = data.name
-                document.getElementById('info').placeholder = data.info
             },
             del() {  //删除
                 if (!this.changingData.id && this.changingData.id !== 0) {

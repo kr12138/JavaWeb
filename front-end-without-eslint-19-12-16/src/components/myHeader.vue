@@ -107,7 +107,12 @@
         color: #ddeeee;
     }
     button {
-        background-color: #2475c0;
+        background-color: #4a7eaf;
+        border-color: #4a7eaf;
+    }
+    button:hover {
+        background-color: #528db6;
+        border-color: #4a7eaf;
     }
     .d-none {
         text-emphasis: #ddeeee;

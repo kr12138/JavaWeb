@@ -5,10 +5,7 @@ import com.lyon.Entity.Course;
 import com.lyon.Repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +26,22 @@ public class CourseController {
         System.out.println("course/getAll " + JSON.toJSONString(list) + now());
         response.put("flag", "true");
         response.put("courses", JSON.toJSONString(list));
+        return response;
+    }
+
+    @RequestMapping(value = "/get/{cid}", method = RequestMethod.GET)
+    public HashMap<String, String> getById(
+            @PathVariable long cid
+    ) {
+        HashMap<String, String> response = new HashMap<>();
+        Course course = courseRepository.findById(cid);
+        System.out.println("course/get("+ cid + ") " + JSON.toJSONString(course) + now());
+        if (course == null) {
+            response.put("flag", "false");
+            return response;
+        }
+        response.put("flag", "true");
+        response.put("course", JSON.toJSONString(course));
         return response;
     }
 
