@@ -82,7 +82,7 @@
                     'http://localhost:8080/api/user/login', this.user
                 ).then ( response => {
                     console.log(response)
-                    if (response.data.flag === 'false') {
+                    if (!response.data.flag || response.data.flag === 'false') {
                         error(this.$toastr, '密码错误<br>或所选权限不存在该用户！')
                         return
                     } else {
@@ -91,10 +91,11 @@
                         sessionStorage.setItem("id", this.user.id)
                         console.log('login id:', this.user.id)
                         eventBus.$emit('loginSuccess')
-                        if (response.data.identity === '0') {
-                            sessionStorage.setItem("token", response.data.token)
+                        sessionStorage.setItem("token", response.data.token)
+                        console.log('!token:')
+                        console.log(response.data.token)
+                        if (response.data.identity === '0')
                             location.href = '/#/admin'
-                        }
                         return
                     }
                 }).catch ( error => {
