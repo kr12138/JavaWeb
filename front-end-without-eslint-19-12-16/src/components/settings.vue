@@ -83,7 +83,7 @@
                 }).then ( response => {
                     window.console.log(response)
                     let flag = response.data.flag
-                    if (flag === 'false') {
+                    if (!flag || flag === 'false') {
                         error(this.$toastr, '旧密码错误！<br> 请确认旧密码无误！')
                         return
                     } else {

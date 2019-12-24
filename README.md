@@ -14,7 +14,11 @@
 
 ​	a) 增删改课程信息，包括课程名称，授课教师，课程内容描述，开课学院。 
 
+​			`Course.java, CourseRepository.java, CourseController.java; adminCourse.vue, adminTeachesC.vue`
+
 ​	b) 增删改教师，包括教师名称，所讲授课程（可以有多个），教师职称，教师简介， 
+
+​			`Teacher.java, TeacherRepository.java, TeacherController.java; adminTeacher.vue, adminTeachesT.vue`
 
 ​	c) 增删改学院信息。 
 

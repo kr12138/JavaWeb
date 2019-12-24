@@ -54,7 +54,11 @@ public class UserController {
             response.put("name", user.getName());
             response.put("identity", Short.toString(user.getIdentity()));
             if (user.getIdentity() == 0) {
-                response.put("token", "adminTOKEN");
+                response.put("token", "admin");
+            } else if (user.getIdentity() == 1) {
+                response.put("token", "stude");
+            } else if (user.getIdentity() == 2) {
+                response.put("token", "teach");
             }
         }
         return response;
