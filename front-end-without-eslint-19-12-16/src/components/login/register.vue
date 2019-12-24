@@ -67,7 +67,7 @@
                 ).then ( response => {
                     window.console.log(response)
                     let flag = response.data.flag
-                    if (!flag || flag === 'false') {
+                    if (flag === 'false') {
                         error(this.$toastr, '该学号已注册<br>请尝试用其他ID重新注册！')
                         return
                     } else {

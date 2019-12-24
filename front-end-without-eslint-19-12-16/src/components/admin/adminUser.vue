@@ -156,7 +156,7 @@
                     'http://localhost:8080/api/user/getAll/'+page
                 ).then( response => {
                     console.log(response)
-                    if (!response.data.flag || response.data.flag !== 'true')
+                    if (response.data.flag !== 'true')
                         cError(this.$toastr, '无法得到用户数据！', '错误：')
                     else {
                         this.page = page
@@ -206,7 +206,7 @@
                     'http://localhost:8080/api/user/add', this.newData
                 ).then ( response => {
                     console.log(response)
-                    if (!response.data.flag || response.data.flag === 'false')
+                    if (response.data.flag === 'false')
                         cError(this.$toastr, '添加失败<br>可能已有该编号？')
                     else {
                         cSuccess(this.$toastr, '添加成功！')
@@ -226,7 +226,7 @@
                     'http://localhost:8080/api/user/delete', this.changingData
                 ).then ( response => {
                     console.log(response)
-                    if (!response.data.flag || response.data.flag === 'false')
+                    if (response.data.flag === 'false')
                         cError(this.$toastr, '删除失败<br>可能无该编号？', '错误：')
                     else {
                         cSuccess(this.$toastr, '删除成功！')
@@ -255,7 +255,7 @@
                     'http://localhost:8080/api/user/update', this.changingData
                 ).then ( response => {
                     console.log(response)
-                    if (!response.data.flag || response.data.flag === 'false')
+                    if (response.data.flag === 'false')
                         cError(this.$toastr, '更新失败<br>可能无该编号？')
                     else {
                         cSuccess(this.$toastr, '更新成功！')

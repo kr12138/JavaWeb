@@ -121,15 +121,8 @@
         },
         methods: {
             getData() {    //初始化
-                // this.$axios.get(
-                //     'http://localhost:8080/api/course/getAll'
-                console.log('getting by token: ')
-                console.log(sessionStorage['token'])
-                this.$axios({
-                        methods: 'get',
-                        url: 'http://localhost:8080/api/course/getAll',
-                        // headers: { 'token': sessionStorage['token'] }
-                    }
+                this.$axios.get(
+                    'http://localhost:8080/api/course/getAll'
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true')
@@ -141,7 +134,7 @@
                     console.log(error)
                 });
                 this.$axios.get(
-                    'http://localhost:8080/api/dept/getAll',
+                    'http://localhost:8080/api/dept/getAll'
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true')

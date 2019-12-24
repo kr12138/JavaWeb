@@ -126,11 +126,12 @@
                     'http://localhost:8080/api/dept/add', this.newData
                 ).then ( response => {
                     console.log(response)
-                    if (response.data.flag === 'true') {
+                    if (response.data.flag === 'false')
+                        cError(this.$toastr, '添加失败<br>可能已有该编号？')
+                    else {
                         cSuccess(this.$toastr, '添加成功！')
                         this.getData()
-                    } else
-                        cError(this.$toastr, '添加失败<br>可能已有该编号？')
+                    }
                 }).catch ( error => {
                     console.log('！！！添加失败异常：')
                     console.log(error)
@@ -145,11 +146,12 @@
                     'http://localhost:8080/api/dept/delete', this.changingData
                 ).then ( response => {
                     console.log(response)
-                    if (response.data.flag === 'true') {
+                    if (response.data.flag === 'false')
+                        cError(this.$toastr, '删除失败<br>可能无该编号？', '错误：')
+                    else {
                         cSuccess(this.$toastr, '删除成功！')
                         this.getData()
-                    } else
-                        cError(this.$toastr, '删除失败<br>可能无该编号？', '错误：')
+                    }
                 }).catch ( error => {
                     console.log('！！！删除失败异常：')
                     console.log(error)
@@ -170,11 +172,12 @@
                     'http://localhost:8080/api/dept/update', this.changingData
                 ).then ( response => {
                     console.log(response)
-                    if (response.data.flag === 'false') {
+                    if (response.data.flag === 'false')
+                        cError(this.$toastr, '更新失败<br>可能无该编号？')
+                    else {
                         cSuccess(this.$toastr, '更新成功！')
                         this.getData()
-                    } else
-                        cError(this.$toastr, '更新失败<br>可能无该编号？')
+                    }
                 }).catch ( error => {
                     console.log('！！！更新失败异常：')
                     console.log(error)

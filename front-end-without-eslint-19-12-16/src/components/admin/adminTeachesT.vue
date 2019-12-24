@@ -107,10 +107,10 @@
                         cid: this.newCourseID
                     }).then ( response => {
                     console.log(response)
-                    if (response.data.flag === 'true')
-                        cSuccess(this.$toastr, '添加成功！')
-                    else
+                    if (response.data.flag === 'false')
                         cError(this.$toastr, '添加失败<br>可能已有该授课？')
+                    else
+                        cSuccess(this.$toastr, '添加成功！')
                     this.getByUid(this.searchingT.id)
                 }).catch ( error => {
                     console.log('！！！添加失败异常：')
@@ -131,10 +131,10 @@
                         cid: x
                     }).then ( response => {
                     console.log(response)
-                    if (response.data.flag === 'true')
-                        cSuccess(this.$toastr, '删除成功！')
-                    else
+                    if (response.data.flag === 'false')
                         cError(this.$toastr, '删除失败<br>可能无该授课？')
+                    else
+                        cSuccess(this.$toastr, '删除成功！')
                     this.getByUid(this.searchingT.id)
                 }).catch ( error => {
                     console.log('！！！删除失败异常：')
