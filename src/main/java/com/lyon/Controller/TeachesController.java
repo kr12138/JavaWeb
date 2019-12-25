@@ -61,6 +61,22 @@ public class TeachesController {
         return response;
     }
 
+    @RequestMapping(value = "/getCourseByUid/{uid}", method = RequestMethod.GET)
+    public HashMap<String, String> getCourseByUid(
+            @PathVariable long uid
+    ) {
+        HashMap<String, String> response = new HashMap<>();
+        final List<Teaches> list = teachesRepository.findByUid(uid);
+        final List<Course> clist = new ArrayList<>();
+        int sz = list.size();
+        for (int i=0; i<sz; ++i)
+            clist.add(courseRepository.findById(list.get(i).getCid()));
+        System.out.println("teaches/getCourseByUid/"+ uid + JSON.toJSONString(clist) + now());
+        response.put("flag", "true");
+        response.put("clist", JSON.toJSONString(clist));
+        return response;
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public HashMap<String, String> add(
             @RequestBody HashMap<String, String> data

@@ -22,7 +22,7 @@ public class CorsConfig extends WebMvcConfigurerAdapter {
                 .allowedOrigins("*")
                 .allowCredentials(true)
                 .allowedMethods("*")
-        ;
+                ;
 //                .allowedHeaders("*");
     }
 
@@ -41,8 +41,8 @@ public class CorsConfig extends WebMvcConfigurerAdapter {
     static private class CORSInterceptor extends HandlerInterceptorAdapter {
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-            System.out.println("-cors ing ");
-            //添加跨域CORS
+//            System.out.println("--CORSing ");
+            // 允许token
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type,token");
             response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");

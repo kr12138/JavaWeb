@@ -31,10 +31,13 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
         user.addPathPatterns("/**/**");
 
         InterceptorRegistration admin = registry.addInterceptor(getAdminHandlerInterceptor());
-        admin.addPathPatterns("/**/getAll/**");
-        admin.addPathPatterns("/**/get/**");
-        admin.addPathPatterns("/**/getByUid/**");
-        admin.addPathPatterns("/**/getByCid/**");
+//        admin.addPathPatterns("/**/getAll/**");
+//        admin.addPathPatterns("/**/get/**");
+//        admin.addPathPatterns("/**/getByUid/**");
+//        admin.addPathPatterns("/**/getByCid/**");
+        admin.excludePathPatterns("/**/login/**");
+        admin.excludePathPatterns("/**/register/**");
+        admin.addPathPatterns("/**/user/**");
         admin.addPathPatterns("/**/add");
         admin.addPathPatterns("/**/delete");
         admin.addPathPatterns("/**/update");

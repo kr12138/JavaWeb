@@ -76,7 +76,7 @@
                 }
 
                 this.$axios.put(
-                    'http://localhost:8080/api/user/changePassword', {
+                    'api/user/changePassword', {
                         id: this.id,
                         oldPassword: this.oldPassword,
                         newPassword: this.newPassword,

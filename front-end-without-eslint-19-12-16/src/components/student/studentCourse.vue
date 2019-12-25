@@ -1,44 +1,49 @@
 <template>
     <div class="container">
+        <div class="container-fluid">
+            <div class="input-group mb-3 col-lg-8 offset-lg-2">
+                <input type="number" class="form-control"
+                       placeholder="按教师工号"
+                       v-model=" searchingTeacherID "
+                       @keyup=" searchT() ">
+                <div class="input-group-append">
+                    <span class="input-group-text glyphicon glyphicon-search"
+                    > 搜索 </span>
+                    <!-- style="text-shadow: #aaaaaa 2px 1px 1px;"-->
+                </div>
+            </div>
+            <div class="input-group mb-3 col-lg-8 offset-lg-2">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle"
+                            id="deptMenu"
+                            data-toggle="dropdown"> 按开课学院 </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#"
+                           v-for=" dept in depts "
+                           @click=" handleDeptClick( dept.name ) "> {{ dept.name }}
+                        </a>
+                    </div>
+                </div>
+                <div class="input-group-append">
+                    <span class="input-group-text glyphicon glyphicon-search"
+                          style="margin-left: 3px;"
+                    > 搜索 </span>
+                </div>
+            </div>
+            <div id="courseName"> {{ searchingTeacherName }} </div>
+        </div> <br>
+
         <h2> 课程列表 </h2> <br>
         <table class="table table-hover">
             <thead>
             <tr> <th v-for=" title in titles "> {{ title }} </th> </tr>
             </thead>
             <tbody>
-            <tr class="container-fluid">
-                <th> <input type="number" class="form-control"
-                            placeholder="在此输入新课程编号"
-                            v-model=" newData.id "> </th>
-                <th> <input type="text" class="form-control"
-                            placeholder="在此输入新课程名称"
-                            v-model=" newData.name "> </th>
-                <th>
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-outline-secondary dropdown-toggle"
-                                id="deptMenu"
-                                data-toggle="dropdown"> 在此选择新开课学院 </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#"
-                               v-for=" dept in depts "
-                               @click=" handleDeptClick( dept.name ) "> {{ dept.name }}
-                            </a>
-                        </div>
-                    </div>
-                </th>
-                <th> <input type="text" class="form-control"
-                            placeholder="在此输入新课程说明"
-                            v-model=" newData.info "> </th>
-                <th> <button class="btn btn-info" @click=" add "> 新增 </button> </th>
-            </tr>
             <tr v-for=" course in courses ">
                 <th> {{ course.id }} </th>
                 <th> {{ course.name }} </th>
                 <th> {{ course.dept }} </th>
                 <th> {{ course.info }} </th>
-                <th> <button class="btn btn-info"
-                             data-toggle="modal" data-target="#changingModal"
-                             @click=" changing( course ) " > 删改 </button> </th>
                 <th> <button class="btn btn-info"
                              @click=" searching( course ) " > 查看 </button> </th>
             </tr>
@@ -88,14 +93,14 @@
                             <input type="text" class="form-control"
                                    id="info" v-model=" changingData.info ">
                         </div> <br> <br>
-                        <div class="row">
-                            <button type="button" class="btn btn-info col-2 offset-3"
-                                    data-dismiss="modal" aria-hidden="true"
-                                    @click=" update "> 更新 </button>
-                            <button type="button" class="btn btn-secondary col-2 offset-2"
-                                    data-dismiss="modal" aria-hidden="true"
-                                    @click=" del "> 删除 </button>
-                        </div>
+<!--                        <div class="row">-->
+<!--                            <button type="button" class="btn btn-info col-2 offset-3"-->
+<!--                                    data-dismiss="modal" aria-hidden="true"-->
+<!--                                    @click=" update "> 更新 </button>-->
+<!--                            <button type="button" class="btn btn-secondary col-2 offset-2"-->
+<!--                                    data-dismiss="modal" aria-hidden="true"-->
+<!--                                    @click=" del "> 删除 </button>-->
+<!--                        </div>-->
                     </div> <br> <br>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
@@ -106,21 +111,24 @@
 <script>
     import {info, cError, cSuccess} from "../../myToastr.js";
     export default {
-        name: "adminCourse",
+        name: "studentCourse",
         mounted() {
             this.getData();
         },
         data() {
             return {
+                searchingTeacherID: undefined,
+                searchingTeacherName: '',
                 newData: { id: undefined, name: '', dept: '', info: '' },
                 changingData: {},
-                titles: [ '课程编号', '课程名称', '开课学院', '课程说明', '增删改', '教师'],
+                titles: [ '课程编号', '课程名称', '开课学院', '课程说明', '授课教师', '相关提问' ],
                 depts: [],
                 courses: [],
             }
         },
         methods: {
             getData() {    // 初始化
+                console.log(sessionStorage['searchingCID'])
                 this.$axios.get(
                         'api/course/getAll'
                 ).then( response => {
@@ -164,81 +172,6 @@
                 document.getElementById('deptMenu2').innerText = data.dept
                 document.getElementById('info').placeholder = data.info
             },
-            add() { // 增加
-                if (!this.newData.id && this.newData.id !== 0) {
-                    info(this.$toastr, '请先输入编号', '提示：')
-                    return
-                } else if (!this.newData.name) {
-                    info(this.$toastr, '请先输入名称', '提示：')
-                    return
-                } else if (!this.newData.dept) {
-                    info(this.$toastr, '请先选择学院', '提示：')
-                    return
-                }  else if (!this.newData.info) {
-                    info(this.$toastr, '请先输入说明', '提示：')
-                    return
-                }
-                this.$axios.post(
-                    'api/course/add', this.newData
-                ).then ( response => {
-                    console.log(response)
-                    if (response.data.flag === 'false')
-                        cError(this.$toastr, '添加失败<br>可能已有该编号？')
-                    else {
-                        cSuccess(this.$toastr, '添加成功！')
-                        this.getData()
-                    }
-                }).catch ( error => {
-                    console.log('！！！添加失败异常：')
-                    console.log(error)
-                });
-            },
-            del() {  // 删除
-                if (!this.changingData.id && this.changingData.id !== 0) {
-                    cError(this.$toastr, '无课程编号！请重试', '错误：')
-                    return
-                }
-                this.$axios.post(
-                    'api/course/delete', this.changingData
-                ).then ( response => {
-                    console.log(response)
-                    if (response.data.flag === 'false')
-                        cError(this.$toastr, '删除失败<br>可能无该编号？', '错误：')
-                    else {
-                        cSuccess(this.$toastr, '删除成功！')
-                        this.getData()
-                    }
-                }).catch ( error => {
-                    console.log('！！！删除失败异常：')
-                    console.log(error)
-                });
-            },
-            update() {  // 更改
-                if (!this.changingData.id && this.changingData.id !== 0) {
-                    cError(this.$toastr, '无课程编号！请重试', '错误：')
-                    return
-                } else if (!this.changingData.name) {
-                    info(this.$toastr, '请先输入名称', '提示：')
-                    return
-                } else if (!this.changingData.dept) {
-                    info(this.$toastr, '请先选择学院', '提示：')
-                    return
-                }
-                this.$axios.put(
-                    'api/course/update', this.changingData
-                ).then ( response => {
-                    console.log(response)
-                    if (response.data.flag === 'false')
-                        cError(this.$toastr, '更新失败<br>可能无该编号？')
-                    else {
-                        cSuccess(this.$toastr, '更新成功！')
-                        this.getData()
-                    }
-                }).catch ( error => {
-                    console.log('！！！更新失败异常：')
-                    console.log(error)
-                });
-            },
             searching(data) {   // 确定要查看教师的课程
                 if (data === null) {
                     cError(this.$toastr, '正在查询空对象！', '错误：')
@@ -248,10 +181,28 @@
                 sessionStorage.setItem('searchingCNAME', data.name)
                 location.href = '/#/admin/teachesC'
             },
+            searchT() {  // 按教师工号查教师名
+                this.$axios.get(
+                    'api/teacher/get/' + this.searchingTeacherID
+                ).then( response => {
+                    console.log(response)
+                    if (response.data.flag === 'true')
+                        this.searchingTeacherName = JSON.parse(response.data.teacher).name
+                    else
+                        this.searchingTeacherName = '无该教师！'
+                }).catch( error => {
+                    console.log('！！！请求数据失败异常：')
+                    console.log(error)
+                });
+            },
         }
     }
 </script>
 
 <style scoped>
     .container { font-family: Consolas, Inconsolata, "微软雅黑" }
+    span::before {
+        vertical-align: middle;
+        /*padding-right: 5px;*/
+    }
 </style>

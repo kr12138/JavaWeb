@@ -1,4 +1,4 @@
-@@ -0,0 +1,82 @@
+
 DROP TABLE `user`;
 
 CREATE TABLE `user` (
@@ -61,6 +61,7 @@ CREATE TABLE `question` (
 	`teacher_id` BIGINT (20) NOT NULL REFERENCES `user` (`u_id`),
 	`title` VARCHAR (50) NOT NULL,
 	`content` VARCHAR (200),
+	`img_id` BIGINT (20) DEFAULT NULL,
 	`date` VARCHAR (40),
 	`read_by_teacher` bit DEFAULT 0,
 	PRIMARY KEY (`q_id`)
@@ -81,4 +82,4 @@ CREATE TABLE `answer` (
 -- ALTER TABLE `answer` ADD UNIQUE `index_answer` ON `q_id`(20);
 -- ADD INDEX `index_answer` ON `answer`(`q_id`(20));
 INSERT INTO `user` (`u_id`,	`name`,	`password`,	`identity`)
-			VALUES (0, 'Admin', 'admin', 0);
+			VALUES (0, 'Admin', '000', 0);

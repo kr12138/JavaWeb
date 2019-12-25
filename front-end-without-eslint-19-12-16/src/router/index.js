@@ -16,6 +16,11 @@ import adminCourse from "@/components/admin/adminCourse"
 import adminTeacher from "@/components/admin/adminTeacher"
 import adminTeachesT from "@/components/admin/adminTeachesT"
 import adminTeachesC from "@/components/admin/adminTeachesC"
+import studentNav from "@/components/student/studentNav"
+import studentDept from "@/components/student/studentDept"
+import studentCourse from "@/components/student/studentCourse"
+import studentTeacher from "@/components/student/studentTeacher"
+import studentQuestion from "@/components/student/studentQuestion"
 
 Vue.use(VueRouter)
 
@@ -66,6 +71,18 @@ const routes = [
           {path: 'teachesC', component: adminTeachesC, meta: {title: '授课教师管理'} },
         ],
         meta: {title: '系统管理'},
+      },
+      {
+        path: '/student',
+        redirect: '/student/course',
+        component: studentNav,
+        children: [
+          {path: 'dept', component: studentDept, meta: {title: '查看学院'} },
+          {path: 'course', component: studentCourse, meta: {title: '查看课程'} },
+          {path: 'teacher', component: studentTeacher, meta: {title: '查看教师'} },
+          {path: 'question', component: studentQuestion, meta: {title: '查看提问'} },
+        ],
+        meta: {title: '学生中心'},
       },
       {
         path: '/profile',

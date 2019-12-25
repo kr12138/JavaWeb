@@ -40,9 +40,9 @@
         name: "adminTeachesT",
         data() {
             return {
-                searchingT: { id:'', name:'', clist:[] },   //增删课程的教师
-                newCourseID: undefined, //新增授课ID
-                newCourseName: ''   //新增授课名，需查询
+                searchingT: { id:'', name:'', clist:[] },   // 增删课程的教师
+                newCourseID: undefined, // 新增授课ID
+                newCourseName: ''   // 新增授课名，需查询
             }
         },
         mounted() {
@@ -62,9 +62,9 @@
             }
         },
         methods: {
-            getByUid(uid) { //从教师工号获得数据
+            getByUid(uid) { // 从教师工号获得数据
                 this.$axios.get(
-                    'http://localhost:8080/api/teaches/getByUid/'+uid
+                    'api/teaches/getByUid/' + uid
                 ).then(response => {
                     console.log(response)
                     if (response.data.flag === 'true')
@@ -76,9 +76,13 @@
                     console.log(error)
                 });
             },
-            searchC() {  //查课程名
+            searchC() {  // 查课程名
+                if (!this.newCourseID) {
+                    this.newCourseName = '无该课程！'
+                    return
+                }
                 this.$axios.get(
-                    'http://localhost:8080/api/course/get/'+this.newCourseID
+                    'api/course/get/' + this.newCourseID
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true')
@@ -90,7 +94,7 @@
                     console.log(error)
                 });
             },
-            addC() {    //增加课程
+            addC() {    // 增加课程
                 if (!this.searchingT.id && this.searchingT.id !== 0) {
                     cError(this.$toastr, '无教师工号', '错误：')
                     return
@@ -102,7 +106,7 @@
                     return
                 }
                 this.$axios.post(
-                    'http://localhost:8080/api/teaches/add',{
+                    'api/teaches/add',{
                         uid: this.searchingT.id,
                         cid: this.newCourseID
                     }).then ( response => {
@@ -117,7 +121,7 @@
                     console.log(error)
                 });
             },
-            deleteC(x) {    //删除课程
+            deleteC(x) {    // 删除课程
                 if (!this.searchingT.id && this.searchingT.id !== 0) {
                     cError(this.$toastr, '无教师工号', '错误：')
                     return
@@ -126,7 +130,7 @@
                     return
                 }
                 this.$axios.post(
-                    'http://localhost:8080/api/teaches/delete',{
+                    'api/teaches/delete',{
                         uid: this.searchingT.id,
                         cid: x
                     }).then ( response => {

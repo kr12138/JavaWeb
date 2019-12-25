@@ -94,16 +94,16 @@
         },
         data() {
             return {
-                newData: { id: undefined, name: '', prof: '', info: '' },   //新增教师
-                changingData: {},   //删改教师
+                newData: { id: undefined, name: '', prof: '', info: '' },   // 新增教师
+                changingData: {},   // 删改教师
                 titles: [ '教师工号', '教师名称', '教师职称', '教师说明', '增删改', '授课' ],
                 teachers: [],
             }
         },
         methods: {
-            getData() {    //初始化
+            getData() {    // 初始化
                 this.$axios.get(
-                    'http://localhost:8080/api/teacher/getAll'
+                    'api/teacher/getAll'
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true')
@@ -115,7 +115,7 @@
                     console.log(error)
                 });
             },
-            changing(data) {    //确定删改对象
+            changing(data) {    // 确定删改对象
                 if (data === null) {
                     cError(this.$toastr, '正在删改空对象！', '错误：')
                     return
@@ -125,7 +125,7 @@
                 document.getElementById('prof').placeholder = data.prof
                 document.getElementById('info').placeholder = data.info
             },
-            add() { //增加
+            add() { // 增加
                 if (!this.newData.id && this.newData.id !== 0) {
                     info(this.$toastr, '请先输入编号', '提示：')
                     return
@@ -140,7 +140,7 @@
                     return
                 }
                 this.$axios.post(
-                    'http://localhost:8080/api/teacher/add', this.newData
+                    'api/teacher/add', this.newData
                 ).then ( response => {
                     console.log(response)
                     if (response.data.flag === 'true') {
@@ -153,13 +153,13 @@
                     console.log(error)
                 });
             },
-            del() {  //删除
+            del() {  // 删除
                 if (!this.changingData.id && this.changingData.id !== 0) {
                     cError(this.$toastr, '无教师工号！请重试', '错误：')
                     return
                 }
                 this.$axios.post(
-                    'http://localhost:8080/api/teacher/delete', this.changingData
+                    'api/teacher/delete', this.changingData
                 ).then ( response => {
                     console.log(response)
                     if (response.data.flag === 'true') {
@@ -174,7 +174,7 @@
                     console.log(error)
                 });
             },
-            update() {  //更改
+            update() {  // 更改
                 if (!this.changingData.id && this.changingData.id !== 0) {
                     cError(this.$toastr, '无教师工号！请重试', '错误：')
                     return
@@ -186,7 +186,7 @@
                     return
                 }
                 this.$axios.put(
-                    'http://localhost:8080/api/teacher/update', this.changingData
+                    'api/teacher/update', this.changingData
                 ).then ( response => {
                     console.log(response)
                     if (response.data.flag === 'true') {
@@ -200,7 +200,7 @@
                     console.log(error)
                 });
             },
-            searching(data) {   //确定要查看课程的教师
+            searching(data) {   // 确定要查看课程的教师
                 if (data === null) {
                     cError(this.$toastr, '正在查询空对象！', '错误：')
                     return

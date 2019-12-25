@@ -18,7 +18,7 @@
                                 placeholder="在此输入新教师工号"
                                 v-model=" newTeacherID "
                                 @keyup=" searchT() "> </th>
-                    <th id="courseName"> {{ newTeacherName }} </th>
+                    <th> {{ newTeacherName }} </th>
                     <th> <button class="btn btn-info" @click=" addT "> 新增 </button> </th>
                 </tr>
                 <tr v-for=" t in searchingC.tlist ">
@@ -40,9 +40,9 @@
         name: "adminTeachesC",
         data() {
             return {
-                searchingC: { id:'', name:'', tlist:[] },   //增删教师的课程
-                newTeacherID: undefined, //新增教师ID
-                newTeacherName: ''   //新增教师名，需查询
+                searchingC: { id:'', name:'', tlist:[] },   // 增删教师的课程
+                newTeacherID: undefined, // 新增教师ID
+                newTeacherName: ''   // 新增教师名，需查询
             }
         },
         mounted() {
@@ -58,13 +58,12 @@
                 // this.$set(this.searchingC, "name", cname)
                 sessionStorage.removeItem('searchingCNAME')
                 this.getByCid(cid)
-                return
             }
         },
         methods: {
-            getByCid(cid) { //从课程编号获得数据
+            getByCid(cid) { // 从课程编号获得数据
                 this.$axios.get(
-                    'http://localhost:8080/api/teaches/getByCid/'+cid
+                    'api/teaches/getByCid/' + cid
                 ).then(response => {
                     console.log(response)
                     if (response.data.flag === 'true')
@@ -76,9 +75,13 @@
                     console.log(error)
                 });
             },
-            searchT() {  //查教师名
+            searchT() {  // 查教师名
+                if (!this.newTeacherID) {
+                    this.newTeacherName = '无该教师！'
+                    return
+                }
                 this.$axios.get(
-                    'http://localhost:8080/api/teacher/get/'+this.newTeacherID
+                    'api/teacher/get/' + this.newTeacherID
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true')
@@ -90,7 +93,7 @@
                     console.log(error)
                 });
             },
-            addT() {    //增加教师
+            addT() {    // 增加教师
                 if (!this.searchingC.id && this.searchingC.id !== 0) {
                     cError(this.$toastr, '无课程编号', '错误：')
                     return
@@ -102,7 +105,7 @@
                     return
                 }
                 this.$axios.post(
-                    'http://localhost:8080/api/teaches/add',{
+                    'api/teaches/add',{
                         uid: this.newTeacherID,
                         cid: this.searchingC.id
                     }).then ( response => {
@@ -117,7 +120,7 @@
                     console.log(error)
                 });
             },
-            deleteT(x) {    //删除教师
+            deleteT(x) {    // 删除教师
                 if (!this.searchingC.id && this.searchingC.id !== 0) {
                     cError(this.$toastr, '无课程编号', '错误：')
                     return
@@ -126,7 +129,7 @@
                     return
                 }
                 this.$axios.post(
-                    'http://localhost:8080/api/teaches/delete',{
+                    'api/teaches/delete',{
                         uid: x,
                         cid: this.searchingC.id
                     }).then ( response => {

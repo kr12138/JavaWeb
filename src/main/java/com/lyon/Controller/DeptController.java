@@ -28,7 +28,7 @@ public class DeptController {
 //        Sort sort = new Sort(Sort.Direction.ASC, "id");
         HashMap<String, String> response = new HashMap<>();
         final List<Dept> list = deptRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
-        System.out.println("dept/getAll：" + JSON.toJSONString(list) + now());
+        System.out.println("dept/getAll " + JSON.toJSONString(list) + now());
 
         response.put("flag", "true");
         response.put("depts", JSON.toJSONString(list));

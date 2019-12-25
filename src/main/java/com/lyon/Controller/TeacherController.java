@@ -45,6 +45,22 @@ public class TeacherController {
         return response;
     }
 
+    @RequestMapping(value = "/getByName/{name}", method = RequestMethod.GET)
+    public HashMap<String, String> getByName(
+            @PathVariable String name
+    ) {
+        HashMap<String, String> response = new HashMap<>();
+        Teacher teacher = teacherRepository.findByName(name);
+        System.out.println("teacher/getByName("+ name + ") " + JSON.toJSONString(teacher) + now());
+        if (teacher == null) {
+            response.put("flag", "false");
+            return response;
+        }
+        response.put("flag", "true");
+        response.put("teacher", JSON.toJSONString(teacher));
+        return response;
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public HashMap<String, String> add(
             @RequestBody Teacher data

@@ -79,13 +79,12 @@
                 }
 
                 this.$axios.post(
-                    'http://localhost:8080/api/user/login', this.user
+                    'api/user/login', this.user
                 ).then ( response => {
                     console.log(response)
-                    if (!response.data.flag || response.data.flag === 'false') {
+                    if (!response.data.flag || response.data.flag === 'false')
                         error(this.$toastr, '密码错误<br>或所选权限不存在该用户！')
-                        return
-                    } else {
+                    else {
                         success(this.$toastr, '登录成功！<br>单击右上角看看有没有新消息吧！')
                         sessionStorage.setItem("name", response.data.name)
                         sessionStorage.setItem("id", this.user.id)
@@ -96,7 +95,8 @@
                         console.log(response.data.token)
                         if (response.data.identity === '0')
                             location.href = '/#/admin'
-                        return
+                        else if (response.data.identity === '1')
+                            location.href = '/#/student'
                     }
                 }).catch ( error => {
                     console.log('！！！登录失败异常：')

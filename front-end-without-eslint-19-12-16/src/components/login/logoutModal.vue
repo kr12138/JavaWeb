@@ -40,7 +40,7 @@
 
         methods: {
             logout() {
-                if (sessionStorage.name !== 0 && !sessionStorage.name) {
+                if (sessionStorage['name'] !== 0 && !sessionStorage['name']) {
                     error(this.$toastr, '并没有用户名，可能您未成功登陆或已登出', '提示：')
                     return
                 }

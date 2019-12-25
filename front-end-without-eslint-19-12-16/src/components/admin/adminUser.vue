@@ -143,7 +143,7 @@
             }
         },
         methods: {
-            getData(page) {    //初始化
+            getData(page) {    // 初始化
                 console.log('正在请求页码：'+page)
                 if (page<0) {
                     cInfo(this.$toastr, '已是首页，无上一页', '提示')
@@ -153,7 +153,7 @@
                     return
                 }
                 this.$axios.get(
-                    'http://localhost:8080/api/user/getAll/'+page
+                    'api/user/getAll/'+page
                 ).then( response => {
                     console.log(response)
                     if (!response.data.flag || response.data.flag !== 'true')
@@ -168,15 +168,15 @@
                     console.log(error)
                 });
             },
-            handleIdentityClick(x) {    //更改新用户权限
+            handleIdentityClick(x) {    // 更改新用户权限
                 this.newData.identity = x
                 document.getElementById('identityMenu').innerText = this.identityInfo[x]
             },
-            handleIdentityClick2(x) {   //更改待删改用户权限
+            handleIdentityClick2(x) {   // 更改待删改用户权限
                 this.changingData.identity = x
                 document.getElementById('identityMenu2').innerText = this.identityInfo[x]
             },
-            changing(data) {    //确定删改对象
+            changing(data) {    // 确定删改对象
                 if (data === null) {
                     cError(this.$toastr, '正在删改空对象！', '错误：')
                     return
@@ -187,7 +187,7 @@
                 document.getElementById('password').placeholder = data.password
                 document.getElementById('identityMenu2').innerText = this.identityInfo[data.identity]
             },
-            add() { //增加
+            add() { // 增加
                 // console.log('add ', this.newDept)
                 if (!this.newData.id && this.newData.id !== 0) {
                     info(this.$toastr, '请先输入编号', '提示：')
@@ -203,7 +203,7 @@
                     return
                 }
                 this.$axios.post(
-                    'http://localhost:8080/api/user/add', this.newData
+                    'api/user/add', this.newData
                 ).then ( response => {
                     console.log(response)
                     if (!response.data.flag || response.data.flag === 'false')
@@ -217,13 +217,13 @@
                     console.log(error)
                 });
             },
-            del() {  //删除
+            del() {  // 删除
                 if (!this.changingData.id && this.changingData.id !== 0) {
                     cError(this.$toastr, '无用户编号！请重试', '错误：')
                     return
                 }
                 this.$axios.post(
-                    'http://localhost:8080/api/user/delete', this.changingData
+                    'api/user/delete', this.changingData
                 ).then ( response => {
                     console.log(response)
                     if (!response.data.flag || response.data.flag === 'false')
@@ -237,7 +237,7 @@
                     console.log(error)
                 });
             },
-            update() {  //更改
+            update() {  // 更改
                 if (!this.changingData.id && this.changingData.id !== 0) {
                     cError(this.$toastr, '无用户编号！请重试', '错误：')
                     return
@@ -252,7 +252,7 @@
                     return
                 }
                 this.$axios.put(
-                    'http://localhost:8080/api/user/update', this.changingData
+                    'api/user/update', this.changingData
                 ).then ( response => {
                     console.log(response)
                     if (!response.data.flag || response.data.flag === 'false')

@@ -63,7 +63,7 @@
                 }
 
                 this.$axios.post(
-                    'http://localhost:8080/api/user/register', this.user
+                    'api/user/register', this.user
                 ).then ( response => {
                     window.console.log(response)
                     let flag = response.data.flag

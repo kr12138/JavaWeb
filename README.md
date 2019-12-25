@@ -1,6 +1,8 @@
 # JavaWeb
  Final assigment of Java Web application development./JavaWeb实验课结课大作业
 
+`2019-12-25 我感觉要写不完了……`
+
 ## 教学在线留言答疑系统
 大学教学中，学生在课后，可以通过该网站提出问题留言，教师登录后可以选择回答。 
 
@@ -14,7 +16,11 @@
 
 ​	a) 增删改课程信息，包括课程名称，授课教师，课程内容描述，开课学院。 
 
+​			`Course.java, CourseRepository.java, CourseController.java; adminCourse.vue, adminTeachesC.vue`
+
 ​	b) 增删改教师，包括教师名称，所讲授课程（可以有多个），教师职称，教师简介， 
+
+​			`Teacher.java, TeacherRepository.java, TeacherController.java; adminTeacher.vue, adminTeachesT.vue`
 
 ​	c) 增删改学院信息。 
 
@@ -27,6 +33,8 @@
 ​	a) 登录后，如果自己的留言问题有老师回答，将显示提示有几条回答，并可以通过连接直接跳转到该回答留言信息。 
 
 ​	b) 登录后，每个课程均可以有若干留言问题，可以按学院，教师分类浏览所有课程列表 
+
+​			`DeptController.java, courseController.java, TeachesController.java, TeacherController.java; studentDept.vue, studentTeacher.vue`
 
 ​	c) 可以选择进入某课程的页面，并显示该课程的相关信息和简介，以及该课程的所有留言问题与教师解答（如果没有教师解答，显示未解答）。 
 
@@ -57,4 +65,5 @@
 ​	g) 可以上传图片的文件附件
 
 #### 5、 所有帐号都可以修改自己的帐号密码
+
 ​			`User.java, UserRepository.java, UserController.java; settings.vue`
