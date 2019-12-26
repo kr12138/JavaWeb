@@ -110,8 +110,8 @@
                     cError(this.$toastr, '正在查询空课程！', '错误：')
                     return
                 }
-                sessionStorage.setItem('searchingCID', course.id)
-                sessionStorage.setItem('searchingCNAME', course.name)
+                sessionStorage['searchingCID']= course.id
+                sessionStorage['searchingCNAME'] = course.name
                 location.href = '/#/student/course'
             },
         }

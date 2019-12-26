@@ -117,42 +117,47 @@
         },
         data() {
             return {
-                searchingTeacherID: undefined,
-                searchingTeacherName: '',
+                searchingCID: undefined,
+                searchingC: null,
                 newData: { id: undefined, name: '', dept: '', info: '' },
                 changingData: {},
                 titles: [ '课程编号', '课程名称', '开课学院', '课程说明', '授课教师', '相关提问' ],
                 depts: [],
-                courses: [],
+                course: null,
             }
         },
         methods: {
-            getData() {    // 初始化
-                console.log(sessionStorage['searchingCID'])
-                this.$axios.get(
-                        'api/course/getAll'
-                ).then( response => {
-                    console.log(response)
-                    if (response.data.flag === 'true')
-                        this.courses = JSON.parse(response.data.courses)
-                    else
-                        cError(this.$toastr, '无法得到课程数据！', '错误：')
-                }).catch( error => {
-                    console.log('！！！请求数据失败异常：')
-                    console.log(error)
-                });
-                this.$axios.get(
-                    'api/dept/getAll',
-                ).then( response => {
-                    console.log(response)
-                    if (response.data.flag === 'true')
-                        this.depts = JSON.parse(response.data.depts)
-                    else
-                        cError(this.$toastr, '无法得到学院数据！', '错误：')
-                }).catch( error => {
-                    console.log('！！！请求数据失败异常：')
-                    console.log(error)
-                });
+            getData() { // 初始化
+                let tempCID = sessionStorage['searchingCID']
+                if(tempCID !== undefined) {
+                    console.log('Init ing stuCourse by ' + tempCID)
+                    this.$axios.get(
+                        'api/course/get/' + tempCID
+                    ).then(response => {
+                        console.log(response)
+                        if (response.data.flag === 'true')
+                            this.course = JSON.parse(response.data.course)
+                        else
+                            cError(this.$toastr, '无法得到课程数据！', '错误：')
+                    }).catch(error => {
+                        console.log('！！！请求数据失败异常：')
+                        console.log(error)
+                    });
+                }
+                if (this.course !== null) {
+                    this.$axios.get(
+                        'api/question/getAll',
+                    ).then(response => {
+                        console.log(response)
+                        if (response.data.flag === 'true')
+                            this.depts = JSON.parse(response.data.depts)
+                        else
+                            cError(this.$toastr, '无法得到学院数据！', '错误：')
+                    }).catch(error => {
+                        console.log('！！！请求数据失败异常：')
+                        console.log(error)
+                    });
+                }
             },
             handleDeptClick(name) { // 更改新课程学院
                 this.newData.dept = name

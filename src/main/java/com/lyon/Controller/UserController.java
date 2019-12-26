@@ -81,6 +81,7 @@ public class UserController {
         }
         return response;
     }
+
     @RequestMapping(value = "/changePassword", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public HashMap<String, String> changeUser(
             @RequestBody HashMap<String, String> data

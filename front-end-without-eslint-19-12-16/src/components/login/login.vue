@@ -90,9 +90,9 @@
                         sessionStorage.setItem("id", this.user.id)
                         console.log('login id:', this.user.id)
                         eventBus.$emit('loginSuccess')
-                        sessionStorage.setItem("token", response.data.token)
                         console.log('!token:')
                         console.log(response.data.token)
+                        sessionStorage.setItem("token", response.data.token)
                         if (response.data.identity === '0')
                             location.href = '/#/admin'
                         else if (response.data.identity === '1')

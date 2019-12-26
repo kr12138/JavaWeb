@@ -2,19 +2,20 @@
     <div class="container"> <br>
         <div class="container-fluid">
             <div class="row">
-                <input type="number" class="form-control offset-4 col-4"
+                <label class="d-block col-md-2"> </label>
+                <input type="number" class="form-control col-sm-4 col-md-3"
                        style="margin-left: 5px;"
                        placeholder="在此输入教师工号"
                        id="idInput"
                        v-model=" searchingTID "
-                       @keyup=" searchTByID ">
-                <input type="text" class="form-control col-4"
+                       @keyup=" searchTByID "/>
+                <input type="text" class="form-control col-sm-4 col-md-3"
                        style="margin-left: 5px;"
                        placeholder="在此输入教师姓名"
                        id="nameInput"
                        v-model=" searchingTName "
                        @keyup=" searchTByName ">
-                <span class="btn btn-info col-2"
+                <span class="btn btn-info col-sm-2"
                       style="margin-left: 5px;"
                       @click=" getCourseByUid "
                       > 搜索 <a class="glyphicon glyphicon-search"> </a> </span>
@@ -56,9 +57,6 @@
 
     export default {
         name: "studentTeacher",
-        mounted() {
-            this.getData();
-        },
         data() {
             return {
                 searchingTID: undefined,
@@ -70,20 +68,6 @@
             }
         },
         methods: {
-            getData() {    //初始化
-                // this.$axios.get(
-                //     'api/teacher/getAll',
-                // ).then( response => {
-                //     console.log(response)
-                //     if (response.data.flag === 'true')
-                //         this.teachers = JSON.parse(response.data.teachers)
-                //     else
-                //         cError(this.$toastr, '无法得到教师数据！', '错误：')
-                // }).catch( error => {
-                //     console.log('！！！请求数据失败异常：')
-                //     console.log(error)
-                // });
-            },
             searchTByID() { // 用id查教师名
                 if (!this.searchingTID) {
                     this.searchingTName = ''
@@ -151,8 +135,8 @@
                     cError(this.$toastr, '正在查询空课程！', '错误：')
                     return
                 }
-                sessionStorage.setItem('searchingCID', course.id)
-                sessionStorage.setItem('searchingCNAME', course.name)
+                sessionStorage['searchingCID']= course.id
+                sessionStorage['searchingCNAME'] = course.name
                 location.href = '/#/student/course'
             },
         }

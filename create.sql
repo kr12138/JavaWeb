@@ -79,6 +79,14 @@ CREATE TABLE `answer` (
 	PRIMARY KEY (`a_id`)
 );
 
+DROP TABLE `imgtest`;
+
+CREATE TABLE `imgtest` (
+	`i_id` BIGINT (20) NOT NULL AUTO_INCREMENT,
+	`img` MEDIUMTEXT,
+	PRIMARY KEY (`i_id`)
+);
+
 -- ALTER TABLE `answer` ADD UNIQUE `index_answer` ON `q_id`(20);
 -- ADD INDEX `index_answer` ON `answer`(`q_id`(20));
 INSERT INTO `user` (`u_id`,	`name`,	`password`,	`identity`)

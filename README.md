@@ -2,6 +2,8 @@
  Final assigment of Java Web application development./JavaWeb实验课结课大作业
 
 `2019-12-25 我感觉要写不完了……`
+`2019-12-26凌晨 被mysql的长字符串乱杀……`
+`2019-12-26凌晨 被base64编码和url编码乱杀……`
 
 ## 教学在线留言答疑系统
 大学教学中，学生在课后，可以通过该网站提出问题留言，教师登录后可以选择回答。 

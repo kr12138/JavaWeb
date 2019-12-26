@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav class="navbar navbar-expand-md navbar-dark">
-            <a class="navbar-brand glyphicon glyphicon-tower w-25" href="#"
+            <a class="navbar-brand glyphicon glyphicon-tower w-25" href="/#/admin"
                style="text-shadow: black 5px 3px 8px;"> 管理 </a>
             <button class="navbar-toggler w-25" type="button"
                     style="box-shadow: black 3px 2px 3px;"

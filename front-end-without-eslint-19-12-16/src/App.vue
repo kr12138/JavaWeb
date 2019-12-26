@@ -7,7 +7,11 @@
     <!-- 路由匹配到的组件将渲染在这里 -->
     <router-view></router-view>
 
+<!--    <imageUpload/>-->
+<!--    <imageDownload/>-->
+
     <myFooter/>
+
 
   </div>
 </template>
@@ -16,9 +20,14 @@
   import myHeader from './components/myHeader.vue'
   import myFooter from './components/myFooter.vue'
 
+  import imageUpload from "@/components/imageUpload";
+  import ImageDownload from "@/components/imageDownload";
+
   export default {
     name: 'app',
     components: {
+      ImageDownload,
+      imageUpload,
       myHeader,
       myFooter,
     },
