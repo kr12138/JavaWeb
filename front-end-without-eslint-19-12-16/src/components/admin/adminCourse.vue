@@ -114,7 +114,7 @@
             return {
                 newData: { id: undefined, name: '', dept: '', info: '' },
                 changingData: {},
-                titles: [ '课程编号', '课程名称', '开课学院', '课程说明', '增删改', '教师'],
+                titles: [ '课程编号', '课程名称', '开课学院', '课程说明', '增删改', '教师' ],
                 depts: [],
                 courses: [],
             }

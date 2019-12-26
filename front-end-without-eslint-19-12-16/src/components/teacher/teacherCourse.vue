@@ -2,7 +2,7 @@
     <div class="container">
         <div class="container-fluid">
             <div class="row">
-<!--                <label class="d-block col-md-1"> </label>-->
+                <!--                <label class="d-block col-md-1"> </label>-->
                 <input type="number" class="form-control col-sm-12 col-md-4"
                        style="margin-left: 5px;"
                        placeholder="在此输入课程编号"
@@ -34,9 +34,9 @@
                 <div class="col-6"> {{ searchingC.info }} </div> </div> <br>
             <div class="row">
                 <button class="btn btn-info offset-md-2 col-md-8 offset-lg-4 col-lg-4"
-                        @click=" newQuestion ">
-                    <span class="glyphicon glyphicon-hand-right"></span>
-                    我在这门课有疑问！
+                        @click=" getQuestionByCid ">
+                    <span class="glyphicon glyphicon-hand-down"> </span>
+                    相关提问
                 </button>
             </div>
         </div>
@@ -70,8 +70,9 @@
 
 <script>
     import {info, cError, success} from "../../myToastr.js";
+
     export default {
-        name: "studentCourse",
+        name: "teacherCourse",
         mounted() {
             this.getData();
         },
@@ -89,7 +90,7 @@
                 let tempCID = sessionStorage['searchingCID']
                 if (tempCID !== undefined) {
                     sessionStorage.removeItem('searchingCID')
-                    // console.log('Init ing stuCourse by ' + tempCID)
+                    // console.log('Init ing teacherCourse by ' + tempCID)
                     this.$axios.get(
                         'api/course/get/' + tempCID
                     ).then( response => {
@@ -127,11 +128,10 @@
                 }
                 sessionStorage['showingQID'] = data.id
                 sessionStorage['showingQNAME'] = data.name
-                location.href = '/#/student/questionShow'
+                location.href = '/#/teacher/questionShow'
             },
             searchCByID() {  // 按课程编号查课程
                 if(!this.searchingCID) {
-                    // info(this.$toastr, '请先输入课程编号', '提示：')
                     this.searchingCName = ''
                     return
                 }
@@ -191,11 +191,6 @@
                     console.log(error)
                 });
             },
-            newQuestion() {
-                sessionStorage['questioningCID'] = this.searchingC.id
-                location.href = '/#/student/newQuestion'
-            },
-
         }
     }
 </script>

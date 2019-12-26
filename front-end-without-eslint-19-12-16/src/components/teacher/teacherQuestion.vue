@@ -74,8 +74,9 @@
 
 <script>
     import {info, cInfo, cError, success} from "../../myToastr.js";
+
     export default {
-        name: "studentCourse",
+        name: "teacherQuestion",
         mounted() {
             this.getData();
         },
@@ -207,89 +208,12 @@
             },
             showQDetail(question) {
                 sessionStorage['showingQID'] = question.id
-                location.href = '/#/student/questionShow'
+                location.href = '/#/teacher/questionShow'
             },
-            // searchQByID() {  // 按提问编号查提问
-            //     if (!this.searchingQID) {
-            //         info(this.$toastr, '请先输入提问编号！', '提示：')
-            //         this.searchingQTitle = ''
-            //         this.searchingQContent = ''
-            //         return
-            //     }
-            //     this.getPageByID(0)
-            // },
-            // searchQByTitleContaining() {   // 用提问名查提问
-            //     if (!this.searchingQName) {
-            //         this.searchingQID = undefined
-            //         this.searchingQContent = ''
-            //         return
-            //     }
-            //     this.$axios.get(
-            //         'api/question/getByNameContaining/' + this.searchingQName
-            //     ).then( response => {
-            //         console.log(response)
-            //         if (response.data.flag === 'true') {
-            //             success(this.$toastr, '已通过名称查询到该提问！')
-            //             this.searchingQ = JSON.parse(response.data.question)
-            //             this.searchingQID = this.searchingQ.id
-            //         } else
-            //             this.searchingQID = undefined
-            //     }).catch( error => {
-            //         console.log('！！！请求数据失败异常：')
-            //         console.log(error)
-            //     });
-            // },
-            // searchQByContentContaining() {    // 用提问内容查提问
-            //     if (!this.searchingQContent) {
-            //         this.searchingQID = undefined
-            //         this.searchingQTitle = ''
-            //         return
-            //     }
-            //     this.$axios.get(
-            //         'api/question/getByContentContaining/' + this.searchingQContent
-            //     ).then( response => {
-            //         console.log(response)
-            //         if (response.data.flag === 'true') {
-            //             success(this.$toastr, '已通过名称查询到该提问！')
-            //             this.searchingQ = JSON.parse(response.data.question)
-            //             this.searchingQID = this.searchingQ.id
-            //         } else
-            //             this.searchingQID = undefined
-            //     }).catch( error => {
-            //         console.log('！！！请求数据失败异常：')
-            //         console.log(error)
-            //     });
-            // },
-            // getAnswerByCid() {    // 搜索某提问的回答
-            //     if (this.searchingQ.id === undefined) {
-            //         info(this.$toastr, '请先选择提问！', '提示：')
-            //         return
-            //     }
-            //     this.$axios.get(
-            //         'api/answer/getByQid/' + this.searchingQ.id
-            //     ).then( response => {
-            //         console.log(response)
-            //         if (response.data.flag === 'true') {
-            //             success(this.$toastr, '查询回答列表成功！')
-            //             this.answers = JSON.parse(response.data.alist)
-            //             document.getElementById('tableTitle').innerText
-            //                 = this.searchingQ.name + ' 回答列表'
-            //         } else
-            //             cError(this.$toastr, '无法得到回答数据！', '错误：')
-            //     }).catch( error => {
-            //         console.log('！！！请求数据失败异常：')
-            //         console.log(error)
-            //     });
-            // },
-
         }
     }
 </script>
 
 <style scoped>
-    .container { font-family: Consolas, Inconsolata, "微软雅黑" }
-    span::before {
-        vertical-align: middle;
-        /*padding-right: 5px;*/
-    }
+
 </style>

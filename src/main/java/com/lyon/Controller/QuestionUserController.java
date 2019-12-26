@@ -60,7 +60,7 @@ public class QuestionUserController {
         response.put("flag", "true");
         return response;
     }
-    
+
     @RequestMapping(value = "/myUpdate", method = RequestMethod.PUT)
     public HashMap<String, String> myUpdate(
             @RequestBody Question data

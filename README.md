@@ -40,7 +40,7 @@
 
 ​	c) 可以选择进入某课程的页面，并显示该课程的相关信息和简介，以及该课程的所有留言问题与教师解答（如果没有教师解答，显示未解答）。 
 
-​			`CourseController.java, QuestionController.java; studentCourse.vue, studentAnswer.vue`
+​			`CourseController.java, QuestionController.java; studentCourse.vue`
 
 ​	d) 如果留言很多，可以分页显示。 
 
@@ -56,7 +56,7 @@
 
 ​	g) 可以查看修改或者删除自己发表的留言。 
 
-​			`QuestionController.java; studentMyQuestions.vue, questionShow.vue`
+​			`QuestionController.java; studentMyQuestions.vue, studentQuestionShow.vue`
 
 ​	h) 可以上传图片的文件附件 
 
@@ -67,6 +67,8 @@
 ​	a) 教师登录后，将提示自己所教授的课程是否有新的未回答的留言并且显示有多少条待回复的问题，可以选择进入某个问题进行回答。 
 
 ​	b) 登录后，将显示自己所有讲授的课程列表。并可以选择进入某个课程的页面。 
+
+​			`CourseController.java, QuestionController.java; teacherCourseList.vue, teacherCourse.vue`
 
 ​	c) 进入课程页面后，可以查看当前的所有问题信息，并进行回答。 
 

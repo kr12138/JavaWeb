@@ -21,10 +21,15 @@ import studentTeacher from "@/components/student/studentTeacher"
 import studentQuestion from "@/components/student/studentQuestion"
 import studentNewQuestion from "@/components/student/studentNewQuestion"
 import studentMyQuestions from "@/components/student/studentMyQuestions"
-import questionShow from "@/components/questionShow"
+import studentQuestionShow from "@/components/student/studentQuestionShow"
 import settings from "@/components/profile/settings"
 import profileNav from "@/components/profile/profileNav"
 import imageUpload from "@/components/profile/imageUpload"
+import teacherNav from "@/components/teacher/teacherNav"
+import teacherCourseList from "@/components/teacher/teacherCourseList"
+import teacherCourse from "@/components/teacher/teacherCourse";
+import teacherQuestion from "@/components/teacher/teacherQuestion";
+import teacherQuestionShow from "@/components/teacher/teacherQuestionShow";
 
 
 Vue.use(VueRouter)
@@ -84,11 +89,23 @@ const routes = [
           {path: 'course', component: studentCourse, meta: {title: '查看课程'} },
           {path: 'teacher', component: studentTeacher, meta: {title: '查看教师'} },
           {path: 'question', component: studentQuestion, meta: {title: '查看提问'} },
-          {path: 'questionShow', component: questionShow, meta: {title: '提问详情'} },
           {path: 'myQuestions', component: studentMyQuestions, meta: {title: '我的提问'} },
           {path: 'newQuestion', component: studentNewQuestion, meta: {title: '新建提问'} },
+          {path: 'questionShow', component: studentQuestionShow, meta: {title: '提问详情'} },
         ],
         meta: {title: '学生中心'},
+      },
+      {
+        path: '/teacher',
+        redirect: '/teacher/courseList',
+        component: teacherNav,
+        children: [
+          {path: 'course', component: teacherCourse, meta: {title: '搜索课程'} },
+          {path: 'question', component: teacherQuestion, meta: {title: '搜索提问'} },
+          {path: 'courseList', component: teacherCourseList, meta: {title: '开课列表'} },
+          {path: 'questionShow', component: teacherQuestionShow, meta: {title: '提问详情'} },
+        ],
+        meta: {title: '教师中心'},
       },
       {
         path: '/profile',

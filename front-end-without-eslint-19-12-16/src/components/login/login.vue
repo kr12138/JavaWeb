@@ -38,7 +38,7 @@
 <script>
 
     import eventBus from "@/eventBus";
-    import {info, success, error} from "../../myToastr.js";
+    import {info, success, error, cError} from "../../myToastr.js";
 
     export default {
         name: "login",
@@ -98,6 +98,10 @@
                             location.href = '/#/admin'
                         else if (response.data.identity === '1')
                             location.href = '/#/student'
+                        else if (response.data.identity === '2')
+                            location.href = '/#/teacher'
+                        else
+                            cError(this.$toastr, '后台返回的权限有错！', '错误：')
                     }
                 }).catch ( error => {
                     console.log('！！！登录失败异常：')

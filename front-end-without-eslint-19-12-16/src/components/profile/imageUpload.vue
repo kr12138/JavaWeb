@@ -37,7 +37,7 @@
         methods:{
             getAvatar() {
                 let id = sessionStorage['id']
-                if (id !== 0 && !id) {
+                if (id != 0 && !id) {
                     cError(this.$toastr, '用户已退出！<br>请重新登陆！', '错误：')
                     location.href = '/#/frontPage/login'
                 }
