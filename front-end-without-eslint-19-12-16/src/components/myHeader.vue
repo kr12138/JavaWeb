@@ -100,8 +100,6 @@
 
 <style scoped>
 
-    /*@import "../../node_modules/bootstrap/dist/css/bootstrap.css";*/
-
     a { text-decoration: none; }
     a:hover { text-decoration: none; }
 

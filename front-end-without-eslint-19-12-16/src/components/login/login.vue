@@ -93,6 +93,7 @@
                         console.log('!token:')
                         console.log(response.data.token)
                         sessionStorage.setItem("token", response.data.token)
+                        sessionStorage.setItem("identity", response.data.identity)
                         if (response.data.identity === '0')
                             location.href = '/#/admin'
                         else if (response.data.identity === '1')

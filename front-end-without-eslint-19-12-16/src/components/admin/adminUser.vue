@@ -146,10 +146,10 @@
             getData(page) {    // 初始化
                 console.log('正在请求页码：'+page)
                 if (page<0) {
-                    cInfo(this.$toastr, '已是首页，无上一页', '提示')
+                    cInfo(this.$toastr, '已是首页，无上一页', '提示：')
                     return
                 } else if (page >= this.totalPages) {
-                    cInfo(this.$toastr, '已是末页，无下一页', '提示')
+                    cInfo(this.$toastr, '已是末页，无下一页', '提示：')
                     return
                 }
                 this.$axios.get(

@@ -45,7 +45,7 @@
                         ).then(response => {
                             console.log(response)
                             if (response.data.flag === 'true')
-                                cSuccess(this.$toastr, '成功上次图片数据！')
+                                cSuccess(this.$toastr, '成功上传图片数据！')
                             else
                                 cError(this.$toastr, '无法上传图片数据！', '错误：')
                         }).catch(error => {

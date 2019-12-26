@@ -20,8 +20,10 @@ public class Question implements Serializable {
     private String title;   // 问题标题
     @Column(name = "content")
     private String content; // 问题内容
-    @Column(name = "img_id")
-    private long iid;   // 配图id
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "img", columnDefinition = "MEDIUMTEXT")
+    private String img; // 配图
     @Column(name = "date")
     private String date;    // 提问时间
     @Column(name = "read_by_teacher")
@@ -75,12 +77,12 @@ public class Question implements Serializable {
         this.content = content;
     }
 
-    public long getIid() {
-        return iid;
+    public String getImg() {
+        return img;
     }
 
-    public void setIid(long iid) {
-        this.iid = iid;
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public String getDate() {

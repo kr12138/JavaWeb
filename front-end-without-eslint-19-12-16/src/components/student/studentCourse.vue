@@ -8,7 +8,7 @@
                        placeholder="在此输入课程编号"
                        id="idInput"
                        v-model=" searchingCID "
-                       @keyup=" searchCByID() ">
+                       @keyup=" searchCByID ">
                 <input type="text" class="form-control col-sm-12 col-md-4"
                        style="margin-left: 5px;"
                        placeholder="在此输入课程名称"
@@ -32,6 +32,13 @@
             <div class="row">
                 <div class="col-2 offset-2"> 课程说明：</div>
                 <div class="col-6"> {{ searchingC.info }} </div> </div> <br>
+            <div class="row">
+                <button class="btn btn-info offset-md-2 col-md-8 offset-lg-4 col-lg-4"
+                        @click=" newQuestion ">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                    我在这门课有疑问！
+                </button>
+            </div>
         </div>
 
         <h2 v-show=" questions.length !== 0 " id="tableTitle">  </h2> <br>
@@ -85,7 +92,7 @@
                     // console.log('Init ing stuCourse by ' + tempCID)
                     this.$axios.get(
                         'api/course/get/' + tempCID
-                    ).then(response => {
+                    ).then( response => {
                         console.log(response)
                         if (response.data.flag === 'true') {
                             this.searchingC = JSON.parse(response.data.course)
@@ -93,7 +100,7 @@
                             this.searchingCName = this.searchingC.name
                         } else
                             cError(this.$toastr, '无法得到课程数据！', '错误：')
-                    }).catch(error => {
+                    }).catch( error => {
                         console.log('！！！请求数据失败异常：')
                         console.log(error)
                     });
@@ -101,13 +108,13 @@
                 if (this.searchingC !== null) {
                     this.$axios.get(
                         'api/question/getByCid/' + this.searchingC.id
-                    ).then(response => {
+                    ).then( response => {
                         console.log(response)
                         if (response.data.flag === 'true')
                             this.questions = JSON.parse(response.data.qlist)
                         else
                             cError(this.$toastr, '无法得到提问数据！', '错误：')
-                    }).catch(error => {
+                    }).catch( error => {
                         console.log('！！！请求数据失败异常：')
                         console.log(error)
                     });
@@ -183,7 +190,10 @@
                     console.log('！！！请求数据失败异常：')
                     console.log(error)
                 });
-
+            },
+            newQuestion() {
+                sessionStorage['questioningCID'] = this.searchingC.id
+                location.href = '/student/newQuestion'
             },
 
         }
@@ -193,8 +203,4 @@
 <style scoped>
     .container { font-family: Consolas, Inconsolata, "微软雅黑" }
     .info { font-size: 20px; }
-    span::before {
-        vertical-align: middle;
-        /*padding-right: 5px;*/
-    }
 </style>

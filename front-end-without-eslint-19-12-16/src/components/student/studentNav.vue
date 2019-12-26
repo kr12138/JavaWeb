@@ -33,12 +33,12 @@
                     </div>
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/"> soon
+                                     to="/student/newQuestion"> 新建提问
                         </router-link>
                     </div>
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/"> soon1
+                                     to="/student/"> soon
                         </router-link>
                     </div>
 

@@ -73,7 +73,7 @@ public class QuestionController {
         HashMap<String, String> response = new HashMap<>();
         final Page<Question> qlist = questionRepository.findById(
                 ID,
-                PageRequest.of(page,size,
+                PageRequest.of(page, size,
                         Sort.by(Sort.Direction.ASC, "id")
                 )
         );
@@ -93,7 +93,7 @@ public class QuestionController {
 //        title = "%" + title + "%";
         final Page<Question> qlist = questionRepository.findByTitleContaining(
                 title,
-                PageRequest.of(page,size,
+                PageRequest.of(page, size,
                         Sort.by(Sort.Direction.ASC, "id")
                 )
         );
@@ -113,7 +113,7 @@ public class QuestionController {
 //        content = "%" + content + "%";
         final Page<Question> qlist = questionRepository.findByContentContaining(
                 content,
-                PageRequest.of(page,size,
+                PageRequest.of(page, size,
                         Sort.by(Sort.Direction.ASC, "id")
                 )
         );
@@ -121,6 +121,31 @@ public class QuestionController {
         response.put("flag", "true");
         response.put("totalPages", Integer.toString(qlist.getTotalPages()));
         response.put("qlist", JSON.toJSONString(qlist.getContent()));
+        return response;
+    }
+
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    public HashMap<String, String> add(
+            @RequestBody HashMap<String, String> data
+    ) {
+        HashMap<String, String> response = new HashMap<>();
+        System.out.println("question/new " + JSON.toJSONString(data) + now());
+        long cid = Long.parseLong(data.get("cid"));
+        long sid = Long.parseLong(data.get("sid"));
+        long tid = Long.parseLong(data.get("tid"));
+        String title = data.get("title");
+        String content = data.get("content");
+        String img = data.get("img");
+        Question question = new Question();
+        question.setCid(cid);
+        question.setSid(sid);
+        question.setTid(tid);
+        question.setTitle(title);
+        question.setContent(content);
+        question.setImg(img);
+        question.setDate(now());
+        questionRepository.save(question);
+        response.put("flag", "true");
         return response;
     }
 

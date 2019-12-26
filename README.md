@@ -48,6 +48,8 @@
 
 ​	e) 可以提出针对某课程的问题留言。留言包括标题，内容，时间日期。 
 
+​			`QuestionController.java; studentNewQuestion.vue`
+
 ​	f) 可以浏览查看当前系统中所有学生的留言提问和教师回答，并可以按课程，教师，学院，以及问题内容的关键字等进行检索。 
 
 ​			`QuestionController.java, QuestionRepository.java; studentDept.vue, studentTeacher.vue, studentCourse.vue, studentQuestion.vue`
@@ -55,6 +57,8 @@
 ​	g) 可以查看修改或者删除自己发表的留言。 
 
 ​	h) 可以上传图片的文件附件 
+
+​			`QuestionController.java; studentNewQuestion.vue`
 
 #### 4、 教师帐号的功能 
 

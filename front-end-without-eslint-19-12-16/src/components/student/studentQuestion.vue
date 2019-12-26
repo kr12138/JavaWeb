@@ -57,8 +57,8 @@
                 <th> {{ question.date }} </th>
                 <th> {{ question.read ? "已被解答" : "未被解答" }} </th>
                 <th> <button class="btn btn-info"
-                             @click=" searchQ( question ) "
-                > 查看 </button> </th>
+                             @click=" showQDetail( question ) "
+                             > 查看 </button> </th>
             </tr>
             </tbody>
         </table>
@@ -100,7 +100,7 @@
                     console.log('Init ing stuCourse by ' + tempQID)
                     this.$axios.get(
                         'api/question/get/' + tempQID
-                    ).then(response => {
+                    ).then( response => {
                         console.log(response)
                         if (response.data.flag === 'true') {
                             this.searchingQ = JSON.parse(response.data.question)
@@ -108,7 +108,7 @@
                             this.getPageByID(0)
                         } else
                             cError(this.$toastr, '无法得到提问数据！', '错误：')
-                    }).catch(error => {
+                    }).catch( error => {
                         console.log('！！！请求数据失败异常：')
                         console.log(error)
                     });
@@ -127,6 +127,8 @@
                     if (response.data.flag === 'true') {
                         success(this.$toastr, '已通过ID查询到该提问！')
                         this.questions = JSON.parse(response.data.qlist)
+                        if (this.questions.length === 0)
+                            info(this.$axios, '无相关提问！', '提示：')
                         // this.searchingQ = this.questions[0]
                         this.page = page
                         this.totalPages = JSON.parse(response.data.totalPages)
@@ -150,6 +152,8 @@
                     if (response.data.flag === 'true') {
                         success(this.$toastr, '已通过标题查询到该提问！')
                         this.questions = JSON.parse(response.data.qlist)
+                        if (this.questions.length === 0)
+                            info(this.$axios, '无相关提问！', '提示：')
                         this.page = page
                         this.totalPages = JSON.parse(response.data.totalPages)
                     } else
@@ -172,6 +176,8 @@
                     if (response.data.flag === 'true') {
                         success(this.$toastr, '已通过内容查询到该提问！')
                         this.questions = JSON.parse(response.data.qlist)
+                        if (this.questions.length === 0)
+                            info(this.$axios, '无相关提问！', '提示：')
                         this.page = page
                         this.totalPages = JSON.parse(response.data.totalPages)
                     } else
@@ -184,10 +190,10 @@
             getPage(page) {
                 console.log('正在请求页码：'+page)
                 if (page<0) {
-                    cInfo(this.$toastr, '已是首页，无上一页', '提示')
+                    cInfo(this.$toastr, '已是首页，无上一页', '提示：')
                     return
                 } else if (page >= this.totalPages) {
-                    cInfo(this.$toastr, '已是末页，无下一页', '提示')
+                    cInfo(this.$toastr, '已是末页，无下一页', '提示：')
                     return
                 }
                 if (this.searchingMethod === 0)
@@ -197,6 +203,10 @@
                 else if (this.searchingMethod === 2)
                     this.getPageByContentContaining(page)
                 else cError(this.$axios, '未找到搜索方案', '错误：')
+            },
+            showQDetail(question) {
+                sessionStorage['showingQID'] = question.id
+                location.href = '/#/student/questionShow'
             },
             // searchQByID() {  // 按提问编号查提问
             //     if (!this.searchingQID) {

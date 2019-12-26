@@ -1,5 +1,5 @@
 <template>
-    <div class="container"> <br>
+    <div class="container">
         <div class="container-fluid">
             <span class="dropdown">
                 <button type="button" class="btn btn-outline-info dropdown-toggle"
