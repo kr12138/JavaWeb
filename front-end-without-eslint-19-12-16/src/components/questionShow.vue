@@ -1,6 +1,26 @@
 <template>
-    <div class="container-fluid" v-show=" showingQ !== null ">
-        <h2> {{ showingQ.title }} </h2>
+    <div class="container-fluid" v-show=" title !== '' ">
+        <h2> {{ title }} </h2>
+        <div class="row" style="background-color: #fcfcfc;">
+            <div class="col-3" style="background-color: #f8f8fa"> <br>
+                <img :src=" avatar "
+                     class="img-thumbnail"
+                     style="height: 100px; box-shadow: gray 5px 5px 3px;"> <br>
+                <div class="glyphicon glyphicon-bookmark"
+                     style="color: slategray; text-shadow: #bcbcbc 2px 1px 2px;"
+                     > 学生 </div> <br>
+                {{ name }}
+            </div>
+            <div class="offset-1 col-8"
+                 style="font-size: 24px; text-align: left"> <br>
+                {{ content }} <br> <br>
+                <img :src=" img ">
+                <div class="col-5 offset-6"
+                     style="font-size: 20px; text-align: right"> <br> <br>
+                    {{ date }}
+                </div>
+            </div>
+        </div> <br>
     </div>
 </template>
 
@@ -15,8 +35,13 @@
             return {
                 showingQID: undefined,
                 showingQ: null,
-                titles: [ '回答编号', '回答内容', '回答时间', '回答情况', '查看详细' ],
-                questions: [],
+                title: '',
+                content: '',
+                avatar: '',
+                name: '',
+                date: '',
+                img: '',
+                answerDetails: [],
             }
         },
         methods: {
@@ -35,12 +60,19 @@
                 // sessionStorage.removeItem('showingQID') // 计划在提交回复时使用它，因此不删
                 console.log('Showing Question ' + tempQID)
                 this.$axios.get(
-                    'api/question/get/' + tempQID
+                    'api/question/getDetails/' + tempQID
                 ).then( response => {
                     console.log(response)
-                    if (response.data.flag === 'true')
-                        this.showingQ = JSON.parse(response.data.question)
-                    else
+                    if (response.data.flag === 'true') {
+                        success(this.$toastr, '成功得到提问数据！')
+                        // this.showingQ = JSON.parse(response.data.question)
+                        this.title = response.data.title
+                        this.content = response.data.content
+                        this.avatar = unescape(response.data.avatar)
+                        this.name = response.data.name
+                        this.date = response.data.date
+                        this.img = unescape(response.data.img)
+                    } else
                         cError(this.$toastr, '无法得到提问数据！', '错误：')
                 }).catch( error => {
                     console.log('！！！请求数据失败异常：')
@@ -56,8 +88,11 @@
 </script>
 
 <style scoped>
-    .container-fluid { font-family: Consolas, Inconsolata, "微软雅黑" }
-    span::before {
+    .container-fluid {
+        font-family: Consolas, Inconsolata, "微软雅黑";
+        font-size: 20px;
+    }
+    div::before {
         vertical-align: middle;
         /*padding-right: 5px;*/
     }

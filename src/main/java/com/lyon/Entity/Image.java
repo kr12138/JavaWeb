@@ -5,10 +5,10 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "imgtest")
+@Table(name = "img")
 public class Image implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "i_id")
     private long iid;
     @Lob

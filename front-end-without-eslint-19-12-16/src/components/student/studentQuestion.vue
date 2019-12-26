@@ -116,7 +116,7 @@
             },
             getPageByID(page) { // 按提问编号查提问
                 if (!this.searchingQID) {
-                    info(this.$axios, '请先输入编号', '提示：')
+                    info(this.$toastr, '请先输入编号', '提示：')
                     return
                 }
                 this.searchingMethod = 0
@@ -128,12 +128,12 @@
                         success(this.$toastr, '已通过ID查询到该提问！')
                         this.questions = JSON.parse(response.data.qlist)
                         if (this.questions.length === 0)
-                            info(this.$axios, '无相关提问！', '提示：')
+                            info(this.$toastr, '无相关提问！', '提示：')
                         // this.searchingQ = this.questions[0]
                         this.page = page
                         this.totalPages = JSON.parse(response.data.totalPages)
                     } else
-                        cError(this.$axios, '查询提问失败', '错误：')
+                        cError(this.$toastr, '查询提问失败', '错误：')
                 }).catch( error => {
                     console.log('！！！请求数据失败异常：')
                     console.log(error)
@@ -141,11 +141,11 @@
             },
             getPageByTitleContaining(page) {
                 if (!this.searchingQTitle) {
-                    info(this.$axios, '请先输入标题', '提示：')
+                    info(this.$toastr, '请先输入标题', '提示：')
                     return
                 }
                 this.searchingMethod = 1
-                this.$axios.get(
+                this.$toastr.get(
                     'api/question/getPageByTitleContaining/' + page + '/' + this.searchingQTitle
                 ).then( response => {
                     console.log(response)
@@ -157,7 +157,7 @@
                         this.page = page
                         this.totalPages = JSON.parse(response.data.totalPages)
                     } else
-                        cError(this.$axios, '查询提问失败', '错误：')
+                        cError(this.$toastr, '查询提问失败', '错误：')
                 }).catch( error => {
                     console.log('！！！请求数据失败异常：')
                     console.log(error)
@@ -165,7 +165,7 @@
             },
             getPageByContentContaining(page) {
                 if (!this.searchingQContent) {
-                    info(this.$axios, '请先输入内容', '提示：')
+                    info(this.$toastr, '请先输入内容', '提示：')
                     return
                 }
                 this.searchingMethod = 2
@@ -174,14 +174,15 @@
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true') {
-                        success(this.$toastr, '已通过内容查询到该提问！')
                         this.questions = JSON.parse(response.data.qlist)
                         if (this.questions.length === 0)
-                            info(this.$axios, '无相关提问！', '提示：')
+                            info(this.$toastr, '无相关提问！', '提示：')
+                        else
+                            success(this.$toastr, '已通过内容查询到该提问！')
                         this.page = page
                         this.totalPages = JSON.parse(response.data.totalPages)
                     } else
-                        cError(this.$axios, '查询提问失败', '错误：')
+                        cError(this.$toastr, '查询提问失败', '错误：')
                 }).catch( error => {
                     console.log('！！！请求数据失败异常：')
                     console.log(error)
