@@ -56,6 +56,8 @@
 
 ​	g) 可以查看修改或者删除自己发表的留言。 
 
+​			`QuestionController.java; studentMyQuestions.vue, questionShow.vue`
+
 ​	h) 可以上传图片的文件附件 
 
 ​			`QuestionController.java; studentNewQuestion.vue`

@@ -1,8 +1,8 @@
 <template>
     <div>
         <nav class="navbar navbar-expand-md navbar-dark">
-            <a class="navbar-brand glyphicon glyphicon-bookmark w-25" href="/#/student"
-               style="text-shadow: black 5px 3px 8px;"> 学生 </a>
+            <a class="navbar-brand glyphicon glyphicon-user w-25" href="#"
+               style="text-shadow: black 5px 3px 8px;"> 用户中心 </a>
             <button class="navbar-toggler w-25" type="button"
                     style="box-shadow: black 3px 2px 3px;"
                     data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -11,41 +11,25 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <div class="navbar-nav container-fluid">
 
-                    <div class="nav-item ">
+                    <div class="nav-item w-25">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/dept"> 搜索学院
+                                     to="/profile/settings"> 修改密码
                         </router-link>
                     </div>
-                    <div class="nav-item ">
+                    <div class="nav-item w-25">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/teacher"> 搜索教师
+                                     to="/profile/avatar"> 更换头像
                         </router-link>
                     </div>
-                    <div class="nav-item ">
+                    <div class="nav-item w-25">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/course"> 搜索课程
+                                     to="/profile/"> 消息中心soon
                         </router-link>
                     </div>
-                    <div class="nav-item ">
-                        <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/question"> 搜索提问
-                        </router-link>
-                    </div>
-                    <div class="nav-item ">
-                        <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/newQuestion"> 新建提问
-                        </router-link>
-                    </div>
-                    <div class="nav-item ">
-                        <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/myQuestions"> 我的提问
-                        </router-link>
-                    </div>
-
                     <div class="nav-item w-25">
                         <router-link class="nav-link d-block d-sm-none"
                                      style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/"> soon
+                                     to="/profile/"> soon2
                         </router-link>
                     </div>
 
@@ -60,7 +44,7 @@
 
 <script>
     export default {
-        name: "studentNav"
+        name: "profileNav"
     }
 </script>
 

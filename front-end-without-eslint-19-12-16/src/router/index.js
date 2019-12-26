@@ -6,8 +6,6 @@ import homeNav from "@/components/homeNav"
 import home from "@/components/home"
 import info from "@/components/info"
 import login from "@/components/login/login"
-import settings from "@/components/settings"
-import profileNav from "@/components/profileNav"
 import register from "@/components/login/register"
 import adminNav from "@/components/admin/adminNav"
 import adminDept from "@/components/admin/adminDept"
@@ -22,7 +20,11 @@ import studentCourse from "@/components/student/studentCourse"
 import studentTeacher from "@/components/student/studentTeacher"
 import studentQuestion from "@/components/student/studentQuestion"
 import studentNewQuestion from "@/components/student/studentNewQuestion"
+import studentMyQuestions from "@/components/student/studentMyQuestions"
 import questionShow from "@/components/questionShow"
+import settings from "@/components/profile/settings"
+import profileNav from "@/components/profile/profileNav"
+import imageUpload from "@/components/profile/imageUpload"
 
 
 Vue.use(VueRouter)
@@ -83,6 +85,7 @@ const routes = [
           {path: 'teacher', component: studentTeacher, meta: {title: '查看教师'} },
           {path: 'question', component: studentQuestion, meta: {title: '查看提问'} },
           {path: 'questionShow', component: questionShow, meta: {title: '提问详情'} },
+          {path: 'myQuestions', component: studentMyQuestions, meta: {title: '我的提问'} },
           {path: 'newQuestion', component: studentNewQuestion, meta: {title: '新建提问'} },
         ],
         meta: {title: '学生中心'},
@@ -90,10 +93,12 @@ const routes = [
       {
         path: '/profile',
         component: profileNav,
+        redirect: '/profile/avatar',
         children: [
           {path: 'settings', component: settings, meta: {title: '密码更改'} },
+          {path: 'avatar', component: imageUpload, meta: {title: '头像更换'} },
         ],
-        meta: {title: '系统管理'},
+        meta: {title: '个人中心'},
       },
 
   //   ]

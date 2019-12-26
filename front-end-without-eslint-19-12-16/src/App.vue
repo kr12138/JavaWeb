@@ -20,8 +20,8 @@
   import myHeader from './components/myHeader.vue'
   import myFooter from './components/myFooter.vue'
 
-  import imageUpload from "@/components/imageUpload";
-  import ImageDownload from "@/components/imageDownload";
+  import imageUpload from "@/components/profile/imageUpload";
+  import ImageDownload from "@/components/profile/imageDownload";
 
   export default {
     name: 'app',

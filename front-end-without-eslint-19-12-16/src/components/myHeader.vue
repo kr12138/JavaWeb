@@ -39,6 +39,10 @@
                         to="/profile/settings"> 修改密码
                 </router-link>
                 <div v-if=" name !== '' " class="dropdown-divider"></div>
+                <router-link v-if=" name !== '' " class="dropdown-item"
+                             to="/profile/avatar"> 更换头像
+                </router-link>
+                <div v-if=" name !== '' " class="dropdown-divider"></div>
                 <a v-if=" name !== '' " class="dropdown-item" href="#"> soon 2</a>
                 <div v-if=" name !== '' " class="dropdown-divider"></div>
                 <a v-if=" name !== '' " class="dropdown-item"
@@ -61,7 +65,7 @@
     import loginModal from './login/loginModal.vue'
     import logoutModal from './login/logoutModal.vue'
     import registerModal from './login/registerModal.vue'
-    import settings from './settings.vue'
+    import settings from './profile/settings.vue'
     import eventBus from "@/eventBus";
 
     export default {

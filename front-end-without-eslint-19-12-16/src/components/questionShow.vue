@@ -14,7 +14,7 @@
             <div class="offset-1 col-8"
                  style="font-size: 24px; text-align: left"> <br>
                 {{ content }} <br> <br>
-                <img :src=" img ">
+                <img :src=" img " v-if=" img !== '' ">
                 <div class="col-5 offset-6"
                      style="font-size: 20px; text-align: right"> <br> <br>
                     {{ date }}
@@ -68,10 +68,16 @@
                         // this.showingQ = JSON.parse(response.data.question)
                         this.title = response.data.title
                         this.content = response.data.content
-                        this.avatar = unescape(response.data.avatar)
+                        if (response.data.avatar)
+                            this.avatar = unescape(response.data.avatar)
+                        else
+                            this.avatar = ''
                         this.name = response.data.name
                         this.date = response.data.date
-                        this.img = unescape(response.data.img)
+                        if (response.data.img)
+                            this.img = unescape(response.data.img)
+                        else
+                            this.img = null
                     } else
                         cError(this.$toastr, '无法得到提问数据！', '错误：')
                 }).catch( error => {

@@ -85,7 +85,7 @@
                 searchingQTitle: '',
                 searchingQContent: '',
                 searchingQ: null,
-                titles: [ '回答编号', '回答内容', '回答时间', '回答情况', '查看详细' ],
+                titles: [ '编号', '提问标题', '提问内容', '提问时间', '情况', '详细' ],
                 questions: [],
                 searchingMethod: 0, // 0：id，1：title，2：content
                 page: 0,

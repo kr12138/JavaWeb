@@ -124,30 +124,6 @@ public class QuestionController {
         return response;
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public HashMap<String, String> add(
-            @RequestBody HashMap<String, String> data
-    ) {
-        HashMap<String, String> response = new HashMap<>();
-        System.out.println("question/new " + JSON.toJSONString(data) + now());
-        long cid = Long.parseLong(data.get("cid"));
-        long sid = Long.parseLong(data.get("sid"));
-        long tid = Long.parseLong(data.get("tid"));
-        String title = data.get("title");
-        String content = data.get("content");
-        String img = data.get("img");
-        Question question = new Question();
-        question.setCid(cid);
-        question.setSid(sid);
-        question.setTid(tid);
-        question.setTitle(title);
-        question.setContent(content);
-        question.setImg(img);
-        question.setDate(now());
-        questionRepository.save(question);
-        response.put("flag", "true");
-        return response;
-    }
 
 //    @RequestMapping(value = "/getByTitleContaining", method = RequestMethod.POST)
 //    public HashMap<String, String> getPageByTitleContaining(
