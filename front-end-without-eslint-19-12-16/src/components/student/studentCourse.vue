@@ -1,115 +1,62 @@
 <template>
     <div class="container">
         <div class="container-fluid">
-            <div class="input-group mb-3 col-lg-8 offset-lg-2">
-                <input type="number" class="form-control"
-                       placeholder="按教师工号"
-                       v-model=" searchingTeacherID "
-                       @keyup=" searchT() ">
-                <div class="input-group-append">
-                    <span class="input-group-text glyphicon glyphicon-search"
-                    > 搜索 </span>
-                    <!-- style="text-shadow: #aaaaaa 2px 1px 1px;"-->
-                </div>
+            <div class="row">
+                <label class="d-block col-md-2"> </label>
+                <input type="number" class="form-control col-sm-4 col-md-3"
+                       style="margin-left: 5px;"
+                       placeholder="在此输入课程编号"
+                       id="idInput"
+                       v-model=" searchingCID "
+                       @keyup=" searchCByID() ">
+                <input type="text" class="form-control col-sm-4 col-md-3"
+                       style="margin-left: 5px;"
+                       placeholder="在此输入课程名称"
+                       id="nameInput"
+                       v-model=" searchingCName "
+                       @keyup=" searchCByName ">
+                <span class="btn btn-info col-sm-2"
+                      style="margin-left: 5px;"
+                      @click=" getQuestionByCid "
+                      > 搜索 <a class="glyphicon glyphicon-search"> </a> </span>
             </div>
-            <div class="input-group mb-3 col-lg-8 offset-lg-2">
-                <div class="dropdown">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle"
-                            id="deptMenu"
-                            data-toggle="dropdown"> 按开课学院 </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#"
-                           v-for=" dept in depts "
-                           @click=" handleDeptClick( dept.name ) "> {{ dept.name }}
-                        </a>
-                    </div>
-                </div>
-                <div class="input-group-append">
-                    <span class="input-group-text glyphicon glyphicon-search"
-                          style="margin-left: 3px;"
-                    > 搜索 </span>
-                </div>
-            </div>
-            <div id="courseName"> {{ searchingTeacherName }} </div>
         </div> <br>
 
-        <h2> 课程列表 </h2> <br>
-        <table class="table table-hover">
+        <div v-if=" searchingC !== null " class="row">
+            <span class="col-2 offset-2"> 课程编号：</span>
+            <span class="col-6"> {{ searchingC.id }} </span> </div>
+        <div v-if=" searchingC !== null " class="row">
+            <div class="col-2 offset-2"> 课程名称：</div>
+            <div class="col-6"> {{ searchingC.name }} </div> </div>
+        <div v-if=" searchingC !== null " class="row">
+            <div class="col-2 offset-2"> 课程说明：</div>
+            <div class="col-6"> {{ searchingC.info }} </div> </div> <br>
+
+        <h2 v-show=" questions.length !== 0 " id="tableTitle">  </h2> <br>
+
+        <table class="table table-hover" v-if=" questions.length !== 0 ">
             <thead>
             <tr> <th v-for=" title in titles "> {{ title }} </th> </tr>
             </thead>
             <tbody>
-            <tr v-for=" course in courses ">
-                <th> {{ course.id }} </th>
-                <th> {{ course.name }} </th>
-                <th> {{ course.dept }} </th>
-                <th> {{ course.info }} </th>
+            <tr v-for=" question in questions ">
+                <th> {{ question.id }} </th>
+                <th> {{ question.title }} </th>
+                <th> {{ question.date }} </th>
+                <th> {{ question.read ? "已被解答" : "未被解答" }} </th>
                 <th> <button class="btn btn-info"
-                             @click=" searching( course ) " > 查看 </button> </th>
+                             @click=" searching( question ) "
+                             > 查看 </button> </th>
             </tr>
             </tbody>
         </table>
 
-        <!-- 模态框（Modal） -->
-        <div class="modal fade" tabindex="-1" role="dialog" id="changingModal"
-             aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel"> 删改课程 </h4>
-                        <button type="button" class="close"
-                                data-dismiss="modal" aria-hidden="true"> &times;
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h5> 课程编号 ： {{ changingData.id }} </h5> <br>
-                        <div class="input-group mb-3">
-                            <span class="input-group-prepend">
-                                <span class="input-group-text"> 课程名称 </span>
-                            </span>
-                            <input type="text" class="form-control"
-                                   id="name" v-model=" changingData.name ">
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-prepend">
-                                <span class="input-group-text"> 开课学院 </span>
-                            </span>
-                            <div class="dropdown">
-                                <button type="button" class="btn btn-info dropdown-toggle"
-                                        id="deptMenu2"
-                                        data-toggle="dropdown"> 在此更改开课学院 </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#"
-                                       v-for=" dept in depts "
-                                       @click=" handleDeptClick2( dept.name ) "> {{ dept.name }}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-prepend">
-                                <span class="input-group-text"> 课程说明 </span>
-                            </span>
-                            <input type="text" class="form-control"
-                                   id="info" v-model=" changingData.info ">
-                        </div> <br> <br>
-<!--                        <div class="row">-->
-<!--                            <button type="button" class="btn btn-info col-2 offset-3"-->
-<!--                                    data-dismiss="modal" aria-hidden="true"-->
-<!--                                    @click=" update "> 更新 </button>-->
-<!--                            <button type="button" class="btn btn-secondary col-2 offset-2"-->
-<!--                                    data-dismiss="modal" aria-hidden="true"-->
-<!--                                    @click=" del "> 删除 </button>-->
-<!--                        </div>-->
-                    </div> <br> <br>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
-        </div><!-- /.modaldiv -->
+
     </div>
 </template>
 
 <script>
-    import {info, cError, cSuccess} from "../../myToastr.js";
+    import {info, cError, success} from "../../myToastr.js";
     export default {
         name: "studentCourse",
         mounted() {
@@ -118,88 +65,121 @@
         data() {
             return {
                 searchingCID: undefined,
+                searchingCName: undefined,
                 searchingC: null,
-                newData: { id: undefined, name: '', dept: '', info: '' },
-                changingData: {},
-                titles: [ '课程编号', '课程名称', '开课学院', '课程说明', '授课教师', '相关提问' ],
-                depts: [],
-                course: null,
+                titles: [ '问题编号', '问题标题', '提问时间', '回答情况', '查看详细' ],
+                questions: [],
             }
         },
         methods: {
             getData() { // 初始化
                 let tempCID = sessionStorage['searchingCID']
                 if(tempCID !== undefined) {
+                    sessionStorage.removeItem('searchingCID')
                     console.log('Init ing stuCourse by ' + tempCID)
                     this.$axios.get(
                         'api/course/get/' + tempCID
                     ).then(response => {
                         console.log(response)
-                        if (response.data.flag === 'true')
-                            this.course = JSON.parse(response.data.course)
-                        else
+                        if (response.data.flag === 'true') {
+                            this.searchingC = JSON.parse(response.data.course)
+                            this.searchingCID = this.searchingC.id
+                            this.searchingCName = this.searchingC.name
+                        } else
                             cError(this.$toastr, '无法得到课程数据！', '错误：')
                     }).catch(error => {
                         console.log('！！！请求数据失败异常：')
                         console.log(error)
                     });
                 }
-                if (this.course !== null) {
+                if (this.searchingC !== null) {
                     this.$axios.get(
-                        'api/question/getAll',
+                        'api/question/getByCid/' + this.searchingC.id
                     ).then(response => {
                         console.log(response)
                         if (response.data.flag === 'true')
-                            this.depts = JSON.parse(response.data.depts)
+                            this.questions = JSON.parse(response.data.qlist)
                         else
-                            cError(this.$toastr, '无法得到学院数据！', '错误：')
+                            cError(this.$toastr, '无法得到提问数据！', '错误：')
                     }).catch(error => {
                         console.log('！！！请求数据失败异常：')
                         console.log(error)
                     });
                 }
             },
-            handleDeptClick(name) { // 更改新课程学院
-                this.newData.dept = name
-                document.getElementById('deptMenu').innerText = name
-            },
-            handleDeptClick2(name) {    // 更改待删改课程学院
-                this.changingData.dept = name
-                document.getElementById('deptMenu2').innerText = name
-            },
-            changing(data) {    // 确定删改对象
-                if (data === null) {
-                    cError(this.$toastr, '正在删改空对象！', '错误：')
-                    return
-                }
-                this.changingData = data
-                document.getElementById('name').placeholder = data.name
-                document.getElementById('deptMenu2').innerText = data.dept
-                document.getElementById('info').placeholder = data.info
-            },
-            searching(data) {   // 确定要查看教师的课程
+            searching(data) {   // 确定要查看的提问
                 if (data === null) {
                     cError(this.$toastr, '正在查询空对象！', '错误：')
                     return
                 }
-                sessionStorage.setItem('searchingCID', data.id)
-                sessionStorage.setItem('searchingCNAME', data.name)
-                location.href = '/#/admin/teachesC'
+                sessionStorage['searchingQID'] = data.id
+                sessionStorage['searchingQNAME'] = data.name
+                location.href = '/#/student/question'
             },
-            searchT() {  // 按教师工号查教师名
+            searchCByID() {  // 按课程编号查课程
+                if(!this.searchingCID) {
+                    // info(this.$toastr, '请先输入课程编号', '提示：')
+                    this.searchingCName = ''
+                    return
+                }
                 this.$axios.get(
-                    'api/teacher/get/' + this.searchingTeacherID
+                    'api/course/get/' + this.searchingCID
                 ).then( response => {
                     console.log(response)
-                    if (response.data.flag === 'true')
-                        this.searchingTeacherName = JSON.parse(response.data.teacher).name
-                    else
-                        this.searchingTeacherName = '无该教师！'
+                    if (response.data.flag === 'true') {
+                        success(this.$toastr, '已通过ID查询到该课程！')
+                        this.searchingC = JSON.parse(response.data.course)
+                        this.searchingCName = this.searchingC.name
+                    } else
+                        this.searchingCName = ''
                 }).catch( error => {
                     console.log('！！！请求数据失败异常：')
                     console.log(error)
                 });
             },
+            searchCByName() {   // 用课程名查ID
+                if (!this.searchingCName) {
+                    this.searchingCID = undefined
+                    return
+                }
+                this.$axios.get(
+                    'api/course/getByName/' + this.searchingCName
+                ).then( response => {
+                    console.log(response)
+                    if (response.data.flag === 'true') {
+                        success(this.$toastr, '已通过名称查询到该课程！')
+                        this.searchingC = JSON.parse(response.data.course)
+                        this.searchingCID = this.searchingC.id
+                    } else
+                        this.searchingCID = undefined
+                }).catch( error => {
+                    console.log('！！！请求数据失败异常：')
+                    console.log(error)
+                });
+            },
+            getQuestionByCid() {    // 搜索某课程的提问
+                if (this.searchingC.id === undefined || this.searchingC.name === '') {
+                    info(this.$toastr, '请先选择课程！', '提示：')
+                    return
+                }
+                this.$axios.get(
+                    'api/question/getByCid/' + this.searchingC.id
+                ).then( response => {
+                    console.log(response)
+                    if (response.data.flag === 'true') {
+                        success(this.$toastr, '查询提问列表成功！')
+                        this.questions = JSON.parse(response.data.qlist)
+                        document.getElementById('tableTitle').innerText
+                            = this.searchingC.name + ' 提问列表'
+                    } else
+                        cError(this.$toastr, '无法得到提问数据！', '错误：')
+                }).catch( error => {
+                    console.log('！！！请求数据失败异常：')
+                    console.log(error)
+                });
+
+            },
+
         }
     }
 </script>

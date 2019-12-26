@@ -44,7 +44,7 @@
                 <th> {{ course.info }} </th>
                 <th> <button class="btn btn-info"
                              @click=" searching( course ) "
-                > 查看 </button> </th>
+                             > 查看 </button> </th>
             </tr>
             </tbody>
         </table>
@@ -109,7 +109,7 @@
                 });
             },
             getCourseByUid() {  // 搜索某教师的课程
-                if (this.searchingTeacher.name === '') {
+                if (this.searchingTeacher.id === undefined || this.searchingTeacher.name === '') {
                     info(this.$toastr, '请先选择教师！', '提示：')
                     return
                 }
@@ -135,7 +135,7 @@
                     cError(this.$toastr, '正在查询空课程！', '错误：')
                     return
                 }
-                sessionStorage['searchingCID']= course.id
+                sessionStorage['searchingCID'] = course.id
                 sessionStorage['searchingCNAME'] = course.name
                 location.href = '/#/student/course'
             },

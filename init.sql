@@ -49,8 +49,8 @@ INSERT INTO `teaches` (`c_id`, `u_id`) VALUES (4, 22);
 INSERT INTO `teaches` (`c_id`, `u_id`) VALUES (5, 33);
 INSERT INTO `teaches` (`c_id`, `u_id`) VALUES (6, 33);
 
-
-
+INSERT INTO `question` (`q_id`, `c_id`, `student_id`, `teacher_id`, `title`, `content`, `img_id`, `date`)
+VALUES (1, 2, 111, 11, '关于第一范式', '如何判断一个数据库模式是不是第一范式', 0, '19-12-12 12:12:12')
 
 
 

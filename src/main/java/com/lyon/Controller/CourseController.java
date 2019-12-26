@@ -51,13 +51,29 @@ public class CourseController {
     ) {
         HashMap<String, String> response = new HashMap<>();
         List<Course> clist = courseRepository.findByDept(dept);
-        System.out.println("course/get("+ dept + ") " + JSON.toJSONString(clist) + now());
+        System.out.println("course/getByDept("+ dept + ") " + JSON.toJSONString(clist) + now());
         if (clist == null) {
             response.put("flag", "false");
             return response;
         }
         response.put("flag", "true");
         response.put("clist", JSON.toJSONString(clist));
+        return response;
+    }
+
+    @RequestMapping(value = "/getByName/{name}", method = RequestMethod.GET)
+    public HashMap<String, String> getByName(
+            @PathVariable String name
+    ) {
+        HashMap<String, String> response = new HashMap<>();
+        Course course = courseRepository.findByName(name);
+        System.out.println("course/getByName("+ name + ") " + JSON.toJSONString(course) + now());
+        if (course == null) {
+            response.put("flag", "false");
+            return response;
+        }
+        response.put("flag", "true");
+        response.put("course", JSON.toJSONString(course));
         return response;
     }
 

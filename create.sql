@@ -61,7 +61,7 @@ CREATE TABLE `question` (
 	`teacher_id` BIGINT (20) NOT NULL REFERENCES `user` (`u_id`),
 	`title` VARCHAR (50) NOT NULL,
 	`content` VARCHAR (200),
-	`img_id` BIGINT (20) DEFAULT NULL,
+	`img_id` BIGINT (20) DEFAULT 0,
 	`date` VARCHAR (40),
 	`read_by_teacher` bit DEFAULT 0,
 	PRIMARY KEY (`q_id`)
@@ -74,6 +74,7 @@ CREATE TABLE `answer` (
 	`q_id` BIGINT (20) NOT NULL REFERENCES `question` (`q_id`),
 	`teacher_id` BIGINT (20) NOT NULL REFERENCES `user` (`u_id`),
 	`content` VARCHAR (200),
+	`img_id` BIGINT (20) DEFAULT 0,
 	`date` VARCHAR (40),
 	`read_by_student` bit DEFAULT 0,
 	PRIMARY KEY (`a_id`)

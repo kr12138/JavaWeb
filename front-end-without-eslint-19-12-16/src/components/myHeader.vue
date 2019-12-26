@@ -3,7 +3,7 @@
         <br><br>
         <div class="row">
             <router-link class="myText col-sm-8 col-md-6 col-lg-4 offset-lg-1"
-                         to="/frontPage/home" >
+                         to="/frontPage/home">
                 <h3 style="text-shadow: #2c3e50 5px 3px 3px;">
                     教学课后辅导交流系统
                 </h3>
@@ -73,8 +73,12 @@
             settings,
         },
         created() {
+            if (sessionStorage['name'])
+                this.name = sessionStorage['name']
+            else
+                this.name = ''
             eventBus.$on('loginSuccess',()=> {
-                this.name = sessionStorage.getItem('name')
+                this.name = sessionStorage['name']
             });
             eventBus.$on('logoutSuccess',()=> {
                 this.name = ''

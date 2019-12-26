@@ -13,22 +13,22 @@
 
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/dept"> 查看学院
+                                     to="/student/dept"> 搜索学院
                         </router-link>
                     </div>
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/teacher"> 查看教师
+                                     to="/student/teacher"> 搜索教师
                         </router-link>
                     </div>
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/course"> 查看课程
+                                     to="/student/course"> 搜索课程
                         </router-link>
                     </div>
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/student/question"> 查看提问
+                                     to="/student/question"> 搜索提问
                         </router-link>
                     </div>
                     <div class="nav-item ">

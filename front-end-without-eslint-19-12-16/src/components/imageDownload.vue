@@ -38,7 +38,7 @@
                 });
                 console.log(this.img)
             }
-        }
+        },
     }
 </script>
 

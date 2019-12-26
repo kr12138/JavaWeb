@@ -50,14 +50,14 @@ public class QuestionController {
             @PathVariable long cid
     ) {
         HashMap<String, String> response = new HashMap<>();
-        List<Question> clist = questionRepository.findByCid(cid);
-        System.out.println("question/get("+ cid + ") " + JSON.toJSONString(clist) + now());
-        if (clist == null) {
+        List<Question> qlist = questionRepository.findByCid(cid);
+        System.out.println("question/getByCid("+ cid + ") " + JSON.toJSONString(qlist) + now());
+        if (qlist == null) {
             response.put("flag", "false");
             return response;
         }
         response.put("flag", "true");
-        response.put("clist", JSON.toJSONString(clist));
+        response.put("qlist", JSON.toJSONString(qlist));
         return response;
     }
 

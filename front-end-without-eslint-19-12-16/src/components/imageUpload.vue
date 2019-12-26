@@ -36,19 +36,18 @@
                 if (this.img) {
                     let reader = new FileReader()
                     reader.readAsDataURL(this.img)
-                    let that = this
-                    reader.onload = function (e) {
-                        that.base64 = e.target.result
-                        console.log(that.base64)
+                    reader.onload = e => {
+                        this.base64 = e.target.result
+                        console.log(this.base64)
                         // 以上是转为base64，接下来塞进数据库
-                        that.$axios.post(
-                            'api/image/new', that.base64
+                        this.$axios.post(
+                            'api/image/new', this.base64
                         ).then(response => {
                             console.log(response)
                             if (response.data.flag === 'true')
-                                cSuccess(that.$toastr, '成功上次图片数据！')
+                                cSuccess(this.$toastr, '成功上次图片数据！')
                             else
-                                cError(that.$toastr, '无法上传图片数据！', '错误：')
+                                cError(this.$toastr, '无法上传图片数据！', '错误：')
                         }).catch(error => {
                             console.log('！！！请求数据失败异常：')
                             console.log(error)

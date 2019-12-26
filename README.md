@@ -3,7 +3,7 @@
 
 `2019-12-25 我感觉要写不完了……`
 `2019-12-26凌晨 被mysql的长字符串乱杀……`
-`2019-12-26凌晨 被base64编码和url编码乱杀……`
+`2019-12-26上午 被base64编码和url编码乱杀……`
 
 ## 教学在线留言答疑系统
 大学教学中，学生在课后，可以通过该网站提出问题留言，教师登录后可以选择回答。 
@@ -36,9 +36,11 @@
 
 ​	b) 登录后，每个课程均可以有若干留言问题，可以按学院，教师分类浏览所有课程列表 
 
-​			`DeptController.java, courseController.java, TeachesController.java, TeacherController.java; studentDept.vue, studentTeacher.vue`
+​			`DeptController.java, CourseController.java, TeachesController.java, TeacherController.java; studentDept.vue, studentTeacher.vue`
 
 ​	c) 可以选择进入某课程的页面，并显示该课程的相关信息和简介，以及该课程的所有留言问题与教师解答（如果没有教师解答，显示未解答）。 
+
+​			`CourseController.java, QuestionController.java; studentCourse.vue, studentAnswer.vue`
 
 ​	d) 如果留言很多，可以分页显示。 
 
