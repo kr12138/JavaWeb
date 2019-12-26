@@ -1,36 +1,38 @@
 <template>
-    <div class="container"> <br>
+    <div class="container">
         <div class="container-fluid">
             <div class="row">
-                <label class="d-block col-md-2"> </label>
-                <input type="number" class="form-control col-sm-4 col-md-3"
+<!--                <label class="d-md-block col-lg-1"> </label>-->
+                <input type="number" class="form-control col-sm-12 col-md-4"
                        style="margin-left: 5px;"
                        placeholder="在此输入教师工号"
                        id="idInput"
                        v-model=" searchingTID "
                        @keyup=" searchTByID "/>
-                <input type="text" class="form-control col-sm-4 col-md-3"
+                <input type="text" class="form-control col-sm-12 col-md-4"
                        style="margin-left: 5px;"
                        placeholder="在此输入教师姓名"
                        id="nameInput"
                        v-model=" searchingTName "
                        @keyup=" searchTByName ">
-                <span class="btn btn-info col-sm-2"
+                <span class="btn btn-info col-sm-12 col-md-3"
                       style="margin-left: 5px;"
                       @click=" getCourseByUid "
-                      > 搜索 <a class="glyphicon glyphicon-search"> </a> </span>
+                      > 搜索授课情况 <a class="glyphicon glyphicon-search"> </a> </span>
             </div>
         </div> <br>
 
-        <div v-if=" searchingTeacher !== null " class="row">
-            <span class="col-2 offset-2"> 教师工号：</span>
-            <span class="col-6"> {{ searchingTeacher.id }} </span> </div>
-        <div v-if=" searchingTeacher !== null " class="row">
-            <div class="col-2 offset-2"> 教师姓名：</div>
-            <div class="col-6"> {{ searchingTeacher.name }} </div> </div>
-        <div v-if=" searchingTeacher !== null " class="row">
-            <div class="col-2 offset-2"> 教师简介：</div>
-            <div class="col-6"> {{ searchingTeacher.info }} </div> </div> <br>
+        <div class="info" v-if=" searchingTeacher !== null ">
+            <div class="row">
+                <div class="col-2 offset-2"> 教师工号：</div>
+                <div class="col-6"> {{ searchingTeacher.id }} </div> </div>
+            <div class="row">
+                <div class="col-2 offset-2"> 教师姓名：</div>
+                <div class="col-6"> {{ searchingTeacher.name }} </div> </div>
+            <div class="row">
+                <div class="col-2 offset-2"> 教师简介：</div>
+                <div class="col-6"> {{ searchingTeacher.info }} </div> </div> <br>
+        </div>
 
         <h2 v-show=" courses.length !== 0 " id="tableTitle">  </h2> <br>
         <table class="table table-hover" v-if=" courses.length !== 0 ">
@@ -145,9 +147,7 @@
 
 <style scoped>
     .container { font-family: Consolas, Inconsolata, "微软雅黑" }
-    div {
-        font-size: 20px;
-    }
+    .info { font-size: 20px; }
     a::before {
         vertical-align: middle;
         /*padding-right: 5px;*/

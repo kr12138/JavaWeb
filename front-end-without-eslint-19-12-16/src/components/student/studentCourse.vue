@@ -2,35 +2,37 @@
     <div class="container">
         <div class="container-fluid">
             <div class="row">
-                <label class="d-block col-md-2"> </label>
-                <input type="number" class="form-control col-sm-4 col-md-3"
+<!--                <label class="d-block col-md-1"> </label>-->
+                <input type="number" class="form-control col-sm-12 col-md-4"
                        style="margin-left: 5px;"
                        placeholder="在此输入课程编号"
                        id="idInput"
                        v-model=" searchingCID "
                        @keyup=" searchCByID() ">
-                <input type="text" class="form-control col-sm-4 col-md-3"
+                <input type="text" class="form-control col-sm-12 col-md-4"
                        style="margin-left: 5px;"
                        placeholder="在此输入课程名称"
                        id="nameInput"
                        v-model=" searchingCName "
                        @keyup=" searchCByName ">
-                <span class="btn btn-info col-sm-2"
+                <span class="btn btn-info col-sm-12 col-md-3"
                       style="margin-left: 5px;"
                       @click=" getQuestionByCid "
-                      > 搜索 <a class="glyphicon glyphicon-search"> </a> </span>
+                      > 搜索相关提问 <a class="glyphicon glyphicon-search"> </a> </span>
             </div>
         </div> <br>
 
-        <div v-if=" searchingC !== null " class="row">
-            <span class="col-2 offset-2"> 课程编号：</span>
-            <span class="col-6"> {{ searchingC.id }} </span> </div>
-        <div v-if=" searchingC !== null " class="row">
-            <div class="col-2 offset-2"> 课程名称：</div>
-            <div class="col-6"> {{ searchingC.name }} </div> </div>
-        <div v-if=" searchingC !== null " class="row">
-            <div class="col-2 offset-2"> 课程说明：</div>
-            <div class="col-6"> {{ searchingC.info }} </div> </div> <br>
+        <div class="info" v-if=" searchingC !== null ">
+            <div class="row">
+                <div class="col-2 offset-2"> 课程编号：</div>
+                <div class="col-6"> {{ searchingC.id }} </div> </div>
+            <div class="row">
+                <div class="col-2 offset-2"> 课程名称：</div>
+                <div class="col-6"> {{ searchingC.name }} </div> </div>
+            <div class="row">
+                <div class="col-2 offset-2"> 课程说明：</div>
+                <div class="col-6"> {{ searchingC.info }} </div> </div> <br>
+        </div>
 
         <h2 v-show=" questions.length !== 0 " id="tableTitle">  </h2> <br>
 
@@ -41,7 +43,12 @@
             <tbody>
             <tr v-for=" question in questions ">
                 <th> {{ question.id }} </th>
-                <th> {{ question.title }} </th>
+                <th> {{ question.title.length > 9 ?
+                        question.title.substr(0,9) + '…' :
+                        question.title }} </th>
+                <th> {{ question.content.length > 9 ?
+                        question.content.substr(0,9) + '…' :
+                        question.content }} </th>
                 <th> {{ question.date }} </th>
                 <th> {{ question.read ? "已被解答" : "未被解答" }} </th>
                 <th> <button class="btn btn-info"
@@ -50,7 +57,6 @@
             </tr>
             </tbody>
         </table>
-
 
     </div>
 </template>
@@ -65,18 +71,18 @@
         data() {
             return {
                 searchingCID: undefined,
-                searchingCName: undefined,
+                searchingCName: '',
                 searchingC: null,
-                titles: [ '问题编号', '问题标题', '提问时间', '回答情况', '查看详细' ],
+                titles: [ '问题编号', '问题标题', '问题内容', '提问时间', '回答情况', '查看详细' ],
                 questions: [],
             }
         },
         methods: {
             getData() { // 初始化
                 let tempCID = sessionStorage['searchingCID']
-                if(tempCID !== undefined) {
+                if (tempCID !== undefined) {
                     sessionStorage.removeItem('searchingCID')
-                    console.log('Init ing stuCourse by ' + tempCID)
+                    // console.log('Init ing stuCourse by ' + tempCID)
                     this.$axios.get(
                         'api/course/get/' + tempCID
                     ).then(response => {
@@ -186,6 +192,7 @@
 
 <style scoped>
     .container { font-family: Consolas, Inconsolata, "微软雅黑" }
+    .info { font-size: 20px; }
     span::before {
         vertical-align: middle;
         /*padding-right: 5px;*/

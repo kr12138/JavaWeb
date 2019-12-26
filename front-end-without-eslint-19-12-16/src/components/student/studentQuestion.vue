@@ -3,60 +3,77 @@
         <div class="container-fluid">
             <div class="row">
                 <label class="d-block col-md-2"> </label>
-                <input type="number" class="form-control col-sm-4 col-md-3"
+                <input type="number" class="form-control col-sm-6 col-md-5"
                        style="margin-left: 5px;"
                        placeholder="在此输入提问编号"
                        id="idInput"
-                       v-model=" searchingQID "
-                       @keyup=" searchQByID() ">
-                <input type="text" class="form-control col-sm-4 col-md-3"
-                       style="margin-left: 5px;"
-                       placeholder="在此输入提问名称"
-                       id="nameInput"
-                       v-model=" searchingQName "
-                       @keyup=" searchQByName ">
-                <span class="btn btn-info col-sm-2"
+                       v-model=" searchingQID ">
+                <span class="btn btn-info col-sm-4 col-lg-3"
                       style="margin-left: 5px;"
-                      @click=" getAnswerByCid "
-                > 搜索 <a class="glyphicon glyphicon-search"> </a> </span>
-            </div>
+                      @click=" getPageByID( 0 ) "
+                      > 按编号精确搜索 <a class="glyphicon glyphicon-search"> </a> </span>
+            </div> <br>
+            <div class="row">
+                <label class="d-block col-md-2"> </label>
+                <input type="text" class="form-control col-sm-6 col-md-5"
+                       style="margin-left: 5px;"
+                       placeholder="在此输入提问标题"
+                       id="titleInput"
+                       v-model=" searchingQTitle ">
+                <span class="btn btn-info col-sm-4 col-lg-3"
+                      style="margin-left: 5px;"
+                      @click=" getPageByTitleContaining( 0 ) "
+                      > 按标题模糊搜索 <a class="glyphicon glyphicon-search"> </a> </span>
+            </div> <br>
+            <div class="row">
+                <label class="d-block col-md-2"> </label>
+                <input type="text" class="form-control col-sm-6 col-md-5"
+                       style="margin-left: 5px;"
+                       placeholder="在此输入提问标题"
+                       id="contentInput"
+                       v-model=" searchingQContent ">
+                <span class="btn btn-info col-sm-4 col-lg-3"
+                      style="margin-left: 5px;"
+                      @click=" getPageByContentContaining( 0 ) "
+                      > 按内容模糊搜索 <a class="glyphicon glyphicon-search"> </a> </span>
+            </div> <br>
         </div> <br>
 
-        <div v-if=" searchingQ !== null " class="row">
-            <span class="col-2 offset-2"> 提问编号：</span>
-            <span class="col-6"> {{ searchingQ.id }} </span> </div>
-        <div v-if=" searchingQ !== null " class="row">
-            <div class="col-2 offset-2"> 提问名称：</div>
-            <div class="col-6"> {{ searchingQ.name }} </div> </div>
-        <div v-if=" searchingQ !== null " class="row">
-            <div class="col-2 offset-2"> 提问说明：</div>
-            <div class="col-6"> {{ searchingQ.info }} </div> </div> <br>
+        <h2 v-show=" questions.length !== 0 " id="tableTitle">  </h2> <br>
 
-        <h2 v-show=" answers.length !== 0 " id="tableTitle">  </h2> <br>
-
-        <table class="table table-hover" v-if=" answers.length !== 0 ">
+        <table class="table table-hover" v-if=" questions.length !== 0 ">
             <thead>
             <tr> <th v-for=" title in titles "> {{ title }} </th> </tr>
             </thead>
             <tbody>
-            <tr v-for=" answer in answers ">
-                <th> {{ answer.id }} </th>
-                <th> {{ answer.title }} </th>
-                <th> {{ answer.date }} </th>
-                <th> {{ answer.read ? "已读" : "未读" }} </th>
+            <tr v-for=" question in questions ">
+                <th> {{ question.id }} </th>
+                <th> {{ question.title.length > 9 ?
+                        question.title.substr(0,9) + '…' :
+                        question.title }} </th>
+                <th> {{ question.content.length > 9 ?
+                        question.content.substr(0,9) + '…' :
+                        question.content }} </th>
+                <th> {{ question.date }} </th>
+                <th> {{ question.read ? "已被解答" : "未被解答" }} </th>
                 <th> <button class="btn btn-info"
-                             @click=" searching( answer ) "
+                             @click=" searchQ( question ) "
                 > 查看 </button> </th>
             </tr>
             </tbody>
         </table>
-
-
+        <div v-show=" questions.length !== 0 ">
+            <button class="btn btn-outline-info page" @click=" getPage( 0 ) "> 首页 </button>
+            <button class="btn btn-outline-info page" @click=" getPage( page-1 ) "> &lt;&lt;上一页 </button>
+            <button class="btn btn-outline-info page"> 第 {{ page+1 }} 页 </button>
+            <button class="btn btn-outline-info page" @click=" getPage( page+1 ) "> 下一页&gt;&gt; </button>
+            <button class="btn btn-outline-info page" @click=" getPage( totalPages-1 ) "> 末页 </button>
+        </div>
     </div>
 </template>
 
 <script>
-    import {info, cError, success} from "../../myToastr.js";
+    import {info, cInfo, cError, success} from "../../myToastr.js";
     export default {
         name: "studentCourse",
         mounted() {
@@ -65,16 +82,20 @@
         data() {
             return {
                 searchingQID: undefined,
-                searchingQName: undefined,
+                searchingQTitle: '',
+                searchingQContent: '',
                 searchingQ: null,
                 titles: [ '回答编号', '回答内容', '回答时间', '回答情况', '查看详细' ],
-                answers: [],
+                questions: [],
+                searchingMethod: 0, // 0：id，1：title，2：content
+                page: 0,
+                totalPages: undefined,
             }
         },
         methods: {
             getData() { // 初始化
                 let tempQID = sessionStorage['searchingQID']
-                if(tempQID !== undefined) {
+                if (tempQID !== undefined) {
                     sessionStorage.removeItem('searchingQID')
                     console.log('Init ing stuCourse by ' + tempQID)
                     this.$axios.get(
@@ -84,7 +105,7 @@
                         if (response.data.flag === 'true') {
                             this.searchingQ = JSON.parse(response.data.question)
                             this.searchingQID = this.searchingQ.id
-                            this.searchingQName = this.searchingQ.name
+                            this.getPageByID(0)
                         } else
                             cError(this.$toastr, '无法得到提问数据！', '错误：')
                     }).catch(error => {
@@ -92,93 +113,163 @@
                         console.log(error)
                     });
                 }
-                if (this.searchingQ !== null) {
-                    this.$axios.get(
-                        'api/answer/getByQid/' + this.searchingQ.id
-                    ).then(response => {
-                        console.log(response)
-                        if (response.data.flag === 'true')
-                            this.answers = JSON.parse(response.data.alist)
-                        else
-                            cError(this.$toastr, '无法得到回答数据！', '错误：')
-                    }).catch(error => {
-                        console.log('！！！请求数据失败异常：')
-                        console.log(error)
-                    });
-                }
             },
-            searching(data) {   // 确定要查看的回答
-                if (data === null) {
-                    cError(this.$toastr, '正在查询空对象！', '错误：')
+            getPageByID(page) { // 按提问编号查提问
+                if (!this.searchingQID) {
+                    info(this.$axios, '请先输入编号', '提示：')
                     return
                 }
-                sessionStorage['searchingAID'] = data.id
-                sessionStorage['searchingANAME'] = data.name
-                location.href = '/#/student/answer'
-            },
-            searchQByID() {  // 按提问编号查提问
-                if(!this.searchingQID) {
-                    // info(this.$toastr, '请先输入提问编号', '示：')
-                    this.searchingQName = ''
-                    return
-                }
+                this.searchingMethod = 0
                 this.$axios.get(
-                    'api/question/get/' + this.searchingQID
+                    'api/question/getPageByID/' + page + '/' + this.searchingQID
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true') {
                         success(this.$toastr, '已通过ID查询到该提问！')
-                        this.searchingQ = JSON.parse(response.data.question)
-                        this.searchingQName = this.searchingQ.name
+                        this.questions = JSON.parse(response.data.qlist)
+                        // this.searchingQ = this.questions[0]
+                        this.page = page
+                        this.totalPages = JSON.parse(response.data.totalPages)
                     } else
-                        this.searchingQName = ''
+                        cError(this.$axios, '查询提问失败', '错误：')
                 }).catch( error => {
                     console.log('！！！请求数据失败异常：')
                     console.log(error)
                 });
             },
-            searchQByName() {   // 用提问名查ID
-                if (!this.searchingQName) {
-                    this.searchingQID = undefined
+            getPageByTitleContaining(page) {
+                if (!this.searchingQTitle) {
+                    info(this.$axios, '请先输入标题', '提示：')
                     return
                 }
+                this.searchingMethod = 1
                 this.$axios.get(
-                    'api/question/getByName/' + this.searchingQName
+                    'api/question/getPageByTitleContaining/' + page + '/' + this.searchingQTitle
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true') {
-                        success(this.$toastr, '已通过名称查询到该提问！')
-                        this.searchingQ = JSON.parse(response.data.question)
-                        this.searchingQID = this.searchingQ.id
+                        success(this.$toastr, '已通过标题查询到该提问！')
+                        this.questions = JSON.parse(response.data.qlist)
+                        this.page = page
+                        this.totalPages = JSON.parse(response.data.totalPages)
                     } else
-                        this.searchingQID = undefined
+                        cError(this.$axios, '查询提问失败', '错误：')
                 }).catch( error => {
                     console.log('！！！请求数据失败异常：')
                     console.log(error)
                 });
             },
-            getAnswerByCid() {    // 搜索某提问的回答
-                if (this.searchingQ.id === undefined || this.searchingQ.name === '') {
-                    info(this.$toastr, '请先选择提问！', '示：')
+            getPageByContentContaining(page) {
+                if (!this.searchingQContent) {
+                    info(this.$axios, '请先输入内容', '提示：')
                     return
                 }
+                this.searchingMethod = 2
                 this.$axios.get(
-                    'api/answer/getByQid/' + this.searchingQ.id
+                    'api/question/getPageByContentContaining/' + page + '/' + this.searchingQContent
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true') {
-                        success(this.$toastr, '查询回答列表成功！')
-                        this.answers = JSON.parse(response.data.alist)
-                        document.getElementById('tableTitle').innerText
-                            = this.searchingQ.name + ' 回答列表'
+                        success(this.$toastr, '已通过内容查询到该提问！')
+                        this.questions = JSON.parse(response.data.qlist)
+                        this.page = page
+                        this.totalPages = JSON.parse(response.data.totalPages)
                     } else
-                        cError(this.$toastr, '无法得到回答数据！', '错误：')
+                        cError(this.$axios, '查询提问失败', '错误：')
                 }).catch( error => {
                     console.log('！！！请求数据失败异常：')
                     console.log(error)
                 });
-
             },
+            getPage(page) {
+                console.log('正在请求页码：'+page)
+                if (page<0) {
+                    cInfo(this.$toastr, '已是首页，无上一页', '提示')
+                    return
+                } else if (page >= this.totalPages) {
+                    cInfo(this.$toastr, '已是末页，无下一页', '提示')
+                    return
+                }
+                if (this.searchingMethod === 0)
+                    this.getPageByID(page)
+                else if (this.searchingMethod === 1)
+                    this.getPageByTitleContaining(page)
+                else if (this.searchingMethod === 2)
+                    this.getPageByContentContaining(page)
+                else cError(this.$axios, '未找到搜索方案', '错误：')
+            },
+            // searchQByID() {  // 按提问编号查提问
+            //     if (!this.searchingQID) {
+            //         info(this.$toastr, '请先输入提问编号！', '提示：')
+            //         this.searchingQTitle = ''
+            //         this.searchingQContent = ''
+            //         return
+            //     }
+            //     this.getPageByID(0)
+            // },
+            // searchQByTitleContaining() {   // 用提问名查提问
+            //     if (!this.searchingQName) {
+            //         this.searchingQID = undefined
+            //         this.searchingQContent = ''
+            //         return
+            //     }
+            //     this.$axios.get(
+            //         'api/question/getByNameContaining/' + this.searchingQName
+            //     ).then( response => {
+            //         console.log(response)
+            //         if (response.data.flag === 'true') {
+            //             success(this.$toastr, '已通过名称查询到该提问！')
+            //             this.searchingQ = JSON.parse(response.data.question)
+            //             this.searchingQID = this.searchingQ.id
+            //         } else
+            //             this.searchingQID = undefined
+            //     }).catch( error => {
+            //         console.log('！！！请求数据失败异常：')
+            //         console.log(error)
+            //     });
+            // },
+            // searchQByContentContaining() {    // 用提问内容查提问
+            //     if (!this.searchingQContent) {
+            //         this.searchingQID = undefined
+            //         this.searchingQTitle = ''
+            //         return
+            //     }
+            //     this.$axios.get(
+            //         'api/question/getByContentContaining/' + this.searchingQContent
+            //     ).then( response => {
+            //         console.log(response)
+            //         if (response.data.flag === 'true') {
+            //             success(this.$toastr, '已通过名称查询到该提问！')
+            //             this.searchingQ = JSON.parse(response.data.question)
+            //             this.searchingQID = this.searchingQ.id
+            //         } else
+            //             this.searchingQID = undefined
+            //     }).catch( error => {
+            //         console.log('！！！请求数据失败异常：')
+            //         console.log(error)
+            //     });
+            // },
+            // getAnswerByCid() {    // 搜索某提问的回答
+            //     if (this.searchingQ.id === undefined) {
+            //         info(this.$toastr, '请先选择提问！', '提示：')
+            //         return
+            //     }
+            //     this.$axios.get(
+            //         'api/answer/getByQid/' + this.searchingQ.id
+            //     ).then( response => {
+            //         console.log(response)
+            //         if (response.data.flag === 'true') {
+            //             success(this.$toastr, '查询回答列表成功！')
+            //             this.answers = JSON.parse(response.data.alist)
+            //             document.getElementById('tableTitle').innerText
+            //                 = this.searchingQ.name + ' 回答列表'
+            //         } else
+            //             cError(this.$toastr, '无法得到回答数据！', '错误：')
+            //     }).catch( error => {
+            //         console.log('！！！请求数据失败异常：')
+            //         console.log(error)
+            //     });
+            // },
 
         }
     }

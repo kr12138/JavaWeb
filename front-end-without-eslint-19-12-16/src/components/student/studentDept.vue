@@ -4,7 +4,7 @@
             <span class="dropdown">
                 <button type="button" class="btn btn-outline-info dropdown-toggle"
                         id="deptMenu"
-                        data-toggle="dropdown"> 按开课学院 </button>
+                        data-toggle="dropdown"> 开课学院 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#"
                        v-for=" dept in depts "
@@ -15,18 +15,20 @@
             <span class="btn btn-info"
                   style="margin-left: 3px;"
                   @click=" getCourseByDept "
-                  > 搜索 <a class="glyphicon glyphicon-search"> </a> </span>
+                  > 搜索开课情况 <a class="glyphicon glyphicon-search"> </a> </span>
         </div> <br>
 
-        <div v-if=" searchingDept !== null " class="row">
-            <span class="col-2 offset-2"> 学院编号：</span>
-            <span class="col-6"> {{ searchingDept.id }} </span> </div>
-        <div v-if=" searchingDept !== null " class="row">
-            <div class="col-2 offset-2"> 学院名称：</div>
-            <div class="col-6"> {{ searchingDept.name }} </div> </div>
-        <div v-if=" searchingDept !== null " class="row">
-            <div class="col-2 offset-2"> 学院简介：</div>
-            <div class="col-6"> {{ searchingDept.info }} </div> </div> <br>
+        <div class="info" v-if=" searchingDept !== null ">
+            <div class="row">
+                <div class="col-2 offset-2"> 学院编号：</div>
+                <div class="col-6"> {{ searchingDept.id }} </div> </div>
+            <div class="row">
+                <div class="col-2 offset-2"> 学院名称：</div>
+                <div class="col-6"> {{ searchingDept.name }} </div> </div>
+            <div class="row">
+                <div class="col-2 offset-2"> 学院简介：</div>
+                <div class="col-6"> {{ searchingDept.info }} </div> </div> <br>
+        </div>
 
         <h2 v-show=" courses.length !== 0 " id="tableTitle">  </h2> <br>
         <table class="table table-hover" v-if=" courses.length !== 0 ">
@@ -120,9 +122,7 @@
 
 <style scoped>
     .container { font-family: Consolas, Inconsolata, "微软雅黑" }
-    div {
-        font-size: 20px;
-    }
+    .info { font-size: 20px; }
     a::before {
         vertical-align: middle;
         /*padding-right: 5px;*/

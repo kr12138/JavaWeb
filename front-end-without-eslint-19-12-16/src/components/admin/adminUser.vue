@@ -134,12 +134,12 @@
         data() {
             return {
                 newData: { id: undefined, name: '', password: '', identity: undefined },
-                page: 0,
-                totalPages: undefined,
                 changingData: {},
                 titles: [ '用户ID', '用户昵称', '用户密码', '用户权限', '增删改' ],
                 identityInfo: ['0(管理员)', '1(学生)', '2(教师)'],
                 users: [],
+                page: 0,
+                totalPages: undefined,
             }
         },
         methods: {
@@ -153,7 +153,7 @@
                     return
                 }
                 this.$axios.get(
-                    'api/user/getAll/'+page
+                    'api/user/getAll/' + page
                 ).then( response => {
                     console.log(response)
                     if (!response.data.flag || response.data.flag !== 'true')
