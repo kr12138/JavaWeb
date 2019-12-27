@@ -32,6 +32,7 @@ import teacherCourse from "@/components/teacher/teacherCourse"
 import teacherQuestion from "@/components/teacher/teacherQuestion"
 import teacherMyAnswers from "@/components/teacher/teacherMyAnswers"
 import teacherQuestionShow from "@/components/teacher/teacherQuestionShow"
+import teacherQuestionAuth from "@/components/teacher/teacherQuestionAuth"
 import adminQuestion from "@/components/admin/adminQuestion"
 import adminAnswer from "@/components/admin/adminAnswer"
 
@@ -111,6 +112,7 @@ const routes = [
           {path: 'myAnswers', component: teacherMyAnswers, meta: {title: '我的回答'} },
           {path: 'courseList', component: teacherCourseList, meta: {title: '开课列表'} },
           {path: 'questionShow', component: teacherQuestionShow, meta: {title: '提问详情'} },
+          {path: 'questionAuth', component: teacherQuestionAuth, meta: {title: '查看权限设置'} },
         ],
         meta: {title: '教师中心'},
       },

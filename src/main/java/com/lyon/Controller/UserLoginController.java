@@ -55,11 +55,11 @@ public class UserLoginController {
             response.put("name", user.getName());
             response.put("identity", Short.toString(user.getIdentity()));
             if (user.getIdentity() == 0) {
-                response.put("token", "admin");
+                response.put("token", "admin" + data.getId());
             } else if (user.getIdentity() == 1) {
-                response.put("token", "stude");
+                response.put("token", "stude" + data.getId());
             } else if (user.getIdentity() == 2) {
-                response.put("token", "teach");
+                response.put("token", "teach" + data.getId());
             }
         }
         return response;

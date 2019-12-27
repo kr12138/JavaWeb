@@ -6,6 +6,7 @@ import com.lyon.Entity.Image;
 import com.lyon.Entity.Teacher;
 import com.lyon.Repository.AnswerRepository;
 import com.lyon.Repository.ImageRepository;
+import com.lyon.Repository.QuestionAuthRepository;
 import com.lyon.Repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,8 @@ public class AnswerDetailsController {
     private TeacherRepository teacherRepository;
     @Autowired
     private ImageRepository imageRepository;
+    @Autowired
+    private QuestionAuthRepository questionAuthRepository;
 
     class Row implements Serializable { // 每一行回答的数据
         String prof;
@@ -88,13 +91,14 @@ public class AnswerDetailsController {
         }
     }
 
-    @RequestMapping(value = "/getDetailsByQid/{qid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getDetailsByQid/{qid}/{uid}", method = RequestMethod.GET)
     public HashMap<String, String> getDetailsByQid(
-            @PathVariable long qid
+            @PathVariable long qid,
+            @PathVariable long uid
     ) {
         HashMap<String, String> response = new HashMap<>();
         List<Answer> alist = answerRepository.findByQid(qid);
-        System.out.println("answer/getDetailsByQid("+ qid + ") " + JSON.toJSONString(alist) + now());
+        System.out.println("answer/getDetailsByQid("+ qid + ") uid " + uid + JSON.toJSONString(alist) + now());
         int sz = alist.size();
         List<Row> rlist = new ArrayList<>();
         for (int i=0; i<sz; ++i) {
@@ -104,6 +108,12 @@ public class AnswerDetailsController {
                 response.put("flag", "false");
                 return response;
             }
+            if (questionAuthRepository.existsByTid(teacher.getId()) &&
+                    !questionAuthRepository.existsByTidAndSid(teacher.getId(), uid)) {
+                response.put("flag", "false");
+                return response;
+            }
+
             Answer answer = alist.get(i);
             Row row = new Row();
             row.setName(teacher.getName());

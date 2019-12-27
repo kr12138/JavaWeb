@@ -31,6 +31,11 @@
                                      to="/teacher/myAnswers"> 我的回答
                         </router-link>
                     </div>
+                    <div class="nav-item ">
+                        <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
+                                     to="/teacher/questionAuth"> 浏览权限设置
+                        </router-link>
+                    </div>
 
                     <div class="nav-item w-25">
                         <router-link class="nav-link d-block d-sm-none"

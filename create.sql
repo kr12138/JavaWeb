@@ -80,6 +80,14 @@ CREATE TABLE `answer` (
 	PRIMARY KEY (`a_id`)
 );
 
+DROP TABLE `QuestionAuth`;
+
+CREATE TABLE `QuestionAuth` (
+	`t_id` BIGINT (20) NOT NULL REFERENCES `user` (`u_id`),
+	`s_id` BIGINT (20) NOT NULL REFERENCES `user` (`u_id`),
+	PRIMARY KEY (`t_id`, `s_id`)
+);
+
 DROP TABLE `imgtest`;
 
 CREATE TABLE `imgtest` (

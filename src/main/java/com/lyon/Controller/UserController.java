@@ -22,15 +22,25 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-//    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-//    public HashMap<String, String> getAll() {
+//    @RequestMapping(value = "/getALL", method = RequestMethod.GET)
+//    public HashMap<String, String> getALL() {
 //        HashMap<String, String> response = new HashMap<>();
 //        final List<User> list = userRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
-//        System.out.println("user/getAll " + JSON.toJSONString(list) + now());
+//        System.out.println("user/getALL " + JSON.toJSONString(list) + now());
 //        response.put("flag", "true");
 //        response.put("users", JSON.toJSONString(list));
 //        return response;
 //    }
+    @RequestMapping(value = "/getAllStudents", method = RequestMethod.GET)
+    public HashMap<String, String> getAllStudents() {
+        HashMap<String, String> response = new HashMap<>();
+        final List<User> list = userRepository.findAllByIdentity((short)1);
+        System.out.println("user/getAllStudents " + JSON.toJSONString(list) + now());
+        response.put("flag", "true");
+        response.put("slist", JSON.toJSONString(list));
+        return response;
+    }
+
     @RequestMapping(value = "/getAll/{page}", method = RequestMethod.GET)
     public HashMap<String, String> getAll(
             @PathVariable int page

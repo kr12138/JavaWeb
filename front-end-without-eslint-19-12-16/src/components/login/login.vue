@@ -1,10 +1,7 @@
 <template>
 
-    <div>
-        <br>
-        <h4>
-            {{ identity }}登录
-        </h4>
+    <div> <br>
+        <h4> {{ identity }} 登录 </h4>
 
         <div class="container"> <br> <br>
     <!--        <form action="/api/user/login" method="post">-->

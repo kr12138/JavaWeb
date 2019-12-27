@@ -111,7 +111,7 @@
                     console.log(error)
                 });
                 this.$axios.get(
-                    'api/answer/getDetailsByQid/' + tempQID
+                    'api/answer/getDetailsByQid/' + tempQID + '/' + sessionStorage['id']
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true') {

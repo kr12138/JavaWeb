@@ -21,6 +21,11 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
         return new adminHandlerInterceptor();
     }
 
+    @Bean
+    public questionAuthInterceptor getQuestionAuthInterceptor() {
+        return new questionAuthInterceptor();
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration user = registry.addInterceptor(getUserHandlerInterceptor());
@@ -41,6 +46,9 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
         admin.addPathPatterns("/**/add");
         admin.addPathPatterns("/**/delete");
         admin.addPathPatterns("/**/update");
+
+        InterceptorRegistration que = registry.addInterceptor(getQuestionAuthInterceptor());
+        que.addPathPatterns("/**/question/**");
     }
 
 }

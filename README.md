@@ -30,6 +30,8 @@
 
 ​	d) 删除或修改所有课程交流和留言信息。 
 
+​			`Question.java, QuestionRepository.java, QuestionController.java, Answer.java, AnswerRepository.java, AnswerController.java; adminQuestion.vue, adminAnswer.vue`
+
 #### 3、 学生帐号功能： 
 
 ​	a) 登录后，如果自己的留言问题有老师回答，将显示提示有几条回答，并可以通过连接直接跳转到该回答留言信息。 
@@ -79,6 +81,8 @@
 ​			`AnswerController.java, QuestionController.java; teacherCourse.vue, teacherQuestionShow.vue`
 
 ​	d) 可以设置自己的课程只允许某些同学浏览和提问，可以增加删除可以浏览提问该课程的学生 
+
+​			`QuestionAuthRepository.java, QuestionDetailsController.java; teacherQuestionAuth.vue, studentQuestionShow.vue`
 
 ​	e) 可以修改删除自己发表的任意回答信息 
 
