@@ -38,7 +38,7 @@
 <script>
 
     import eventBus from "@/eventBus";
-    import {info, success, error, cError} from "../../myToastr.js";
+    import {info, success, error, cError, cInfo, cSuccess} from "../../myToastr.js";
 
     export default {
         name: "login",
@@ -85,7 +85,7 @@
                     if (!response.data.flag || response.data.flag === 'false')
                         error(this.$toastr, '密码错误<br>或所选权限不存在该用户！')
                     else {
-                        success(this.$toastr, '登录成功！<br>单击右上角看看有没有新消息吧！')
+                        success(this.$toastr, '登录成功！')
                         sessionStorage.setItem("name", response.data.name)
                         sessionStorage.setItem("id", this.user.id)
                         console.log('login id:', this.user.id)
@@ -94,6 +94,7 @@
                         console.log(response.data.token)
                         sessionStorage.setItem("token", response.data.token)
                         sessionStorage.setItem("identity", response.data.identity)
+                        this.countNewMessage()
                         if (response.data.identity === '0')
                             location.href = '/#/admin'
                         else if (response.data.identity === '1')
@@ -105,6 +106,20 @@
                     }
                 }).catch ( error => {
                     console.log('！！！登录失败异常：')
+                    console.log(error)
+                });
+            },
+            countNewMessage() {
+                this.$axios.get(
+                    'api/user/getNewMessageCountByUid/' + sessionStorage['id']
+                ).then( response => {
+                    console.log(response)
+                    if (response.data.count > 0)
+                        info(this.$toastr, '您有' + response.data.count + '条新消息！'
+                            + '<br>请点击右上角消息中心查看', '提示：')
+
+                }).catch( error => {
+                    console.log('！！！请求数据失败异常：')
                     console.log(error)
                 });
             },

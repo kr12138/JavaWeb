@@ -104,13 +104,7 @@
                 }
             },
             check() {   // 返回是否能提交新数据，再上传
-                if (this.questioningC === null) {
-                    info(this.$toastr, '请先确定课程', '提示：')
-                    return this.flag = 0
-                } else if (this.questioningT === null) {
-                    info(this.$toastr, '请先确定教师', '提示：')
-                    return this.flag = 0
-                } else if (this.title === '') {
+                if (this.title === '') {
                     info(this.$toastr, '请先输入标题', '提示：')
                     return this.flag = 0
                 } else if (this.content === '') {

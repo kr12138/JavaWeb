@@ -24,12 +24,13 @@ import studentMyQuestions from "@/components/student/studentMyQuestions"
 import studentQuestionShow from "@/components/student/studentQuestionShow"
 import settings from "@/components/profile/settings"
 import profileNav from "@/components/profile/profileNav"
+import newMessage from "@/components/profile/newMessage"
 import imageUpload from "@/components/profile/imageUpload"
 import teacherNav from "@/components/teacher/teacherNav"
 import teacherCourseList from "@/components/teacher/teacherCourseList"
-import teacherCourse from "@/components/teacher/teacherCourse";
-import teacherQuestion from "@/components/teacher/teacherQuestion";
-import teacherQuestionShow from "@/components/teacher/teacherQuestionShow";
+import teacherCourse from "@/components/teacher/teacherCourse"
+import teacherQuestion from "@/components/teacher/teacherQuestion"
+import teacherQuestionShow from "@/components/teacher/teacherQuestionShow"
 
 
 Vue.use(VueRouter)
@@ -114,6 +115,7 @@ const routes = [
         children: [
           {path: 'settings', component: settings, meta: {title: '密码更改'} },
           {path: 'avatar', component: imageUpload, meta: {title: '头像更换'} },
+          {path: 'newMessage', component: newMessage, meta: {title: '消息中心'} },
         ],
         meta: {title: '个人中心'},
       },

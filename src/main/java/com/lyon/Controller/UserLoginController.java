@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.User;
 import com.lyon.Repository.UserRepository;
 import static com.lyon.Security.logTime.now;
+import static com.lyon.Security.Encrypt.encrypt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

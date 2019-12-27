@@ -34,6 +34,8 @@
 
 ​	a) 登录后，如果自己的留言问题有老师回答，将显示提示有几条回答，并可以通过连接直接跳转到该回答留言信息。 
 
+​			`UserMessageController.java; newMessage.vue, login.vue`
+
 ​	b) 登录后，每个课程均可以有若干留言问题，可以按学院，教师分类浏览所有课程列表 
 
 ​			`DeptController.java, CourseController.java, TeachesController.java, TeacherController.java; studentDept.vue, studentTeacher.vue`
@@ -65,6 +67,8 @@
 #### 4、 教师帐号的功能 
 
 ​	a) 教师登录后，将提示自己所教授的课程是否有新的未回答的留言并且显示有多少条待回复的问题，可以选择进入某个问题进行回答。 
+
+​			`UserMessageController.java; newMessage.vue, login.vue`
 
 ​	b) 登录后，将显示自己所有讲授的课程列表。并可以选择进入某个课程的页面。 
 

@@ -26,24 +26,23 @@
                 <span v-else> login </span>
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item"
-                   v-if=" name === '' "
+                <a v-if=" name === '' " class="dropdown-item"
                    data-toggle="modal" data-target="#loginModal"> login </a>
                 <div v-if=" name === '' " class="dropdown-divider"></div>
-                <a class="dropdown-item"
-                   v-if=" name === '' "
+                <a v-if=" name === '' " class="dropdown-item"
                    data-toggle="modal" data-target="#registerModal"> register </a>
 <!--                <div v-if=" name === '' " class="dropdown-divider"></div>-->
 
                 <router-link v-if=" name !== '' " class="dropdown-item"
-                        to="/profile/settings"> 修改密码
+                             to="/profile/newMessage"> 消息中心 </router-link>
+                <div v-if=" name !== '' " class="dropdown-divider"></div>
+                <router-link v-if=" name !== '' " class="dropdown-item"
+                             to="/profile/settings"> 修改密码
                 </router-link>
                 <div v-if=" name !== '' " class="dropdown-divider"></div>
                 <router-link v-if=" name !== '' " class="dropdown-item"
                              to="/profile/avatar"> 更换头像
                 </router-link>
-                <div v-if=" name !== '' " class="dropdown-divider"></div>
-                <a v-if=" name !== '' " class="dropdown-item" href="#"> soon 2</a>
                 <div v-if=" name !== '' " class="dropdown-divider"></div>
                 <a v-if=" name !== '' " class="dropdown-item"
                    data-toggle="modal" data-target="#logoutModal">

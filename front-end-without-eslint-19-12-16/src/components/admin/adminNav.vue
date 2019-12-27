@@ -44,7 +44,7 @@
                     <div class="nav-item w-25">
                         <router-link class="nav-link d-block d-sm-none"
                                      style="text-shadow: black 5px 3px 5px;"
-                                     to="/admin/"> soon4
+                                     to="/admin/"> soon
                         </router-link>
                     </div>
 
