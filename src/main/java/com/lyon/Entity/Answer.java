@@ -22,7 +22,7 @@ public class Answer implements Serializable {
     private String img; // 配图
     @Column(name = "date")
     private String date;    // 回答时间
-    @Column(name = "read_by_teacher")
+    @Column(name = "read_by_student")
     private boolean read;   // 是否被学生读过
 
     public long getId() {

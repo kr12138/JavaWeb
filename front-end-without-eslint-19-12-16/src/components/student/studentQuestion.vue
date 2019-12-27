@@ -125,10 +125,11 @@
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true') {
-                        success(this.$toastr, '已通过ID查询到该提问！')
                         this.questions = JSON.parse(response.data.qlist)
                         if (this.questions.length === 0)
                             info(this.$toastr, '无相关提问！', '提示：')
+                        else
+                            success(this.$toastr, '已通过ID查询到该提问！')
                         // this.searchingQ = this.questions[0]
                         this.page = page
                         this.totalPages = JSON.parse(response.data.totalPages)
@@ -150,10 +151,11 @@
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true') {
-                        success(this.$toastr, '已通过标题查询到该提问！')
                         this.questions = JSON.parse(response.data.qlist)
                         if (this.questions.length === 0)
                             info(this.$axios, '无相关提问！', '提示：')
+                        else
+                            success(this.$toastr, '已通过标题查询到该提问！')
                         this.page = page
                         this.totalPages = JSON.parse(response.data.totalPages)
                     } else

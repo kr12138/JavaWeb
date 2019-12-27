@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav class="navbar navbar-expand-md navbar-dark">
-            <a class="navbar-brand glyphicon glyphicon-tree-conifer w-25" href="/#/teacher"
+            <a class="navbar-brand glyphicon glyphicon-book w-25" href="/#/teacher"
                style="text-shadow: black 5px 3px 8px;"> 教师 </a>
             <button class="navbar-toggler w-25" type="button"
                     style="box-shadow: black 3px 2px 3px;"
@@ -23,12 +23,12 @@
                     </div>
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/teacher/newQuestion"> 查看提问
+                                     to="/teacher/question"> 搜索提问
                         </router-link>
                     </div>
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/teacher/myQuestions"> 我的提问
+                                     to="/teacher/myAnswers"> 我的回答
                         </router-link>
                     </div>
 

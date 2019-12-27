@@ -104,7 +104,7 @@ public class AnswerDetailsController {
         for (int i=0; i<sz; ++i) {
             Teacher teacher = teacherRepository.findById(alist.get(i).getTid());
             Image img = imageRepository.findById(alist.get(i).getTid());
-            if (teacher == null || img == null) {
+            if (teacher == null) {
                 response.put("flag", "false");
                 return response;
             }
@@ -112,14 +112,17 @@ public class AnswerDetailsController {
             Row row = new Row();
             row.setName(teacher.getName());
             row.setProf(teacher.getProf());
-            row.setAvatar(alist.get(i).getImg());
+            if (img != null)
+                row.setAvatar(img.getImg());
+            else
+                row.setAvatar(null);
             row.setContent(answer.getContent());
             row.setDate(answer.getDate());
-            row.setImg(answer.getContent());
+            row.setImg(answer.getImg());
             rlist.add(row);
         }
         response.put("flag", "true");
-        response.put("alist", JSON.toJSONString(alist));
+        response.put("rlist", JSON.toJSONString(rlist));
         return response;
     }
 }

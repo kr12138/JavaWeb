@@ -163,7 +163,7 @@
                 console.log(this.img)
             },
             upload() {  // 上传提问
-                console.log('this.flag:' + this.flag + (this.flag ===1))
+                console.log('this.flag:' + this.flag + (this.flag === 1))
                 if (this.flag !== 1) return
                 console.log('uploading…')
                 if (this.img) {
@@ -177,11 +177,11 @@
                             'api/question/new', {
                                 "cid": this.questioningC.id,
                                 "sid": sessionStorage['id'],
-                                "tid": this.questioningC.id,
+                                "tid": this.questioningT.id,
                                 "title": this.title,
                                 "content": this.content,
                                 "img": this.img64
-                            }).then( response => {
+                        }).then( response => {
                             console.log(response)
                             if (response.data.flag === 'true')
                                 cSuccess(this.$toastr, '成功上传数据！')
@@ -197,11 +197,11 @@
                         'api/question/new', {
                             "cid": this.questioningC.id,
                             "sid": sessionStorage['id'],
-                            "tid": this.questioningC.id,
+                            "tid": this.questioningT.id,
                             "title": this.title,
                             "content": this.content,
                             "img": ''
-                        }).then( response => {
+                    }).then( response => {
                         console.log(response)
                         if (response.data.flag === 'true')
                             cSuccess(this.$toastr, '成功上传数据！')
@@ -214,7 +214,7 @@
                     });
                 }
             },
-            check() {   // 返回是否能提交新数据，再自行上传
+            check() {   // 返回是否能提交新数据，再上传
                 if (this.questioningC === null) {
                     info(this.$toastr, '请先确定课程', '提示：')
                     return this.flag = 0
@@ -227,6 +227,8 @@
                 } else if (this.content === '') {
                     info(this.$toastr, '请先输入内容', '提示：')
                     return this.flag = 0
+                } else if (sessionStorage['id'] === undefined) {
+                    cError(this.$toastr, '无用户权限！请重新登陆！', '错误：')
                 }
                 this.$axios.get(
                     'api/teaches/getByCid/' + this.questioningC.id

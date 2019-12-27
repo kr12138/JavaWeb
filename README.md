@@ -72,6 +72,8 @@
 
 ​	c) 进入课程页面后，可以查看当前的所有问题信息，并进行回答。 
 
+​			`AnswerController.java, QuestionController.java; teacherCourse.vue, teacherQuestionShow.vue`
+
 ​	d) 可以设置自己的课程只允许某些同学浏览和提问，可以增加删除可以浏览提问该课程的学生 
 
 ​	e) 可以修改删除自己发表的任意回答信息 
@@ -79,6 +81,8 @@
 ​	f) 也可以删除某个同学的提问信息 
 
 ​	g) 可以上传图片的文件附件
+
+​			`AnswerController.java; teacherQuestionShow.vue`
 
 #### 5、 所有帐号都可以修改自己的帐号密码
 

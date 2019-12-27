@@ -42,13 +42,16 @@ public class QuestionDetailsController {
         }
         Image image = imageRepository.findById(question.getSid());
         User user = userRepository.findById(question.getSid());
-        if (image == null || user == null) {
+        if (user == null) {
             response.put("flag", "false");
         }
         response.put("flag", "true");
         response.put("title", question.getTitle());
         response.put("content", question.getContent());
-        response.put("avatar", image.getImg());
+        if (image != null)
+            response.put("avatar", image.getImg());
+        else
+            response.put("avatar", null);
         response.put("name", user.getName());
         response.put("date", question.getDate());
         response.put("img", question.getImg());
