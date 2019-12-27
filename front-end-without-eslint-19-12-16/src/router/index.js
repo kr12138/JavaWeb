@@ -32,6 +32,8 @@ import teacherCourse from "@/components/teacher/teacherCourse"
 import teacherQuestion from "@/components/teacher/teacherQuestion"
 import teacherMyAnswers from "@/components/teacher/teacherMyAnswers"
 import teacherQuestionShow from "@/components/teacher/teacherQuestionShow"
+import adminQuestion from "@/components/admin/adminQuestion"
+import adminAnswer from "@/components/admin/adminAnswer"
 
 
 Vue.use(VueRouter)
@@ -76,7 +78,9 @@ const routes = [
           {path: 'dept', component: adminDept, meta: {title: '学院管理'} },
           {path: 'user', component: adminUser, meta: {title: '用户管理'} },
           {path: 'course', component: adminCourse, meta: {title: '课程管理'} },
+          {path: 'answer', component: adminAnswer, meta: {title: '回答管理'} },
           {path: 'teacher', component: adminTeacher, meta: {title: '教师管理'} },
+          {path: 'question', component: adminQuestion, meta: {title: '提问管理'} },
           {path: 'teachesT', component: adminTeachesT, meta: {title: '授课管理'} },
           {path: 'teachesC', component: adminTeachesC, meta: {title: '授课教师管理'} },
         ],

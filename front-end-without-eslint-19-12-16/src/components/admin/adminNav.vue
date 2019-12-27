@@ -33,12 +33,12 @@
                     </div>
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/admin/"> soon2
+                                     to="/admin/question"> 提问管理
                         </router-link>
                     </div>
                     <div class="nav-item ">
                         <router-link class="nav-link" style="text-shadow: black 5px 3px 5px;"
-                                     to="/admin/"> soon3
+                                     to="/admin/answer"> 回答管理
                         </router-link>
                     </div>
                     <div class="nav-item w-25">
