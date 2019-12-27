@@ -30,6 +30,7 @@ import teacherNav from "@/components/teacher/teacherNav"
 import teacherCourseList from "@/components/teacher/teacherCourseList"
 import teacherCourse from "@/components/teacher/teacherCourse"
 import teacherQuestion from "@/components/teacher/teacherQuestion"
+import teacherMyAnswers from "@/components/teacher/teacherMyAnswers"
 import teacherQuestionShow from "@/components/teacher/teacherQuestionShow"
 
 
@@ -103,6 +104,7 @@ const routes = [
         children: [
           {path: 'course', component: teacherCourse, meta: {title: '搜索课程'} },
           {path: 'question', component: teacherQuestion, meta: {title: '搜索提问'} },
+          {path: 'myAnswers', component: teacherMyAnswers, meta: {title: '我的回答'} },
           {path: 'courseList', component: teacherCourseList, meta: {title: '开课列表'} },
           {path: 'questionShow', component: teacherQuestionShow, meta: {title: '提问详情'} },
         ],

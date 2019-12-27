@@ -61,6 +61,9 @@
                 <th> <button class="btn btn-info"
                              @click=" searching( question ) "
                              > 查看 </button> </th>
+                <th> <button class="btn btn-info"
+                             @click=" del( question ) "
+                             > 删除 </button> </th>
             </tr>
             </tbody>
         </table>
@@ -69,7 +72,7 @@
 </template>
 
 <script>
-    import {info, cError, success} from "../../myToastr.js";
+    import {info, cError, success, cSuccess} from "../../myToastr.js";
 
     export default {
         name: "teacherCourse",
@@ -81,7 +84,7 @@
                 searchingCID: undefined,
                 searchingCName: '',
                 searchingC: null,
-                titles: [ '问题编号', '问题标题', '问题内容', '提问时间', '回答情况', '查看详细' ],
+                titles: [ '问题编号', '问题标题', '问题内容', '提问时间', '回答情况', '查看详细', '删除' ],
                 questions: [],
             }
         },
@@ -180,14 +183,33 @@
                 ).then( response => {
                     console.log(response)
                     if (response.data.flag === 'true') {
-                        success(this.$toastr, '查询提问列表成功！')
                         this.questions = JSON.parse(response.data.qlist)
+                        if (this.questions.length > 0)
+                            success(this.$toastr, '查询提问列表成功！')
+                        else
+                            info(this.$toastr, '查询提问列表成功，但暂无提问', '提示：')
                         document.getElementById('tableTitle').innerText
                             = this.searchingC.name + ' 提问列表'
                     } else
                         cError(this.$toastr, '无法得到提问数据！', '错误：')
                 }).catch( error => {
                     console.log('！！！请求数据失败异常：')
+                    console.log(error)
+                });
+            },
+            del(data) { // 删除课程
+                this.$axios.post(
+                    'api/question/myDelete', data
+                ).then ( response => {
+                    console.log(response)
+                    if (response.data.flag === 'false')
+                        cError(this.$toastr, '删除失败<br>可能无该编号？', '错误：')
+                    else {
+                        cSuccess(this.$toastr, '删除成功！')
+                        this.getData()
+                    }
+                }).catch ( error => {
+                    console.log('！！！删除失败异常：')
                     console.log(error)
                 });
             },

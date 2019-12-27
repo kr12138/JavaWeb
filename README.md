@@ -82,7 +82,11 @@
 
 ​	e) 可以修改删除自己发表的任意回答信息 
 
+​			`AnswerIntroController.java, QuestionController.java; teacherMyAnswers.vue`
+
 ​	f) 也可以删除某个同学的提问信息 
+
+​			`AnswerIntroController.java, QuestionController.java; teacherCourse.vue`
 
 ​	g) 可以上传图片的文件附件
 

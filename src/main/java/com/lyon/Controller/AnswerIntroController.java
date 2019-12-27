@@ -3,9 +3,11 @@ package com.lyon.Controller;
 import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.Answer;
 import com.lyon.Entity.Image;
+import com.lyon.Entity.Question;
 import com.lyon.Entity.Teacher;
 import com.lyon.Repository.AnswerRepository;
 import com.lyon.Repository.ImageRepository;
+import com.lyon.Repository.QuestionRepository;
 import com.lyon.Repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,44 +25,41 @@ import static com.lyon.Security.logTime.now;
 
 @RestController
 @RequestMapping("/api/answer")
-public class AnswerDetailsController {
+public class AnswerIntroController {
     @Autowired
     private AnswerRepository answerRepository;
     @Autowired
-    private TeacherRepository teacherRepository;
-    @Autowired
-    private ImageRepository imageRepository;
+    private QuestionRepository questionRepository;
 
-    class Row implements Serializable { // 每一行回答的数据
-        String prof;
-        String name;
-        String avatar;
+    class Row implements Serializable { // 每一条回答的简介
+        long qid;
+        long aid;
+        String title;
         String content;
         String date;
-        String img;
 
-        public String getProf() {
-            return prof;
+        public long getQid() {
+            return qid;
         }
 
-        public void setProf(String prof) {
-            this.prof = prof;
+        public void setQid(long qid) {
+            this.qid = qid;
         }
 
-        public String getName() {
-            return name;
+        public long getAid() {
+            return aid;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setAid(long aid) {
+            this.aid = aid;
         }
 
-        public String getAvatar() {
-            return avatar;
+        public String getTitle() {
+            return title;
         }
 
-        public void setAvatar(String avatar) {
-            this.avatar = avatar;
+        public void setTitle(String title) {
+            this.title = title;
         }
 
         public String getContent() {
@@ -78,43 +77,36 @@ public class AnswerDetailsController {
         public void setDate(String date) {
             this.date = date;
         }
-
-        public String getImg() {
-            return img;
-        }
-
-        public void setImg(String img) {
-            this.img = img;
-        }
     }
 
-    @RequestMapping(value = "/getDetailsByQid/{qid}", method = RequestMethod.GET)
-    public HashMap<String, String> getDetailsByQid(
-            @PathVariable long qid
+    @RequestMapping(value = "/getIntroByTid/{tid}", method = RequestMethod.GET)
+    public HashMap<String, String> getIntroByTid(
+            @PathVariable long tid
     ) {
         HashMap<String, String> response = new HashMap<>();
-        List<Answer> alist = answerRepository.findByQid(qid);
-        System.out.println("answer/getDetailsByQid("+ qid + ") " + JSON.toJSONString(alist) + now());
+        List<Answer> alist = answerRepository.findByTid(tid);
+        System.out.println("answer/getIntroByTid("+ tid + ") " + JSON.toJSONString(alist) + now());
         int sz = alist.size();
         List<Row> rlist = new ArrayList<>();
         for (int i=0; i<sz; ++i) {
-            Teacher teacher = teacherRepository.findById(alist.get(i).getTid());
-            Image img = imageRepository.findById(alist.get(i).getTid());
-            if (teacher == null) {
+            Question question = questionRepository.findById(alist.get(i).getQid());
+            if (question == null) {
                 response.put("flag", "false");
                 return response;
             }
             Answer answer = alist.get(i);
             Row row = new Row();
-            row.setName(teacher.getName());
-            row.setProf(teacher.getProf());
-            if (img != null)
-                row.setAvatar(img.getImg());
-            else
-                row.setAvatar(null);
-            row.setContent(answer.getContent());
+            row.setQid(question.getId());
+            row.setAid(answer.getId());
+//            if (question.getTitle().length() > 9)
+//                row.setTitle(question.getTitle().substring(0,9) + "…");
+//            else
+                row.setTitle(question.getTitle());
+//            if (answer.getContent().length() > 9)
+//                row.setContent(answer.getContent().substring(0,9) + "…");
+//            else
+                row.setContent(answer.getContent());
             row.setDate(answer.getDate());
-            row.setImg(answer.getImg());
             rlist.add(row);
         }
         response.put("flag", "true");

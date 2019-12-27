@@ -21,6 +21,23 @@ public class AnswerController {
     @Autowired
     private AnswerRepository answerRepository;
 
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    public HashMap<String, String> getById(
+            @PathVariable long id
+    ) {
+        HashMap<String, String> response = new HashMap<>();
+        Answer answer = answerRepository.findById(id);
+        answer.setImg("");
+        System.out.println("answer/get/ "+ id + " " + JSON.toJSONString(answer) + now());
+        if (answer == null) {
+            response.put("flag", "false");
+            return response;
+        }
+        response.put("flag", "true");
+        response.put("answer", JSON.toJSONString(answer));
+        return response;
+    }
+
     @RequestMapping(value = "/getByTid/{tid}", method = RequestMethod.GET)
     public HashMap<String, String> getByTid(
             @PathVariable long tid
