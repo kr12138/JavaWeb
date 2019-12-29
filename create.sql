@@ -88,9 +88,9 @@ CREATE TABLE `QuestionAuth` (
 	PRIMARY KEY (`t_id`, `s_id`)
 );
 
-DROP TABLE `imgtest`;
+DROP TABLE `img`;
 
-CREATE TABLE `imgtest` (
+CREATE TABLE `img` (
 	`i_id` BIGINT (20) NOT NULL AUTO_INCREMENT,
 	`img` MEDIUMTEXT,
 	PRIMARY KEY (`i_id`)
