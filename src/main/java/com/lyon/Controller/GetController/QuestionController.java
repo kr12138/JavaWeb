@@ -1,4 +1,4 @@
-package com.lyon.Controller;
+package com.lyon.Controller.GetController;
 
 import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.Question;
@@ -125,62 +125,4 @@ public class QuestionController {
     }
 
 
-//    @RequestMapping(value = "/getByTitleContaining", method = RequestMethod.POST)
-//    public HashMap<String, String> getPageByTitleContaining(
-//            @RequestBody HashMap<String, String> data
-//    ) {
-//        HashMap<String, String> response = new HashMap<>();
-//        String title = data.get("title");
-//        final List<Question> qlist = questionRepository.findAllByTitleContaining(title);
-//        System.out.println("question/getByTitleContaining("+ title +") "+ JSON.toJSONString(qlist) + now());
-//        response.put("flag", "true");
-//        response.put("qlist", JSON.toJSONString(qlist));
-//        return response;
-//    }
-
-
-//    @RequestMapping(value = "/add", method = RequestMethod.POST)
-//    public HashMap<String, String> add(
-//            @RequestBody Question data
-//    ) {
-//        HashMap<String, String> response = new HashMap<>();
-//        System.out.println("question/add " + JSON.toJSONString(data) + now());
-//        if (questionRepository.existsById(data.getId())) {
-//            response.put("flag", "false");
-//            return response;
-//        }
-//        questionRepository.save(data);
-//        response.put("flag", "true");
-//        return response;
-//    }
-//
-//    @RequestMapping(value = "/update", method = RequestMethod.PUT)
-//    public HashMap<String, String> update(
-//            @RequestBody Question data
-//    ) {
-//        HashMap<String, String> response = new HashMap<>();
-//        System.out.println("question/update " + JSON.toJSONString(data) + now());
-//        if (!questionRepository.existsById(data.getId())) {
-//            response.put("flag", "false");
-//            return response;
-//        }
-//        questionRepository.save(data);
-//        response.put("flag", "true");
-//        return response;
-//    }
-//
-//    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-//    public HashMap<String, String> delete(
-//            @RequestBody Question data
-//    ) {
-//        HashMap<String, String> response = new HashMap<>();
-//        System.out.println("question/delete " + JSON.toJSONString(data) + now());
-//        if (!questionRepository.existsById(data.getId())) {
-//            response.put("flag", "false");
-//            return response;
-//        }
-//        questionRepository.deleteById(data.getId());
-//        response.put("flag", "true");
-//        return response;
-//    }
 }

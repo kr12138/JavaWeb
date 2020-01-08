@@ -58,7 +58,7 @@
 </template>
 
 <script>
-    import {cError, cSuccess} from "@/myToastr";
+    import {cError, cSuccess} from "../../myToastr.js";
 
     export default {
         name: "teacherMyAnswers",

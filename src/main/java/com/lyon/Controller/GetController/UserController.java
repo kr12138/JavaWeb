@@ -1,4 +1,4 @@
-package com.lyon.Controller;
+package com.lyon.Controller.GetController;
 
 import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.User;
@@ -8,9 +8,7 @@ import static com.lyon.Security.logTime.now;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -58,49 +56,5 @@ public class UserController {
         return response;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public HashMap<String, String> add(
-            @RequestBody User data
-    ) {
-        HashMap<String, String> response = new HashMap<>();
-        System.out.println("User/add " + JSON.toJSONString(data) + now());
-        if (userRepository.existsById(data.getId())) {
-            response.put("flag", "false");
-            return response;
-        }
-        userRepository.save(data);
-        response.put("flag", "true");
-        return response;
-    }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public HashMap<String, String> update(
-            @RequestBody User data
-    ) {
-        HashMap<String, String> response = new HashMap<>();
-        System.out.println("User/update " + JSON.toJSONString(data) + now());
-        if (!userRepository.existsById(data.getId())) {
-            response.put("flag", "false");
-            return response;
-        }
-//        userRepository.deleteById(data.getId());
-        userRepository.save(data);
-        response.put("flag", "true");
-        return response;
-    }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public HashMap<String, String> delete(
-            @RequestBody User data
-    ) {
-        HashMap<String, String> response = new HashMap<>();
-        System.out.println("User/delete " + JSON.toJSONString(data) + now());
-        if (!userRepository.existsById(data.getId())) {
-            response.put("flag", "false");
-            return response;
-        }
-        userRepository.deleteById(data.getId());
-        response.put("flag", "true");
-        return response;
-    }
 }

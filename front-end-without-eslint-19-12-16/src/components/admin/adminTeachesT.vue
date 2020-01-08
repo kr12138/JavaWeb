@@ -34,7 +34,7 @@
 </template>
 
 <script>
-    import {info, cError, cSuccess} from "@/myToastr";
+    import {info, cError, cSuccess} from "../../myToastr.js";
 
     export default {
         name: "adminTeachesT",

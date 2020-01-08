@@ -37,7 +37,7 @@
 
 <script>
     import eventBus from "@/eventBus";
-    import {info, error, success} from "@/myToastr";
+    import {info, error, success} from "../../myToastr.js";
 
     export default {
         name: "settings",

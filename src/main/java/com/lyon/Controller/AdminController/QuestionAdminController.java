@@ -1,16 +1,12 @@
-package com.lyon.Controller;
+package com.lyon.Controller.AdminController;
 
 import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.Question;
 import com.lyon.Repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static com.lyon.Security.logTime.now;
 

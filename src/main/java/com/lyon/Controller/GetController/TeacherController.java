@@ -1,4 +1,4 @@
-package com.lyon.Controller;
+package com.lyon.Controller.GetController;
 
 import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.Teacher;
@@ -58,52 +58,6 @@ public class TeacherController {
         }
         response.put("flag", "true");
         response.put("teacher", JSON.toJSONString(teacher));
-        return response;
-    }
-
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public HashMap<String, String> add(
-            @RequestBody Teacher data
-    ) {
-        HashMap<String, String> response = new HashMap<>();
-        System.out.println("teacher/add " + JSON.toJSONString(data) + now());
-        if (teacherRepository.existsById(data.getId())) {
-            response.put("flag", "false");
-            return response;
-        }
-        teacherRepository.save(data);
-        response.put("flag", "true");
-        return response;
-    }
-
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public HashMap<String, String> update(
-            @RequestBody Teacher data
-    ) {
-        HashMap<String, String> response = new HashMap<>();
-        System.out.println("teacher/update " + JSON.toJSONString(data) + now());
-        if (!teacherRepository.existsById(data.getId())) {
-            response.put("flag", "false");
-            return response;
-        }
-//        teacherRepository.deleteById(data.getId());
-        teacherRepository.save(data);
-        response.put("flag", "true");
-        return response;
-    }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public HashMap<String, String> delete(
-            @RequestBody Teacher data
-    ) {
-        HashMap<String, String> response = new HashMap<>();
-        System.out.println("teacher/delete " + JSON.toJSONString(data) + now());
-        if (!teacherRepository.existsById(data.getId())) {
-            response.put("flag", "false");
-            return response;
-        }
-        teacherRepository.deleteById(data.getId());
-        response.put("flag", "true");
         return response;
     }
 }

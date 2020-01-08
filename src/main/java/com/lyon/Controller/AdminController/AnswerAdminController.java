@@ -1,4 +1,4 @@
-package com.lyon.Controller;
+package com.lyon.Controller.AdminController;
 
 import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.Answer;

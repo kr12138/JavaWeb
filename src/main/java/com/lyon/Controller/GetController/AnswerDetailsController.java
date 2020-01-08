@@ -1,4 +1,4 @@
-package com.lyon.Controller;
+package com.lyon.Controller.GetController;
 
 import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.Answer;
@@ -108,10 +108,14 @@ public class AnswerDetailsController {
                 response.put("flag", "false");
                 return response;
             }
-            if (questionAuthRepository.existsByTid(teacher.getId()) &&
-                    !questionAuthRepository.existsByTidAndSid(teacher.getId(), uid)) {
-                response.put("flag", "false");
-                return response;
+            boolean userIsTeacher = teacherRepository.existsById(uid);
+            if (!userIsTeacher &&
+                    questionAuthRepository.existsByTid(teacher.getId()) &&
+                    !questionAuthRepository.existsByTidAndSid(teacher.getId(), uid)
+                    ) {
+//                response.put("flag", "false");
+//                return response;
+                continue;
             }
 
             Answer answer = alist.get(i);

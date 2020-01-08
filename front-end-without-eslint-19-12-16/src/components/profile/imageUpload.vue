@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import {cInfo, cError, cSuccess} from "@/myToastr";
+    import {cInfo, cError, cSuccess} from "../../myToastr.js";
 
     export default {
         name: 'imageUpload',

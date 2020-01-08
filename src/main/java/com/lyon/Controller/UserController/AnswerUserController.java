@@ -1,15 +1,13 @@
-package com.lyon.Controller;
+package com.lyon.Controller.UserController;
 
 import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.Answer;
 import com.lyon.Repository.AnswerRepository;
-import com.lyon.Repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static com.lyon.Security.logTime.now;
 
@@ -19,8 +17,6 @@ import static com.lyon.Security.logTime.now;
 public class AnswerUserController {
     @Autowired
     private AnswerRepository answerRepository;
-    @Autowired
-    private QuestionRepository questionRepository;
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public HashMap<String, String> add(
@@ -72,41 +68,6 @@ public class AnswerUserController {
         answer.setContent(data.getContent());
         answerRepository.save(data);
         response.put("flag", "true");
-        return response;
-    }
-
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-    public HashMap<String, String> getById(
-            @PathVariable long id
-    ) {
-        HashMap<String, String> response = new HashMap<>();
-        Answer answer = answerRepository.findById(id);
-        answer.setImg("");
-        System.out.println("answer/get/ "+ id + " " + JSON.toJSONString(answer) + now());
-        if (answer == null) {
-            response.put("flag", "false");
-            return response;
-        }
-        response.put("flag", "true");
-        response.put("answer", JSON.toJSONString(answer));
-        return response;
-    }
-
-    @RequestMapping(value = "/getByTid/{tid}", method = RequestMethod.GET)
-    public HashMap<String, String> getByTid(
-            @PathVariable long tid
-    ) {
-        HashMap<String, String> response = new HashMap<>();
-        List<Answer> alist = answerRepository.findByTid(tid);
-        int sz = alist.size();
-        for (int i=0; i<sz; ++i) alist.get(i).setImg("");
-        System.out.println("answer/getByTid("+ tid + ") " + JSON.toJSONString(alist) + now());
-        if (alist == null) {
-            response.put("flag", "false");
-            return response;
-        }
-        response.put("flag", "true");
-        response.put("alist", JSON.toJSONString(alist));
         return response;
     }
 

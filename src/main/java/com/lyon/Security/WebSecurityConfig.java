@@ -42,6 +42,8 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
 //        admin.addPathPatterns("/**/getByCid/**");
         admin.excludePathPatterns("/**/login/**");
         admin.excludePathPatterns("/**/register/**");
+        admin.excludePathPatterns("/**/questionAuth/**");
+        admin.excludePathPatterns("/**/getAllStudents");
         admin.addPathPatterns("/**/user/**");
         admin.addPathPatterns("/**/add");
         admin.addPathPatterns("/**/delete");

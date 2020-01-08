@@ -1,14 +1,10 @@
-package com.lyon.Controller;
+package com.lyon.Controller.GetController;
 
 import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.Answer;
-import com.lyon.Entity.Image;
 import com.lyon.Entity.Question;
-import com.lyon.Entity.Teacher;
 import com.lyon.Repository.AnswerRepository;
-import com.lyon.Repository.ImageRepository;
 import com.lyon.Repository.QuestionRepository;
-import com.lyon.Repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

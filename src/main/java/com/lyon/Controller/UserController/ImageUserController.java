@@ -1,4 +1,4 @@
-package com.lyon.Controller;
+package com.lyon.Controller.UserController;
 
 import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.Image;
@@ -13,26 +13,10 @@ import static com.lyon.Security.logTime.now;
 
 @RestController
 @RequestMapping("/api/image")
-public class ImageController {
+public class ImageUserController {
 
     @Autowired
     private ImageRepository imageRepository;
-
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-    public HashMap<String, String> getById(
-            @PathVariable long id
-    ) {
-        HashMap<String, String> response = new HashMap<>();
-        Image image = imageRepository.findById(id);
-        System.out.println("image/get("+ id + ") " + JSON.toJSONString(image) + now());
-        if (image == null) {
-            response.put("flag", "false");
-            return response;
-        }
-        response.put("flag", "true");
-        response.put("image", JSON.toJSONString(image));
-        return response;
-    }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public HashMap<String, String> addUser(

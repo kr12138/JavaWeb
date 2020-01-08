@@ -1,4 +1,4 @@
-package com.lyon.Controller;
+package com.lyon.Controller.GetController;
 
 import com.alibaba.fastjson.JSON;
 import com.lyon.Entity.Image;
@@ -8,13 +8,9 @@ import com.lyon.Repository.ImageRepository;
 import com.lyon.Repository.QuestionRepository;
 import com.lyon.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static com.lyon.Security.logTime.now;
 
