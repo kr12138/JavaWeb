@@ -1,4 +1,4 @@
-# JavaWeb
+# JavaWeb Q&A System
  Final assigment of Java Web application development./JavaWeb实验课结课大作业
 
 ```
@@ -13,7 +13,7 @@
 	开发工具：Postman 7.13.0 和 IntelliJ IDEA 19.2.2
 	特别鸣谢：maven 3.6.3 和 fastjson 1.2.61
 ```
-	
+
 ```
 本系统后端持久层基于 MySql 8.0.13 和 Hibernate 5.4.8
 	开发工具：Navicat 12.0.18 和 IntelliJ IDEA 19.2.2
@@ -28,25 +28,25 @@
 
 #### 1、 系统分为管理员，学生，教师帐号，其中，学生帐号可以任意新注册，管理员帐号为系统预先设置好，教师帐号由管理员帐号开设。 
 
-​			`User.java, UserRepository.java, UserController.java; login.vue, loginModal.vue, register.vue`
+​			`User.java, UserRepository.java, UserAdminController.java; login.vue, loginModal.vue, register.vue`
 
 #### 2、 管理员帐号功能： 
 
 ​	a) 增删改课程信息，包括课程名称，授课教师，课程内容描述，开课学院。 
 
-​			`Course.java, CourseRepository.java, CourseController.java; adminCourse.vue, adminTeachesC.vue`
+​			`Course.java, CourseRepository.java, CourseAdminController.java; adminCourse.vue, adminTeachesC.vue`
 
 ​	b) 增删改教师，包括教师名称，所讲授课程（可以有多个），教师职称，教师简介， 
 
-​			`Teacher.java, TeacherRepository.java, TeacherController.java; adminTeacher.vue, adminTeachesT.vue`
+​			`Teacher.java, TeacherRepository.java, TeacherAdminController.java; adminTeacher.vue, adminTeachesT.vue`
 
 ​	c) 增删改学院信息。 
 
-​			`Dept.java, DeptRepository.java, DeptController.java; adminDept.vue`
+​			`Dept.java, DeptRepository.java, DeptAdminController.java; adminDept.vue`
 
 ​	d) 删除或修改所有课程交流和留言信息。 
 
-​			`Question.java, QuestionRepository.java, QuestionController.java, Answer.java, AnswerRepository.java, AnswerController.java; adminQuestion.vue, adminAnswer.vue`
+​			`Question.java, QuestionRepository.java, QuestionAdminController.java, Answer.java, AnswerRepository.java, AnswerAdminController.java; adminQuestion.vue, adminAnswer.vue`
 
 #### 3、 学生帐号功能： 
 
@@ -68,7 +68,7 @@
 
 ​	e) 可以提出针对某课程的问题留言。留言包括标题，内容，时间日期。 
 
-​			`QuestionController.java; studentNewQuestion.vue`
+​			`QuestionUserController.java; studentNewQuestion.vue`
 
 ​	f) 可以浏览查看当前系统中所有学生的留言提问和教师回答，并可以按课程，教师，学院，以及问题内容的关键字等进行检索。 
 
@@ -94,11 +94,11 @@
 
 ​	c) 进入课程页面后，可以查看当前的所有问题信息，并进行回答。 
 
-​			`AnswerController.java, QuestionController.java; teacherCourse.vue, teacherQuestionShow.vue`
+​			`AnswerUserController.java, QuestionIntroController.java; teacherCourse.vue, teacherQuestionShow.vue`
 
 ​	d) 可以设置自己的课程只允许某些同学浏览和提问，可以增加删除可以浏览提问该课程的学生 
 
-​			`QuestionAuthRepository.java, QuestionDetailsController.java; teacherQuestionAuth.vue, studentQuestionShow.vue`
+​			`QuestionAuthAdminRepository.java, QuestionDetailsController.java; teacherQuestionAuth.vue, studentQuestionShow.vue`
 
 ​	e) 可以修改删除自己发表的任意回答信息 
 
@@ -114,4 +114,4 @@
 
 #### 5、 所有帐号都可以修改自己的帐号密码
 
-​			`User.java, UserRepository.java, UserController.java; settings.vue`
+​			`User.java, UserRepository.java, UserLoginController.java; settings.vue`
