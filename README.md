@@ -1,25 +1,6 @@
 # JavaWeb Q&A System
  Final assigment of Java Web application development./JavaWeb实验课结课大作业
 
-```
-本系统网页前端基于 Vue.js 2.6.10 和 bootstrap 4.4.1 
-	开发工具：VSCode 1.41.1 和 IntelliJ IDEA 19.2.2
-	使用插件：vue-router 3.1.3 和 axios 0.19.0
-	特别鸣谢：npm 6.9.0 和 toastr 2.1.4
-```
-
-```
-本系统后端控制层基于 Java 10.0.2 和 Springboot 2.2.1 
-	开发工具：Postman 7.13.0 和 IntelliJ IDEA 19.2.2
-	特别鸣谢：maven 3.6.3 和 fastjson 1.2.61
-```
-
-```
-本系统后端持久层基于 MySql 8.0.13 和 Hibernate 5.4.8
-	开发工具：Navicat 12.0.18 和 IntelliJ IDEA 19.2.2
-```
-
-`说明：数据库关于外键和级联查询都写得很不优雅，信息安全基本没做，新消息提醒做了但是没有已读功能`
 
 ## 教学在线留言答疑系统
 大学教学中，学生在课后，可以通过该网站提出问题留言，教师登录后可以选择回答。 
@@ -115,3 +96,23 @@
 #### 5、 所有帐号都可以修改自己的帐号密码
 
 ​			`User.java, UserRepository.java, UserLoginController.java; settings.vue`
+
+
+
+```
+本系统网页前端基于 Vue.js 2.6.10 和 bootstrap 4.4.1 
+	开发工具：VSCode 1.41.1 和 IntelliJ IDEA 19.2.2
+	使用插件：vue-router 3.1.3 和 axios 0.19.0
+	其他工具：npm 6.9.0 和 toastr 2.1.4
+```
+
+```
+本系统后端控制层基于 Java 10.0.2 和 Springboot 2.2.1 
+	开发工具：Postman 7.13.0 和 IntelliJ IDEA 19.2.2
+	其他工具：maven 3.6.3 和 fastjson 1.2.61
+```
+
+```
+本系统后端持久层基于 MySql 8.0.13 和 Hibernate 5.4.8
+	开发工具：Navicat 12.0.18 和 IntelliJ IDEA 19.2.2
+```
