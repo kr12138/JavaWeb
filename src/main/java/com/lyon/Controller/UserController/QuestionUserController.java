@@ -17,7 +17,7 @@ public class QuestionUserController {
     @Autowired
     private QuestionRepository questionRepository;
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public HashMap<String, String> add(
             @RequestBody HashMap<String, String> data
     ) {

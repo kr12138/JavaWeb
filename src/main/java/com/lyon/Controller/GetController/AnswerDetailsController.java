@@ -91,7 +91,7 @@ public class AnswerDetailsController {
         }
     }
 
-    @RequestMapping(value = "/getDetailsByQid/{qid}/{uid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/qid/{qid}/uid/{uid}", method = RequestMethod.GET)
     public HashMap<String, String> getDetailsByQid(
             @PathVariable long qid,
             @PathVariable long uid

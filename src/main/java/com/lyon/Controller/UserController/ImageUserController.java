@@ -18,7 +18,7 @@ public class ImageUserController {
     @Autowired
     private ImageRepository imageRepository;
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public HashMap<String, String> addUser(
             @RequestBody HashMap<String, String> data
     ) {

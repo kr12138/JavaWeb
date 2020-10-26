@@ -17,7 +17,7 @@ public class QuestionAdminController {
     @Autowired
     private QuestionRepository questionRepository;
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public HashMap<String, String> update(
             @RequestBody Question data
     ) {
@@ -32,17 +32,17 @@ public class QuestionAdminController {
         return response;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public HashMap<String, String> delete(
-            @RequestBody Question data
+            @PathVariable long id
     ) {
         HashMap<String, String> response = new HashMap<>();
-        System.out.println("question/delete " + JSON.toJSONString(data) + now());
-        if (!questionRepository.existsById(data.getId())) {
+        System.out.println("question/delete " + id + now());
+        if (!questionRepository.existsById(id)) {
             response.put("flag", "false");
             return response;
         }
-        questionRepository.deleteById(data.getId());
+        questionRepository.deleteById(id);
         response.put("flag", "true");
         return response;
     }

@@ -25,7 +25,7 @@ public class QuestionDetailsController {
     @Autowired
     private ImageRepository imageRepository;
 
-    @RequestMapping(value = "/getDetails/{qid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/details/{qid}", method = RequestMethod.GET)
     public HashMap<String, String> getDetailsById(
             @PathVariable long qid
     ) {

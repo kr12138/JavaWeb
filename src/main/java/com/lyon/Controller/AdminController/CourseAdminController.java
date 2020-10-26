@@ -17,7 +17,7 @@ public class CourseAdminController {
     @Autowired
     private CourseRepository courseRepository;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public HashMap<String, String> add(
             @RequestBody Course data
     ) {
@@ -32,7 +32,7 @@ public class CourseAdminController {
         return response;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public HashMap<String, String> update(
             @RequestBody Course data
     ) {
@@ -47,17 +47,17 @@ public class CourseAdminController {
         return response;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public HashMap<String, String> delete(
-            @RequestBody Course data
+            @PathVariable long id
     ) {
         HashMap<String, String> response = new HashMap<>();
-        System.out.println("course/delete " + JSON.toJSONString(data) + now());
-        if (!courseRepository.existsById(data.getId())) {
+        System.out.println("course/delete " + id + now());
+        if (!courseRepository.existsById(id)) {
             response.put("flag", "false");
             return response;
         }
-        courseRepository.deleteById(data.getId());
+        courseRepository.deleteById(id);
         response.put("flag", "true");
         return response;
     }

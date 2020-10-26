@@ -26,7 +26,7 @@ public class UserMessageController {
     @Autowired
     private AnswerRepository answerRepository;
 
-    @RequestMapping(value = "/getNewMessageCountByUid/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/newMessageCount/{id}", method = RequestMethod.GET)
     public HashMap<String, String> getNewMessageCountByUid(
             @PathVariable long id
     ) {
@@ -51,7 +51,7 @@ public class UserMessageController {
         return response;
     }
 
-    @RequestMapping(value = "/getNewMessageByUid/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/newMessage/{id}", method = RequestMethod.GET)
     public HashMap<String, String> getNewMessageByUid(
             @PathVariable long id
     ) {

@@ -16,7 +16,7 @@ public class QuestionAuthAdminController {
     @Autowired
     private QuestionAuthRepository questionAuthRepository;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public HashMap<String, String> add(
             @RequestBody HashMap<String, String> data
     ) {
@@ -37,14 +37,13 @@ public class QuestionAuthAdminController {
         return response;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/{sid}/{tid}", method = RequestMethod.DELETE)
     public HashMap<String, String> delete(
-            @RequestBody HashMap<String, String> data
+            @PathVariable long sid,
+            @PathVariable long tid
     ) {
         HashMap<String, String> response = new HashMap<>();
-        System.out.println("QuestionAuth/delete " + JSON.toJSONString(data) + now());
-        long sid = Long.parseLong(data.get("sid"));
-        long tid = Long.parseLong(data.get("tid"));
+        System.out.println("QuestionAuth/delete " + sid + "/" + tid + now());
         QuestionAuth temp = questionAuthRepository.findBySidAndTid(sid, tid);
         if (temp == null) {
             response.put("flag", "false");

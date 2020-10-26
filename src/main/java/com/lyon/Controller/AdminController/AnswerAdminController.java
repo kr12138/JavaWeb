@@ -19,7 +19,7 @@ public class AnswerAdminController {
     @Autowired
     private AnswerRepository answerRepository;
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "s", method = RequestMethod.GET)
     public HashMap<String, String> getAll() {
         HashMap<String, String> response = new HashMap<>();
         final List<Answer> list = answerRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
@@ -29,7 +29,7 @@ public class AnswerAdminController {
         return response;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public HashMap<String, String> update(
             @RequestBody Answer data
     ) {
@@ -44,17 +44,17 @@ public class AnswerAdminController {
         return response;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public HashMap<String, String> delete(
-            @RequestBody Answer data
+            @PathVariable long id
     ) {
         HashMap<String, String> response = new HashMap<>();
-        System.out.println("answer/delete " + JSON.toJSONString(data) + now());
-        if (!answerRepository.existsById(data.getId())) {
+        System.out.println("answer/delete " + id + now());
+        if (!answerRepository.existsById(id)) {
             response.put("flag", "false");
             return response;
         }
-        answerRepository.deleteById(data.getId());
+        answerRepository.deleteById(id);
         response.put("flag", "true");
         return response;
     }

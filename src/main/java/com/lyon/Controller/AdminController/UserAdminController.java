@@ -16,7 +16,7 @@ public class UserAdminController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public HashMap<String, String> add(
             @RequestBody User data
     ) {
@@ -31,7 +31,7 @@ public class UserAdminController {
         return response;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public HashMap<String, String> update(
             @RequestBody User data
     ) {
@@ -47,17 +47,17 @@ public class UserAdminController {
         return response;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public HashMap<String, String> delete(
-            @RequestBody User data
+            @PathVariable long id
     ) {
         HashMap<String, String> response = new HashMap<>();
-        System.out.println("User/delete " + JSON.toJSONString(data) + now());
-        if (!userRepository.existsById(data.getId())) {
+        System.out.println("User/delete " + id + now());
+        if (!userRepository.existsById(id)) {
             response.put("flag", "false");
             return response;
         }
-        userRepository.deleteById(data.getId());
+        userRepository.deleteById(id);
         response.put("flag", "true");
         return response;
     }

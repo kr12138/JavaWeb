@@ -26,7 +26,7 @@ public class TeachesController {
     @Autowired
     private TeacherRepository teacherRepository;
 
-    @RequestMapping(value = "/getByUid/{uid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/uid/{uid}", method = RequestMethod.GET)
     public HashMap<String, String> getByUid(
             @PathVariable long uid
     ) {
@@ -42,7 +42,7 @@ public class TeachesController {
         return response;
     }
 
-    @RequestMapping(value = "/getByCid/{cid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/course/{cid}", method = RequestMethod.GET)
     public HashMap<String, String> getByCid(
             @PathVariable long cid
     ) {
@@ -58,7 +58,7 @@ public class TeachesController {
         return response;
     }
 
-    @RequestMapping(value = "/getCourseByUid/{uid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/courses/uid/{uid}", method = RequestMethod.GET)
     public HashMap<String, String> getCourseByUid(
             @PathVariable long uid
     ) {

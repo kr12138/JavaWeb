@@ -19,8 +19,9 @@ public class CourseController {
     @Autowired
     private CourseRepository courseRepository;
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "s", method = RequestMethod.GET)
     public HashMap<String, String> getAll() {
+System.out.println("？dept");
         HashMap<String, String> response = new HashMap<>();
         final List<Course> list = courseRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         System.out.println("course/getAll " + JSON.toJSONString(list) + now());
@@ -29,7 +30,7 @@ public class CourseController {
         return response;
     }
 
-    @RequestMapping(value = "/get/{cid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{cid}", method = RequestMethod.GET)
     public HashMap<String, String> getById(
             @PathVariable long cid
     ) {
@@ -45,7 +46,7 @@ public class CourseController {
         return response;
     }
 
-    @RequestMapping(value = "/getByDept/{dept}", method = RequestMethod.GET)
+    @RequestMapping(value = "/dept/{dept}", method = RequestMethod.GET)
     public HashMap<String, String> getByDept(
             @PathVariable String dept
     ) {
@@ -61,9 +62,9 @@ public class CourseController {
         return response;
     }
 
-    @RequestMapping(value = "/getByName/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public HashMap<String, String> getByName(
-            @PathVariable String name
+            @RequestParam("name") String name
     ) {
         HashMap<String, String> response = new HashMap<>();
         Course course = courseRepository.findByName(name);

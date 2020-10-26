@@ -75,7 +75,7 @@ public class AnswerIntroController {
         }
     }
 
-    @RequestMapping(value = "/getIntroByTid/{tid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/intro/tid/{tid}", method = RequestMethod.GET)
     public HashMap<String, String> getIntroByTid(
             @PathVariable long tid
     ) {

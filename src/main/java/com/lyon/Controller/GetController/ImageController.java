@@ -18,7 +18,7 @@ public class ImageController {
     @Autowired
     private ImageRepository imageRepository;
 
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public HashMap<String, String> getById(
             @PathVariable long id
     ) {

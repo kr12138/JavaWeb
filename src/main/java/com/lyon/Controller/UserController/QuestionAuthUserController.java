@@ -16,7 +16,7 @@ public class QuestionAuthUserController {
 //    @Autowired
 //    private TeacherRepository teacherRepository;
 
-//    @RequestMapping(value = "/getBySid/{sid}", method = RequestMethod.GET)
+//    @RequestMapping(value = "/sid/{sid}", method = RequestMethod.GET)
 //    public HashMap<String, String> getBySid(
 //            @PathVariable long sid
 //    ) {
@@ -32,7 +32,7 @@ public class QuestionAuthUserController {
 //        return response;
 //    }
 
-//    @RequestMapping(value = "/getByTid/{tid}", method = RequestMethod.GET)
+//    @RequestMapping(value = "/tid/{tid}", method = RequestMethod.GET)
 //    public HashMap<String, String> getByTid(
 //            @PathVariable long tid
 //    ) {
@@ -47,7 +47,7 @@ public class QuestionAuthUserController {
 //        response.put("tlist", JSON.toJSONString(tlist));
 //        return response;
 //    }
-    @RequestMapping(value = "/hasTid/{tid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/tid/{tid}", method = RequestMethod.GET)
     public HashMap<String, String> hasTid(
             @PathVariable long tid
     ) {
@@ -59,7 +59,7 @@ public class QuestionAuthUserController {
         return response;
     }
 
-    @RequestMapping(value = "/hasTidAndSid/{tid}/{sid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/tid/{tid}/sid/{sid}", method = RequestMethod.GET)
     public HashMap<String, String> hasTid(
             @PathVariable long tid,
             @PathVariable long sid
@@ -71,17 +71,4 @@ public class QuestionAuthUserController {
             response.put("flag", "false");
         return response;
     }
-
-//    @RequestMapping(value = "/hasSid/{sid}", method = RequestMethod.GET)
-//    public HashMap<String, String> hasSid(
-//            @PathVariable long sid
-//    ) {
-//        HashMap<String, String> response = new HashMap<>();
-//        if (questionAuthRepository.existsBySid(sid))
-//            response.put("flag", "true");
-//        else
-//            response.put("flag", "false");
-//        return response;
-//    }
-
 }

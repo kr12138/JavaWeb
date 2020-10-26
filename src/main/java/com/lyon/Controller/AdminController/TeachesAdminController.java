@@ -16,7 +16,7 @@ public class TeachesAdminController {
     @Autowired
     private TeachesRepository teachesRepository;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public HashMap<String, String> add(
             @RequestBody HashMap<String, String> data
     ) {
@@ -37,14 +37,13 @@ public class TeachesAdminController {
         return response;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/{uid}/{cid}", method = RequestMethod.DELETE)
     public HashMap<String, String> delete(
-            @RequestBody HashMap<String, String> data
+            @PathVariable long uid,
+            @PathVariable long cid
     ) {
         HashMap<String, String> response = new HashMap<>();
-        System.out.println("Teaches/delete " + JSON.toJSONString(data) + now());
-        long uid = Long.parseLong(data.get("uid"));
-        long cid = Long.parseLong(data.get("cid"));
+        System.out.println("Teaches/delete " + uid + "/" + cid + now());
         Teaches temp = teachesRepository.findByUidAndCid(uid, cid);
         if (temp == null) {
             response.put("flag", "false");

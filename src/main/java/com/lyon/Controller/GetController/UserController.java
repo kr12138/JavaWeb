@@ -29,7 +29,7 @@ public class UserController {
 //        response.put("users", JSON.toJSONString(list));
 //        return response;
 //    }
-    @RequestMapping(value = "/getAllStudents", method = RequestMethod.GET)
+    @RequestMapping(value = "/students", method = RequestMethod.GET)
     public HashMap<String, String> getAllStudents() {
         HashMap<String, String> response = new HashMap<>();
         final List<User> list = userRepository.findAllByIdentity((short)1);
@@ -39,7 +39,7 @@ public class UserController {
         return response;
     }
 
-    @RequestMapping(value = "/getAll/{page}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{page}", method = RequestMethod.GET)
     public HashMap<String, String> getAll(
             @PathVariable int page
     ) {

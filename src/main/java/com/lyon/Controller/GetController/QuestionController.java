@@ -23,7 +23,7 @@ public class QuestionController {
 
     private int size = 5;   // 每页的数据量
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "s", method = RequestMethod.GET)
     public HashMap<String, String> getAll() {
         HashMap<String, String> response = new HashMap<>();
         final List<Question> list = questionRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
@@ -33,7 +33,7 @@ public class QuestionController {
         return response;
     }
 
-    @RequestMapping(value = "/get/{qid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{qid}", method = RequestMethod.GET)
     public HashMap<String, String> getById(
             @PathVariable long qid
     ) {
@@ -49,7 +49,7 @@ public class QuestionController {
         return response;
     }
 
-    @RequestMapping(value = "/getByCid/{cid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/cid/{cid}", method = RequestMethod.GET)
     public HashMap<String, String> getByCid(
             @PathVariable long cid
     ) {
@@ -65,7 +65,7 @@ public class QuestionController {
         return response;
     }
 
-    @RequestMapping(value = "/getPageByID/{page}/{ID}", method = RequestMethod.GET)
+    @RequestMapping(value = "/page/{page}/id/{ID}", method = RequestMethod.GET)
     public HashMap<String, String> getPageByID(
             @PathVariable int page,
             @PathVariable long ID
@@ -84,7 +84,7 @@ public class QuestionController {
         return response;
     }
 
-    @RequestMapping(value = "/getPageByTitleContaining/{page}/{title}", method = RequestMethod.GET)
+    @RequestMapping(value = "/page/{page}/titleContaining/{title}", method = RequestMethod.GET)
     public HashMap<String, String> getPageByTitleContaining(
             @PathVariable int page,
             @PathVariable String title
@@ -104,7 +104,7 @@ public class QuestionController {
         return response;
     }
 
-    @RequestMapping(value = "/getPageByContentContaining/{page}/{content}", method = RequestMethod.GET)
+    @RequestMapping(value = "/page/{page}/contentContaining/{content}", method = RequestMethod.GET)
     public HashMap<String, String> getPageByContentContaining(
             @PathVariable int page,
             @PathVariable String content

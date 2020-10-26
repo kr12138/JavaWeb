@@ -19,7 +19,7 @@ public class AnswerController {
     @Autowired
     private AnswerRepository answerRepository;
 
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public HashMap<String, String> getById(
             @PathVariable long id
     ) {
@@ -36,7 +36,7 @@ public class AnswerController {
         return response;
     }
 
-    @RequestMapping(value = "/getByTid/{tid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/tid/{tid}", method = RequestMethod.GET)
     public HashMap<String, String> getByTid(
             @PathVariable long tid
     ) {

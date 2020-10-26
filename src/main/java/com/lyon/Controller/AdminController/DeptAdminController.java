@@ -7,10 +7,7 @@ import com.lyon.Repository.DeptRepository;
 import static com.lyon.Security.logTime.now;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -22,7 +19,7 @@ public class DeptAdminController {
     private DeptRepository deptRepository;
 
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public HashMap<String, String> add(
             @RequestBody Dept data
     ) {
@@ -37,7 +34,7 @@ public class DeptAdminController {
         return response;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public HashMap<String, String> update(
             @RequestBody Dept data
     ) {
@@ -52,17 +49,17 @@ public class DeptAdminController {
         return response;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public HashMap<String, String> delete(
-            @RequestBody Dept data
+            @PathVariable long id
     ) {
-        System.out.println("dept/delete " + JSON.toJSONString(data) + now());
+        System.out.println("dept/delete " + id + now());
         HashMap<String, String> response = new HashMap<>();
-        if (!deptRepository.existsById(data.getId())) {
+        if (!deptRepository.existsById(id)) {
             response.put("flag", "false");
             return response;
         }
-        deptRepository.deleteById(data.getId());
+        deptRepository.deleteById(id);
         response.put("flag", "true");
         return response;
     }

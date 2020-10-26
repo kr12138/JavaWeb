@@ -22,7 +22,7 @@ public class DeptController {
     @Autowired
     private DeptRepository deptRepository;
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "s", method = RequestMethod.GET)
     public HashMap<String, String> getAll() {
 //        Sort sort = new Sort(Sort.Direction.ASC, "id");
         HashMap<String, String> response = new HashMap<>();

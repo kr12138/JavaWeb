@@ -19,7 +19,7 @@ public class TeacherController {
     @Autowired
     private TeacherRepository teacherRepository;
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "s", method = RequestMethod.GET)
     public HashMap<String, String> getAll() {
         HashMap<String, String> response = new HashMap<>();
         final List<Teacher> list = teacherRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
@@ -29,7 +29,7 @@ public class TeacherController {
         return response;
     }
 
-    @RequestMapping(value = "/get/{uid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{uid}", method = RequestMethod.GET)
     public HashMap<String, String> getById(
             @PathVariable long uid
     ) {
@@ -45,7 +45,7 @@ public class TeacherController {
         return response;
     }
 
-    @RequestMapping(value = "/getByName/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public HashMap<String, String> getByName(
             @PathVariable String name
     ) {
